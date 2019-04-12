@@ -1,0 +1,291 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders without properties 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <FilterDisplayView />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "checkPropTypes": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <WithStyles(IconButton)
+          color="inherit"
+          style={
+            Object {
+              "float": "right",
+              "visibility": "hidden",
+            }
+          }
+        >
+          <WithStyles(Icon)>
+            cancel
+          </WithStyles(Icon)>
+        </WithStyles(IconButton)>,
+        <WithStyles(Typography)
+          color="inherit"
+          style={
+            Object {
+              "float": "left",
+              "paddingTop": "0.5em",
+            }
+          }
+          variant="title"
+        >
+          <span
+            className="filter-text"
+          >
+            
+             
+            
+          </span>
+        </WithStyles(Typography)>,
+      ],
+      "style": Object {
+        "backgroundColor": "#6a1b9a",
+        "borderBottomLeftRadius": 20,
+        "borderTopLeftRadius": 20,
+        "float": "right",
+        "paddingLeft": 20,
+        "visibility": "hidden",
+      },
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": <WithStyles(Icon)>
+            cancel
+          </WithStyles(Icon)>,
+          "color": "inherit",
+          "onClick": undefined,
+          "style": Object {
+            "float": "right",
+            "visibility": "hidden",
+          },
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": "cancel",
+          },
+          "ref": null,
+          "rendered": "cancel",
+          "type": [Function],
+        },
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": <span
+            className="filter-text"
+          >
+            
+             
+            
+          </span>,
+          "color": "inherit",
+          "style": Object {
+            "float": "left",
+            "paddingTop": "0.5em",
+          },
+          "variant": "title",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              "",
+              undefined,
+              " ",
+              "",
+            ],
+            "className": "filter-text",
+          },
+          "ref": null,
+          "rendered": Array [
+            "",
+            undefined,
+            " ",
+            "",
+          ],
+          "type": "span",
+        },
+        "type": [Function],
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <WithStyles(IconButton)
+            color="inherit"
+            style={
+              Object {
+                "float": "right",
+                "visibility": "hidden",
+              }
+            }
+          >
+            <WithStyles(Icon)>
+              cancel
+            </WithStyles(Icon)>
+          </WithStyles(IconButton)>,
+          <WithStyles(Typography)
+            color="inherit"
+            style={
+              Object {
+                "float": "left",
+                "paddingTop": "0.5em",
+              }
+            }
+            variant="title"
+          >
+            <span
+              className="filter-text"
+            >
+              
+               
+              
+            </span>
+          </WithStyles(Typography)>,
+        ],
+        "style": Object {
+          "backgroundColor": "#6a1b9a",
+          "borderBottomLeftRadius": 20,
+          "borderTopLeftRadius": 20,
+          "float": "right",
+          "paddingLeft": 20,
+          "visibility": "hidden",
+        },
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": <WithStyles(Icon)>
+              cancel
+            </WithStyles(Icon)>,
+            "color": "inherit",
+            "onClick": undefined,
+            "style": Object {
+              "float": "right",
+              "visibility": "hidden",
+            },
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "children": "cancel",
+            },
+            "ref": null,
+            "rendered": "cancel",
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": <span
+              className="filter-text"
+            >
+              
+               
+              
+            </span>,
+            "color": "inherit",
+            "style": Object {
+              "float": "left",
+              "paddingTop": "0.5em",
+            },
+            "variant": "title",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                "",
+                undefined,
+                " ",
+                "",
+              ],
+              "className": "filter-text",
+            },
+            "ref": null,
+            "rendered": Array [
+              "",
+              undefined,
+              " ",
+              "",
+            ],
+            "type": "span",
+          },
+          "type": [Function],
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "legacyContextMode": "parent",
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getChildContext": Object {
+            "calledByRenderer": false,
+          },
+          "getDerivedStateFromProps": true,
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+  Symbol(enzyme.__childContext__): null,
+}
+`;

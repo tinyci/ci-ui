@@ -1,0 +1,11 @@
+---
+env:
+  - CI=1
+mountpoint: "/go/src/github.com/tinyci/ci-ui"
+runs:
+  dist:
+    command: [ "make", "build-docker" ]
+    image: "node:8"
+  checks:
+    command: [ "make", "test" ]
+    image: "node:8"
