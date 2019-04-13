@@ -1,6 +1,12 @@
 import React from "react"
 
 class BaseComponent extends React.Component {
+  showIf = (check, thing) => {
+    if (check) {
+      return thing
+    }
+    return ""
+  }
   getAndUpdateState(url, initialState, successFunc, errorFunc) {
     if (initialState && Object.keys(initialState).length > 0) {
       this.setState(initialState)

@@ -29,7 +29,7 @@
     "strftime": "^0.10.0",
     "tar": "^4.4.8",
     "typescript": "^3.4.3",
-    "xterm": "^3.12.1"
+    "xterm": "^3.12.2"
   },
   "scripts": {
     "start": "react-scripts start",

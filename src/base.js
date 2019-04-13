@@ -1,9 +1,9 @@
 import React from "react"
 import { connect } from "react-redux"
 import BaseComponent from "./base_component.js"
-import RepoList from "./repolist.js"
 import CssBaseline from "@material-ui/core/CssBaseline"
 import Button from "@material-ui/core/Button"
+import Drawer from "@material-ui/core/Drawer"
 import Icon from "@material-ui/core/Icon"
 import IconButton from "@material-ui/core/IconButton"
 import Typography from "@material-ui/core/Typography"
@@ -12,22 +12,23 @@ import purple from "@material-ui/core/colors/purple"
 
 import ManualSubmitForm from "./components/ManualSubmitForm"
 import FilterDisplay from "./components/filterdisplay/FilterDisplay"
+import RepoList from "./components/repolist/RepoList.js"
 
 class Base extends BaseComponent {
   state = { drawerOpen: false, repoListHeight: 0 }
 
-  handleDrawerClose() {
+  handleDrawerClose = () => {
     this.setState({ drawerOpen: false })
   }
 
-  handleDrawerOpen() {
+  handleDrawerOpen = () => {
     this.setState({ drawerOpen: true })
   }
   render() {
     var divStyle = {}
     var props = {}
     if (this.state.drawerOpen) {
-      props = { onClick: this.handleDrawerClose.bind(this) }
+      props = { onClick: this.handleDrawerClose }
       divStyle = {
         zIndex: 10,
         opacity: 0.6,
@@ -46,7 +47,14 @@ class Base extends BaseComponent {
           position={ToastContainer.POSITION.TOP_CENTER}
         />
         <CssBaseline />
-        <RepoList open={this.state.drawerOpen} />
+        <Drawer
+          variant="persistent"
+          anchor="left"
+          open={this.state.drawerOpen}
+          id="repolist"
+        >
+          <RepoList onClose={this.handleDrawerClose} />
+        </Drawer>
         <div style={divStyle} {...props} />
         <div
           id="repoName"

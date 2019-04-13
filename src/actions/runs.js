@@ -1,4 +1,5 @@
 import { getRuns, getRunCount } from "../models/run"
+import { receiveError } from "./ui"
 
 export const FETCH_RUNS = "FETCH_RUNS"
 export const fetchRuns = (currentPage, pageSize, repository, sha) => {
@@ -9,7 +10,7 @@ export const fetchRuns = (currentPage, pageSize, repository, sha) => {
         dispatch(receiveRuns(runs))
       },
       err => {
-        console.log("ERROR", err)
+        dispatch(receiveError(err))
       },
       currentPage,
       pageSize,
@@ -21,7 +22,7 @@ export const fetchRuns = (currentPage, pageSize, repository, sha) => {
         dispatch(receiveRunCount(count))
       },
       err => {
-        console.log("ERROR", err)
+        dispatch(receiveError(err))
       },
       repository,
       sha,

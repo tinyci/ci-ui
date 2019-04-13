@@ -1,4 +1,10 @@
 import React from "react"
+import { connect } from "react-redux"
+import { bindActionCreators } from "redux"
+
+import * as userActions from "./actions/users"
+import * as uiActions from "./actions/ui"
+
 import BaseComponent from "./base_component.js"
 import "./App.css"
 import { BrowserRouter as Router, Route } from "react-router-dom"
@@ -9,12 +15,17 @@ import Card from "@material-ui/core/Card"
 import CardContent from "@material-ui/core/CardContent"
 import CardActions from "@material-ui/core/CardActions"
 import Typography from "@material-ui/core/Typography"
-import { errorToast } from "./toasts.js"
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles"
+import green from "@material-ui/core/colors/green"
+import purple from "@material-ui/core/colors/purple"
 
 const theme = createMuiTheme({
   typography: {
     fontSize: 16,
+  },
+  palette: {
+    primary: purple,
+    secondary: green,
   },
 })
 
@@ -28,47 +39,8 @@ class App extends BaseComponent {
     backoffErrorTimer: null,
   }
 
-  getErrors() {
-    this.getAndUpdateState(
-      this.apiUrl("/uisvc/errors"),
-      {},
-      result => {
-        if (result) {
-          result.forEach(item => {
-            errorToast(item)
-          })
-        }
-
-        if (this.state.errorTimer === null) {
-          if (this.state.backoffErrorTimer) {
-            window.clearInterval(this.state.backoffErrorTimer)
-          }
-
-          this.setState({
-            backoffErrorTimer: null,
-            errorTimer: window.setInterval(this.getErrors.bind(this), 1000),
-          })
-        }
-      },
-      error => {
-        if (this.state.errorTimer) {
-          window.clearInterval(this.state.errorTimer)
-          this.setState({
-            errorTimer: null,
-            backoffErrorTimer: window.setInterval(
-              this.getErrors.bind(this),
-              5000,
-            ),
-          })
-        }
-        errorToast("Could not retrieve errors from remote service")
-      },
-    )
-  }
-
   componentDidMount() {
-    this.getErrors()
-
+    this.props.userActions.fetchUser()
     window
       .fetch(this.apiUrl("/uisvc/loggedin"))
       .then(res => res.json())
@@ -81,7 +53,7 @@ class App extends BaseComponent {
           }
         },
         error => {
-          errorToast(error)
+          this.props.uiActions.processError(error)
         },
       )
   }
@@ -143,4 +115,18 @@ class App extends BaseComponent {
   }
 }
 
-export default App
+const mapStateToProps = state => {
+  return {}
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    uiActions: bindActionCreators(uiActions, dispatch),
+    userActions: bindActionCreators(userActions, dispatch),
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(App)

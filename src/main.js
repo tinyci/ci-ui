@@ -2,6 +2,7 @@ import React from "react"
 import Base from "./base.js"
 import BaseComponent from "./base_component.js"
 import RunTable from "./components/runtable/RunTable"
+import MessageDisplay from "./components/messagedisplay/MessageDisplay"
 
 class Main extends BaseComponent {
   elements = [0, "repoName"]
@@ -9,6 +10,7 @@ class Main extends BaseComponent {
   render() {
     return (
       <Base listState={this} repoName={{ state: {} }}>
+        <MessageDisplay />
         <div
           style={{
             overflowX: "scroll",

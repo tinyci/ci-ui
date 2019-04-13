@@ -1,13 +1,17 @@
 import React from "react"
+import { connect } from "react-redux"
+import { bindActionCreators } from "redux"
+
 import BaseComponent from "../base_component.js"
 import queryString from "query-string"
-import { successToast, errorToast } from "../toasts.js"
 import Icon from "@material-ui/core/Icon"
 import IconButton from "@material-ui/core/IconButton"
 import Checkbox from "@material-ui/core/Checkbox"
 import Input from "@material-ui/core/Input"
 import InputLabel from "@material-ui/core/InputLabel"
 import purple from "@material-ui/core/colors/purple"
+
+import * as uiActions from "../actions/ui"
 
 class ManualSubmitForm extends BaseComponent {
   constructor(props) {
@@ -31,11 +35,13 @@ class ManualSubmitForm extends BaseComponent {
       .fetch("/uisvc/submit?" + qs, { credentials: "include" })
       .then(result => {
         this.setState({ submitting: false })
-        successToast("Submitted!")
+        this.props.uiActions.processSuccess(
+          "Submitted " + this.submitRepository + ":" + this.submitRef,
+        )
       })
       .catch(err => {
         this.setState({ submitting: false })
-        errorToast("Submission error: " + err.json())
+        this.props.uiActions.processError("Submission error: " + err.json())
       })
   }
 
@@ -100,4 +106,17 @@ class ManualSubmitForm extends BaseComponent {
   }
 }
 
-export default ManualSubmitForm
+const mapStateToProps = state => {
+  return {}
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    uiActions: bindActionCreators(uiActions, dispatch),
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ManualSubmitForm)

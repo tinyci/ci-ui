@@ -2,6 +2,8 @@ import axios from "axios"
 import querystring from "query-string"
 const paths = { list: "/uisvc/runs", count: "/uisvc/runs/count" }
 
+// TODO: move callbacks to end of function parameters in all following functions
+
 export const getRuns = (
   successCallback,
   errorCallback,
