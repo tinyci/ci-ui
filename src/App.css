@@ -30,3 +30,7 @@
     transform: rotate(360deg);
   }
 }
+
+#repolist .MuiPaper-root-13 { /*TODO: see if there's a way to put this css on the drawer itself*/
+    background-color: #171D2C;
+}

@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400');
+
+.sidebar-container {
+    background-color: #171D2C;
+    width: 530px;
+    color: #fff;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-family: Open Sans;
+    font-size: 15px;
+    color: #FFF;
+    position: relative;
+    overflow: auto;
+}
+.sidebar-close {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+}
+.sidebar-header {
+    position: fixed;
+    top: 0px;
+    z-index: 10;
+    background-color: #171D2C;
+    width: 490px;
+    padding-top: 10px;
+}
+.sidebar-loading {
+    text-align: center;
+    float: left;
+}
+.sidebar-logo {
+    margin-left: 20px;
+    height: 24px;
+}
+.sidebar-logo-text {
+    position: relative;
+    top: -4px;
+}
+.sidebar-search {
+    line-height: 44px;
+}
+.sidebar-search Input {
+    background-color: #495E7A;
+    border-radius: 5px;
+    width: 430px;
+    font-size: 16px;
+    color: #fff;
+    padding-left: 10px;
+    margin-bottom: 15px;
+}
+.search-icon {
+    display: inline;
+    line-height: 44px;
+    padding-left: 15px;
+    position: relative;
+    top: 6px;
+}
+.sidebar-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 530px;
+    height: 140px;
+    background: #171D2C;
+    padding: 1px 20px 10px;
+}
+.sidebar-added-subscribed-list {
+    margin-top: 15px;
+    border: 1px solid #297EB8;
+    border-radius: 4px;
+    line-height: 50px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.sidebar-show-added-subscribed-only {
+    background-image: linear-gradient(-190deg,#1e5f9c 0%, #4acccc 78%);
+}
+
+.sidebar-added-subscribed-icon {
+    border: 0px;
+    font-size: 10px;
+    margin-right: 15px;
+    position: relative;
+    top: 5px;
+    left: 10px;
+}
+.sidebar-repositories {
+    border-bottom: 1px #0e4164 solid;
+    margin-bottom: 130px;
+    margin-top: 100px;
+    padding-bottom: 10px;
+}
+.sidebar-user-control {
+    margin-top: 20px;
+    padding: 0 5px;
+}
+.sidebar-username {
+    float: left;
+}
+.sidebar-logout {
+    float: right;
+    color: #226DB3;
+    cursor: pointer;
+}
+.sidebar-logout-icon {
+    position: relative;
+    top: 7px;
+}

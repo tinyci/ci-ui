@@ -1,11 +1,15 @@
 import React from "react"
+import { connect } from "react-redux"
+import { bindActionCreators } from "redux"
+
 import Base from "./base.js"
 import BaseComponent from "./base_component.js"
 import LogStats from "./logstats.js"
-import { errorToast } from "./toasts.js"
 import { Terminal } from "xterm"
-import { fit } from "xterm/lib/addons/fit/fit"
-import "xterm/lib/xterm.css"
+import { fit } from "xterm/dist/addons/fit/fit"
+import "xterm/dist/xterm.css"
+
+import * as uiActions from "./actions/ui"
 
 class Log extends BaseComponent {
   state = { panelHeight: 0, run: null }
@@ -22,7 +26,9 @@ class Log extends BaseComponent {
         this.setState({ run: result })
       },
       error => {
-        error.then(res => res.errors[0]).then(res => errorToast(res))
+        error
+          .then(res => res.errors[0])
+          .then(res => this.props.uiActions.processError(res))
       },
     )
 
@@ -39,7 +45,7 @@ class Log extends BaseComponent {
       ws.onmessage = event => {
         var parsed = JSON.parse(event.data)
         if (parsed.type === "error") {
-          errorToast(parsed.payload)
+          this.props.uiActions.processError(parsed.payload)
           ws.close()
         }
         this.xterm.write(parsed.payload)
@@ -86,4 +92,17 @@ class Log extends BaseComponent {
   }
 }
 
-export default Log
+const mapStateToProps = state => {
+  return {}
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    uiActions: bindActionCreators(uiActions, dispatch),
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Log)

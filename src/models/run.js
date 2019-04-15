@@ -1,14 +1,13 @@
-import axios from "axios"
-import querystring from "query-string"
+import { get } from "./models"
 const paths = { list: "/uisvc/runs", count: "/uisvc/runs/count" }
 
 export const getRuns = (
-  successCallback,
-  errorCallback,
   page,
   perPage,
   repository,
   sha,
+  successCallback,
+  errorCallback,
 ) => {
   const queryParams = {}
   if (page) {
@@ -23,21 +22,14 @@ export const getRuns = (
   if (sha) {
     queryParams.sha = sha
   }
-  const queryString = querystring.stringify(queryParams)
-
-  return axios
-    .get(paths.list + "?" + queryString, { withCredentials: true })
-    .then(res => {
-      successCallback(res.data)
-    })
-    .catch(errorCallback)
+  return get(paths.list, queryParams, successCallback, errorCallback)
 }
 
 export const getRunCount = (
-  successCallback,
-  errorCallback,
   repository,
   sha,
+  successCallback,
+  errorCallback,
 ) => {
   const queryParams = {}
   if (repository) {
@@ -46,14 +38,6 @@ export const getRunCount = (
   if (sha) {
     queryParams.sha = sha
   }
-  const queryString = querystring.stringify(queryParams)
 
-  return axios
-    .get(paths.count + "?" + queryString, {
-      withCredentials: true,
-    })
-    .then(res => {
-      successCallback(res.data)
-    })
-    .catch(errorCallback)
+  return get(paths.count, queryParams, successCallback, errorCallback)
 }

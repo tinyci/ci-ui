@@ -10,4 +10,17 @@ export default {
       currentPage: 0,
     },
   },
+  repositories: {
+    subscribedList: [],
+    ownedList: [],
+    visibleList: [],
+  },
+  users: {
+    username: "",
+  },
+  ui: {
+    errorMessage: "",
+    successMessage: "",
+    activeRepositoriesRequests: 0,
+  },
 }
