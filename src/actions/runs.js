@@ -6,26 +6,26 @@ export const fetchRuns = (currentPage, pageSize, repository, sha) => {
   return dispatch => {
     dispatch(setRunFilters(currentPage, pageSize, repository, sha))
     getRuns(
+      currentPage,
+      pageSize,
+      repository,
+      sha,
       runs => {
         dispatch(receiveRuns(runs))
       },
       err => {
         dispatch(receiveError(err))
       },
-      currentPage,
-      pageSize,
-      repository,
-      sha,
     )
     getRunCount(
+      repository,
+      sha,
       count => {
         dispatch(receiveRunCount(count))
       },
       err => {
         dispatch(receiveError(err))
       },
-      repository,
-      sha,
     )
   }
 }
