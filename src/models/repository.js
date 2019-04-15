@@ -1,6 +1,4 @@
-import axios from "axios"
-
-import querystring from "query-string"
+import { get } from "./models"
 
 const paths = {
   my: "/uisvc/repositories/my",
@@ -19,13 +17,7 @@ export const getOwnedRepositories = (
   errorCallback,
 ) => {
   const queryParams = { transfer: true, all: true, watching: "my", search }
-  const queryString = querystring.stringify(queryParams)
-  return axios
-    .get(paths.my + "?" + queryString, { withCredentials: true })
-    .then(res => {
-      successCallback(res.data)
-    })
-    .catch(errorCallback)
+  return get(paths.my, queryParams, successCallback, errorCallback)
 }
 
 export const getSubscribedRepositories = (
@@ -34,13 +26,7 @@ export const getSubscribedRepositories = (
   errorCallback,
 ) => {
   const queryParams = { search }
-  const queryString = querystring.stringify(queryParams)
-  return axios
-    .get(paths.subscribed + "?" + queryString, { withCredentials: true })
-    .then(res => {
-      successCallback(res.data)
-    })
-    .catch(errorCallback)
+  return get(paths.subscribed, queryParams, successCallback, errorCallback)
 }
 
 export const getVisibleRepositories = (
@@ -49,24 +35,17 @@ export const getVisibleRepositories = (
   errorCallback,
 ) => {
   const queryParams = { search }
-  const queryString = querystring.stringify(queryParams)
-  return axios
-    .get(paths.visible + "?" + queryString, { withCredentials: true })
-    .then(res => {
-      successCallback(res.data)
-    })
-    .catch(errorCallback)
+  return get(paths.visible, queryParams, successCallback, errorCallback)
 }
 
 export const addRepositoryToCI = (repoName, successCallback, errorCallback) => {
   const queryParams = {}
-  const queryString = querystring.stringify(queryParams)
-  return axios
-    .get(paths.addToCI(repoName) + "?" + queryString, { withCredentials: true })
-    .then(res => {
-      successCallback(res.data)
-    })
-    .catch(errorCallback)
+  return get(
+    paths.addToCI(repoName),
+    queryParams,
+    successCallback,
+    errorCallback,
+  )
 }
 
 export const subscribeToRepository = (
@@ -75,15 +54,12 @@ export const subscribeToRepository = (
   errorCallback,
 ) => {
   const queryParams = {}
-  const queryString = querystring.stringify(queryParams)
-  return axios
-    .get(paths.subscribeToRepository(repoName) + "?" + queryString, {
-      withCredentials: true,
-    })
-    .then(res => {
-      successCallback(res.data)
-    })
-    .catch(errorCallback)
+  return get(
+    paths.subscribeToRepository(repoName),
+    queryParams,
+    successCallback,
+    errorCallback,
+  )
 }
 
 export const removeRepositoryFromCI = (
@@ -92,15 +68,12 @@ export const removeRepositoryFromCI = (
   errorCallback,
 ) => {
   const queryParams = {}
-  const queryString = querystring.stringify(queryParams)
-  return axios
-    .get(paths.removeFromCI(repoName) + "?" + queryString, {
-      withCredentials: true,
-    })
-    .then(res => {
-      successCallback(res.data)
-    })
-    .catch(errorCallback)
+  return get(
+    paths.removeFromCI(repoName),
+    queryParams,
+    successCallback,
+    errorCallback,
+  )
 }
 
 export const unsubscribeFromRepository = (
@@ -109,13 +82,10 @@ export const unsubscribeFromRepository = (
   errorCallback,
 ) => {
   const queryParams = {}
-  const queryString = querystring.stringify(queryParams)
-  return axios
-    .get(paths.unsubscribeFromRepository(repoName) + "?" + queryString, {
-      withCredentials: true,
-    })
-    .then(res => {
-      successCallback(res.data)
-    })
-    .catch(errorCallback)
+  return get(
+    paths.unsubscribeFromRepository(repoName),
+    queryParams,
+    successCallback,
+    errorCallback,
+  )
 }
