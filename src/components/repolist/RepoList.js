@@ -35,7 +35,7 @@ class RepoList extends BaseComponent {
       search,
       delayTimer: window.setTimeout(function() {
         self.props.repositoryActions.fetchRepositories(search)
-      }, 1),
+      }, 400),
     })
   }
 
