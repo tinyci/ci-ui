@@ -12,15 +12,14 @@ export const processError = errorMessage => {
 export const RECEIVE_ERROR = "RECEIVE_ERROR"
 export const receiveError = errorMessage => {
   if (typeof errorMessage === "object") {
-    console.log("RECEIVE ERROR", Object.keys(errorMessage.response))
-    switch (errorMessage.response.status) {
-      case 404:
-        errorMessage = errorMessage.response.statusText
-        break
-      default:
-        errorMessage = errorMessage.response.statusText
+    const error = errorMessage
+    errorMessage = "[" + errorMessage.response.statusText + "]"
+
+    if (error.response.data.errors) {
+      errorMessage += ":\n" + error.response.data.errors.join(", ")
     }
   }
+
   return { type: RECEIVE_ERROR, errorMessage: errorMessage }
 }
 
