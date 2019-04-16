@@ -7,7 +7,9 @@ import * as uiActions from "./actions/ui"
 
 import BaseComponent from "./base_component.js"
 import "./App.css"
-import { BrowserRouter as Router, Route } from "react-router-dom"
+import { Route } from "react-router-dom"
+import { ConnectedRouter } from "connected-react-router"
+import { history } from "./store/configureStore"
 import Log from "./log.js"
 import Main from "./main.js"
 import Button from "@material-ui/core/Button"
@@ -64,12 +66,15 @@ class App extends BaseComponent {
     if (this.state.mounted) {
       router = (
         <MuiThemeProvider theme={theme}>
-          <Router>
+          <ConnectedRouter history={history}>
             <div>
-              <Route exact path="/" component={Main} />
+              <Route
+                path="/:orgName?/:repoName?/:ref?/:taskID?/:runID?"
+                component={Main}
+              />
               <Route exact path="/log/:id" component={Log} />
             </div>
-          </Router>
+          </ConnectedRouter>
         </MuiThemeProvider>
       )
 
