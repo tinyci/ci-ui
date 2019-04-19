@@ -10,7 +10,10 @@ class Selector extends BaseComponent {
   render() {
     return (
       <div
-        className={this.showIf(this.props.selected, "selector-selected")}
+        className={
+          "finder-selector " +
+          this.showIf(this.props.selected, "finder-selector-selected")
+        }
         onClick={
           this.props.selected ? this.props.onDeselect : this.props.onSelect
         }

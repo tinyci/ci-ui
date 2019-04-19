@@ -40,7 +40,7 @@ class Base extends BaseComponent {
       }
     }
     return (
-      <div>
+      <React.Fragment>
         <ToastContainer
           store={ToastStore}
           lightBackground
@@ -55,12 +55,11 @@ class Base extends BaseComponent {
         >
           <RepoList onClose={this.handleDrawerClose} />
         </Drawer>
-        <div style={divStyle} {...props} />
         <div
           id="repoName"
           style={{
             position: "relative",
-            height: "100%",
+            height: "50px",
             backgroundColor: purple[800],
             color: "white",
           }}
@@ -86,10 +85,10 @@ class Base extends BaseComponent {
           <FilterDisplay />
           <ManualSubmitForm />
         </div>
-        <div style={{ borderLeft: "1px solid #ccc" }}>
+        <div style={{ borderLeft: "1px solid #ccc", height: "100%" }}>
           {this.props.children}
         </div>
-      </div>
+      </React.Fragment>
     )
   }
 }

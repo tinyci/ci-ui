@@ -91,7 +91,7 @@ export const LogLinkFormatter = ({ value }) => {
 }
 
 export const PrNumberFormatter = ({ value }) => {
-  if (value.pull_request_id) {
+  if (value && value.pull_request_id) {
     return (
       <a
         href={

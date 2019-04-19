@@ -17,6 +17,7 @@ class MessageDisplay extends BaseComponent {
           <Typography variant="title">{this.props.errorMessage}</Typography>
         </div>,
       )
+      console.error(this.props.errorMessage)
       this.props.uiActions.clearError()
     }
     if (this.props.successMessage) {

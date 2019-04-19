@@ -1,0 +1,25 @@
+.finder{
+		height: 100%;
+}
+
+.finder-column {
+}
+
+.finder-column-header {
+		padding: 10px;
+		color: #fff;
+		
+}
+.finder-column-header-arrow {
+		float: right;
+}
+
+.finder-org-column {
+		background-color: #30405f
+}
+.finder-repo-column {
+		background-color: #515970
+}
+.finder-ref-column {
+		background-color: #cdd3e1
+}

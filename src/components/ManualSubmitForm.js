@@ -54,7 +54,7 @@ class ManualSubmitForm extends BaseComponent {
           left: "25%",
           right: "25%",
           width: "50%",
-          height: "100%",
+          height: "100px",
           textAlign: "center",
         }}
       >

@@ -1,3 +1,24 @@
-.selector-selected {
-		outline: 1px solid #333;
+
+.finder-selector {
+		padding: 10px;
+		margin: 0px 10px;
+		color: #fff;
 }
+
+.finder-selector-selected {
+		outline: 1px solid #fff;
+}
+
+.finder-org-column .finder-selector-selected {
+		background-color: #2f374c;
+}
+.finder-repo-column .finder-selector-selected {
+		background-color: #3d455a;
+}
+.finder-ref-column .finder-selector, .finder-ref-column .finder-column-header{
+		color: #515970;
+}
+.finder-ref-column .finder-selector-selected {
+		background-color: #e1e5f0;
+}
+

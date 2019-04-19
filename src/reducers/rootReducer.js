@@ -4,6 +4,8 @@ import { connectRouter } from "connected-react-router"
 import runs from "./runs"
 import repositories from "./repositories"
 import users from "./users"
+import tasks from "./tasks"
+import refs from "./refs"
 import ui from "./ui"
 
 export default history =>
@@ -12,5 +14,7 @@ export default history =>
     runs,
     repositories,
     users,
+    tasks,
+    refs,
     ui,
   })

@@ -13,10 +13,13 @@ export const RECEIVE_ERROR = "RECEIVE_ERROR"
 export const receiveError = errorMessage => {
   if (typeof errorMessage === "object") {
     const error = errorMessage
-    errorMessage = "[" + errorMessage.response.statusText + "]"
-
-    if (error.response.data.errors) {
-      errorMessage += ":\n" + error.response.data.errors.join(", ")
+    if (error.response) {
+      errorMessage = "[" + error.response.statusText + "]"
+      if (error.response.data.errors) {
+        errorMessage += ":\n" + error.response.data.errors.join(", ")
+      }
+    } else {
+      errorMessage = "tinyCI uisvc unreachable"
     }
   }
 
@@ -42,6 +45,9 @@ export const clearSuccess = () => {
   return processSuccess("")
 }
 
-export const navigateTo = location => {
-  return dispatch => dispatch(push(location))
+export const navigateTo = (location, callback) => {
+  return dispatch => {
+    dispatch(push(location))
+    return Promise.resolve()
+  }
 }

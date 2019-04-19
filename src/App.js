@@ -6,7 +6,6 @@ import * as userActions from "./actions/users"
 import * as uiActions from "./actions/ui"
 
 import BaseComponent from "./base_component.js"
-import "./App.css"
 import { Route } from "react-router-dom"
 import { ConnectedRouter } from "connected-react-router"
 import { history } from "./store/configureStore"
@@ -20,6 +19,8 @@ import Typography from "@material-ui/core/Typography"
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles"
 import green from "@material-ui/core/colors/green"
 import purple from "@material-ui/core/colors/purple"
+
+import "./App.css"
 
 const theme = createMuiTheme({
   typography: {
@@ -67,13 +68,13 @@ class App extends BaseComponent {
       router = (
         <MuiThemeProvider theme={theme}>
           <ConnectedRouter history={history}>
-            <div>
+            <React.Fragment>
               <Route
                 path="/:orgName?/:repoName?/:ref?/:taskID?/:runID?"
                 component={Main}
               />
               <Route exact path="/log/:id" component={Log} />
-            </div>
+            </React.Fragment>
           </ConnectedRouter>
         </MuiThemeProvider>
       )

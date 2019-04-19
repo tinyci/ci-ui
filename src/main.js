@@ -20,12 +20,13 @@ class Main extends BaseComponent {
         <div
           style={{
             overflowX: "scroll",
+            height: "100%",
           }}
         >
           <Finder
             orgName={orgName}
             repoName={repoName}
-            ref={ref}
+            refName={ref} // for some reason 'ref' doesn't work, but 'refName' does
             taskID={taskID}
             runID={runID}
           />

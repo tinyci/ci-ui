@@ -23,4 +23,10 @@ export default {
     successMessage: "",
     activeRepositoriesRequests: 0,
   },
+  tasks: {
+    list: [],
+  },
+  refs: {
+    list: [],
+  },
 }
