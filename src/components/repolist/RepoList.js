@@ -3,6 +3,8 @@ import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 
 import Input from "@material-ui/core/Input"
+import IconButton from "@material-ui/core/IconButton"
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward"
 import SearchIcon from "@material-ui/icons/Search"
 import ViewListIcon from "@material-ui/icons/ViewList"
 import HourglassEmptyIcon from "@material-ui/icons/HourglassEmpty"
@@ -128,7 +130,15 @@ class RepoList extends BaseComponent {
             ADDED | SUBSCRIBED LIST
           </div>
           <div className="sidebar-user-control">
-            <div className="sidebar-username">{this.props.username}</div>
+            <div className="sidebar-username">
+              {this.props.username}
+              <IconButton
+                style={{ color: "white" }}
+                href="/uisvc/login/upgrade"
+              >
+                <ArrowUpwardIcon fontSize="small" />
+              </IconButton>
+            </div>
             <div className="sidebar-logout" onClick={this.logout}>
               <ExitToAppIcon className="sidebar-logout-icon" />
               log out
