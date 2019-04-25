@@ -5,7 +5,7 @@ here](https://github.com/tinyci/tinyci/releases).
 
 ## Docs
 
-[The documentation](http://docs.tinyci.org) has more information on how to
+[The documentation](http://tinyci.org) has more information on how to
 leverage this repository.
 
 ## License
