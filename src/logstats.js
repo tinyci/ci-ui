@@ -55,10 +55,6 @@ class LogStats extends BaseComponent {
                 <CenterHeader>Task ID</CenterHeader>
                 <CenterHeader>Task</CenterHeader>
                 <CenterHeader>SHA</CenterHeader>
-                <CenterHeader>CPU Usage</CenterHeader>
-                <CenterHeader>Memory Usage</CenterHeader>
-                <CenterHeader>Disk Usage</CenterHeader>
-                <CenterHeader>I/O Usage</CenterHeader>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -97,18 +93,6 @@ class LogStats extends BaseComponent {
                     displayItem={this.props.run.task.ref.sha.substr(0, 8)}
                     item={this.props.run.task.ref.sha}
                   />
-                </TableCell>
-                <TableCell style={{ textAlign: "center" }}>
-                  <Typography variant="subtitle">0</Typography>
-                </TableCell>
-                <TableCell style={{ textAlign: "center" }}>
-                  <Typography variant="subtitle">0</Typography>
-                </TableCell>
-                <TableCell style={{ textAlign: "center" }}>
-                  <Typography variant="subtitle">0</Typography>
-                </TableCell>
-                <TableCell style={{ textAlign: "center" }}>
-                  <Typography variant="subtitle">0</Typography>
                 </TableCell>
               </TableRow>
             </TableBody>
