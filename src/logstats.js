@@ -25,24 +25,25 @@ class CenterHeader extends React.Component {
 }
 
 class LogStats extends BaseComponent {
+  timer = null
+  run_id = null
+
   render() {
-    if (this.props.run === null) {
+    const run = this.props.run
+    if (run === null) {
       return <div id="topTable" />
     }
 
     var refURL =
-      this.props.run.task.ref.repository.github.html_url +
-      "/tree/" +
-      this.props.run.task.ref.sha
+      run.task.ref.repository.github.html_url + "/tree/" + run.task.ref.sha
     var refText = "Push Event"
 
-    if (this.props.run.task.pull_request_id) {
+    if (run.task.pull_request_id) {
       refURL =
-        this.props.run.task.parent.github.html_url +
-        "/pull/" +
-        this.props.run.task.pull_request_id
-      refText = this.props.run.task.pull_request_id
+        run.task.parent.github.html_url + "/pull/" + run.task.pull_request_id
+      refText = run.task.pull_request_id
     }
+
     return (
       <div id="topTable">
         <Paper>
@@ -75,23 +76,23 @@ class LogStats extends BaseComponent {
                 <TableCell style={{ textAlign: "center" }}>
                   <CopyItem
                     icon="link"
-                    displayItem={this.props.run.id}
-                    item={this.apiUrl("/log/" + this.props.run.id)}
+                    displayItem={run.id}
+                    item={this.apiUrl("/log/" + run.id)}
                   />
                 </TableCell>
                 <TableCell style={{ textAlign: "center" }}>
-                  {renderStatus(this.props.run)}
+                  {renderStatus(run)}
                 </TableCell>
                 <TableCell>
-                  <CopyItem item={this.props.run.task.id} />
+                  <CopyItem item={run.task.id} />
                 </TableCell>
                 <TableCell>
-                  <CopyItem item={this.props.run.name} />
+                  <CopyItem item={run.name} />
                 </TableCell>
                 <TableCell>
                   <CopyItem
-                    displayItem={this.props.run.task.ref.sha.substr(0, 8)}
-                    item={this.props.run.task.ref.sha}
+                    displayItem={run.task.ref.sha.substr(0, 8)}
+                    item={run.task.ref.sha}
                   />
                 </TableCell>
               </TableRow>
