@@ -2,7 +2,10 @@ import React from "react"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 
+import Tooltip from "@material-ui/core/Tooltip"
 import Input from "@material-ui/core/Input"
+import IconButton from "@material-ui/core/IconButton"
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward"
 import SearchIcon from "@material-ui/icons/Search"
 import ViewListIcon from "@material-ui/icons/ViewList"
 import HourglassEmptyIcon from "@material-ui/icons/HourglassEmpty"
@@ -104,7 +107,13 @@ class RepoList extends BaseComponent {
               onChange={this.handleSearchChange}
             />
             <div className="search-icon">
-              {this.props.loading ? <HourglassEmptyIcon /> : <SearchIcon />}
+              {this.props.loading ? (
+                <Tooltip title="Scanning repositories you own">
+                  <HourglassEmptyIcon />
+                </Tooltip>
+              ) : (
+                <SearchIcon />
+              )}
             </div>
           </div>
         </div>
@@ -128,7 +137,20 @@ class RepoList extends BaseComponent {
             ADDED | SUBSCRIBED LIST
           </div>
           <div className="sidebar-user-control">
-            <div className="sidebar-username">{this.props.username}</div>
+            <div className="sidebar-username">
+              {this.props.username}
+              <Tooltip
+                title="Upgrade user account & give additional privileges to tinyCI"
+                aria-label="Upgrade user account & give additional privileges to tinyCI"
+              >
+                <IconButton
+                  style={{ color: "white" }}
+                  href="/uisvc/login/upgrade"
+                >
+                  <ArrowUpwardIcon fontSize="small" />
+                </IconButton>
+              </Tooltip>
+            </div>
             <div className="sidebar-logout" onClick={this.logout}>
               <ExitToAppIcon className="sidebar-logout-icon" />
               log out
