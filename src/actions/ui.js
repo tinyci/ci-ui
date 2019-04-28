@@ -9,7 +9,7 @@ export const processError = errorMessage => {
 
 export const RECEIVE_ERROR = "RECEIVE_ERROR"
 export const receiveError = errorMessage => {
-  if (typeof errorMessage === "object") {
+  if (typeof errorMessage === "object" && errorMessage.response) {
     const error = errorMessage
     errorMessage = "[" + errorMessage.response.statusText + "]"
 
