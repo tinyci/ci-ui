@@ -107,7 +107,13 @@ class RepoList extends BaseComponent {
               onChange={this.handleSearchChange}
             />
             <div className="search-icon">
-              {this.props.loading ? <HourglassEmptyIcon /> : <SearchIcon />}
+              {this.props.loading ? (
+                <Tooltip title="Scanning repositories you own">
+                  <HourglassEmptyIcon />
+                </Tooltip>
+              ) : (
+                <SearchIcon />
+              )}
             </div>
           </div>
         </div>
