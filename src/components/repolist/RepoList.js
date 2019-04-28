@@ -2,6 +2,7 @@ import React from "react"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 
+import Tooltip from "@material-ui/core/Tooltip"
 import Input from "@material-ui/core/Input"
 import IconButton from "@material-ui/core/IconButton"
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward"
@@ -132,12 +133,17 @@ class RepoList extends BaseComponent {
           <div className="sidebar-user-control">
             <div className="sidebar-username">
               {this.props.username}
-              <IconButton
-                style={{ color: "white" }}
-                href="/uisvc/login/upgrade"
+              <Tooltip
+                title="Upgrade user account & give additional privileges to tinyCI"
+                aria-label="Upgrade user account & give additional privileges to tinyCI"
               >
-                <ArrowUpwardIcon fontSize="small" />
-              </IconButton>
+                <IconButton
+                  style={{ color: "white" }}
+                  href="/uisvc/login/upgrade"
+                >
+                  <ArrowUpwardIcon fontSize="small" />
+                </IconButton>
+              </Tooltip>
             </div>
             <div className="sidebar-logout" onClick={this.logout}>
               <ExitToAppIcon className="sidebar-logout-icon" />
