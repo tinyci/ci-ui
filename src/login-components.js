@@ -9,6 +9,7 @@ class LoginGateway extends React.Component {
           <div className='bg-movement bg-movement-2' />
           <div className='bg-movement bg-movement-5' />
           <div className='bg-movement bg-movement-4' />
+          <div className='bg-movement bg-movement-6' />
         </div>
         <img className='login-image' src='login-icon.png' alt='logo' />
         <div className='login-title'>Login to Github</div>
@@ -19,9 +20,7 @@ class LoginGateway extends React.Component {
           the menu.
         </p>
         <div className='login-area'>
-          <button>
-            <a href={this.props.loginURL}>CONTINUE</a>
-          </button>
+          <a href={this.props.loginURL}>CONTINUE</a>
         </div>
       </div>
     )
