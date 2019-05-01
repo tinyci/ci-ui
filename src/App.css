@@ -39,6 +39,13 @@
   animation-delay: 150ms;
 }
 
+.bg-movement-6{
+  animation: MoveUpDown 3s ease infinite;
+  background-image: url("/login-bg-l5.png");
+  background-position-x: 50px;
+  animation-delay: 50ms;
+}
+
 
 @keyframes MoveUpDown {
   0%, 100% {
@@ -69,18 +76,15 @@
   text-align: center;
 }
 
-.login-area button{
+.login-area a{
   background-color: #ffffff;
   border-radius: 4px;
   padding: 15px 25px;
   border: solid 1px #3C7BB6;
 }
 
-.login-area button:hover{
+.login-area a:hover{
   background-color: #3C7BB6;
-}
-
-.login-area button:hover a{
   color: #ffffff;
 }
 
