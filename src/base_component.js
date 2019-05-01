@@ -7,6 +7,7 @@ class BaseComponent extends React.Component {
     }
     return ""
   }
+  
   getAndUpdateState(url, initialState, successFunc, errorFunc) {
     if (initialState && Object.keys(initialState).length > 0) {
       this.setState(initialState)
