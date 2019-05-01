@@ -4,6 +4,10 @@ class LoginGateway extends React.Component {
   render () {
     return (
       <div className='login-body'>
+        <div className='bg-movement bg-movement-3' />
+        <div className='bg-movement bg-movement-2' />
+        <div className='bg-movement bg-movement-5' />
+        <div className='bg-movement bg-movement-4' />
         <div className='container'>
           <img className='login-image' src='login-icon.png' alt='logo' />
           <div className='login-title'>Login to Github</div>
