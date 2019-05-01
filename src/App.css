@@ -10,6 +10,8 @@
 .login-body{
   background-image: url("/login-bg-l1.png");
   top: 0;
+  left: 0;
+  z-index: -1;
 }
 
 .bg-movement{
