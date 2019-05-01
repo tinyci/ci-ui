@@ -1,14 +1,52 @@
-.login-body{
+.login-body, .bg-movement{
   position: absolute;
-  top: 0;
   width: 100%;
   height: 100%;
-  background-image: url("/login-bg.jpg");
   background-position: top left;
   background-size: 100%;
   background-repeat: no-repeat;
-
 }
+
+.login-body{
+  background-image: url("/login-bg-l1.png");
+  top: 0;
+}
+
+.bg-movement{
+  animation: MoveUpDown 2s ease infinite;
+}
+
+.bg-movement-2{
+  background-image: url("/login-bg-l2.png");
+}
+.bg-movement-3{
+  animation: MoveUpDown 4s ease infinite;
+  background-image: url("/login-bg-l3.png");
+  animation-delay: 150ms;
+}
+.bg-movement-4{
+  background-image: url("/login-bg-l4.png");
+  animation-delay: 300ms;
+}
+
+.bg-movement-5{
+  opacity: 0.3;
+  animation: MoveUpDown 2s ease infinite;
+  background-image: url("/login-bg-l3.png");
+  background-position-x: 400px;
+  animation-delay: 150ms;
+}
+
+
+@keyframes MoveUpDown {
+  0%, 100% {
+    top: -20px;
+  }
+  50% {
+    top: 0;
+  }
+}
+
 
 .App {
   text-align: center;
