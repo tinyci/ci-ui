@@ -44,11 +44,6 @@ class Log extends BaseComponent {
       window.addEventListener("resize", this.resize.bind(this))
     }
 
-    // ok. this exists because the size calculations below won't work until the
-    // DOM is fully rendered.
-    //
-    // this sucks and I hate myself for it.
-    window.setTimeout(this.resize.bind(this), 1)
     this.timer = window.setInterval(this.refresh.bind(this), 5000)
   }
 
@@ -63,6 +58,7 @@ class Log extends BaseComponent {
         {},
         result => {
           this.setState({ run: result })
+          this.resize()
         },
         error => {
           error

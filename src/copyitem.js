@@ -15,7 +15,7 @@ class CopyItem extends React.Component {
   render() {
     return (
       <div style={{ textAlign: "center" }}>
-        <Typography variant="subtitle">
+        <Typography variant="subtitle2">
           {this.props.displayItem || this.props.item}
           <Icon
             onClick={() => {

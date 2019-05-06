@@ -16,7 +16,7 @@ class CenterHeader extends React.Component {
   render() {
     return (
       <TableCell>
-        <Typography style={{ textAlign: "center" }} variant="subtitle">
+        <Typography style={{ textAlign: "center" }} variant="subtitle2">
           {this.props.children}
         </Typography>
       </TableCell>
@@ -26,7 +26,6 @@ class CenterHeader extends React.Component {
 
 class LogStats extends BaseComponent {
   timer = null
-  run_id = null
 
   render() {
     const run = this.props.run

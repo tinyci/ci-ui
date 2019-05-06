@@ -10,7 +10,7 @@ import * as runActions from "../../actions/runs"
 
 const styles = {
   repoButton: {
-    backgroundColor: "white",
+    backgroundColor: "inherit",
     color: blue[900],
     textDecorationStyle: "solid",
     textDecorationLine: "underline",

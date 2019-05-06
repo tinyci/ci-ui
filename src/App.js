@@ -16,6 +16,7 @@ import LoginGateway from "./login-components.js"
 const theme = createMuiTheme({
   typography: {
     fontSize: 16,
+    useNextVariants: true,
   },
   palette: {
     primary: purple,
@@ -68,9 +69,7 @@ class App extends BaseComponent {
       )
 
       if (this.state.mounted && this.state.loggedIn === false) {
-        router = (
-          <LoginGateway loginURL={this.state.loginURL} />
-        )
+        router = <LoginGateway loginURL={this.state.loginURL} />
       }
     }
     return router

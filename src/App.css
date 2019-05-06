@@ -1,4 +1,5 @@
-.login-body, .bg-movement{
+.login-body,
+.bg-movement {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -7,31 +8,31 @@
   background-repeat: no-repeat;
 }
 
-.login-body{
+.login-body {
   background-image: url("/login-bg-l1.png");
   top: 0;
   left: 0;
   z-index: -1;
 }
 
-.bg-movement{
+.bg-movement {
   animation: MoveUpDown 2s ease infinite;
 }
 
-.bg-movement-2{
+.bg-movement-2 {
   background-image: url("/login-bg-l2.png");
 }
-.bg-movement-3{
+.bg-movement-3 {
   animation: MoveUpDown 4s ease infinite;
   background-image: url("/login-bg-l3.png");
   animation-delay: 150ms;
 }
-.bg-movement-4{
+.bg-movement-4 {
   background-image: url("/login-bg-l4.png");
   animation-delay: 300ms;
 }
 
-.bg-movement-5{
+.bg-movement-5 {
   opacity: 0.3;
   animation: MoveUpDown 2s ease infinite;
   background-image: url("/login-bg-l3.png");
@@ -39,23 +40,22 @@
   animation-delay: 150ms;
 }
 
-.bg-movement-6{
+.bg-movement-6 {
   animation: MoveUpDown 3s ease infinite;
   background-image: url("/login-bg-l5.png");
   background-position-x: 50px;
   animation-delay: 50ms;
 }
 
-
 @keyframes MoveUpDown {
-  0%, 100% {
+  0%,
+  100% {
     top: -20px;
   }
   50% {
     top: 0;
   }
 }
-
 
 .App {
   text-align: center;
@@ -66,61 +66,60 @@
   height: 40vmin;
 }
 
-.container{
+.container {
   width: 50%;
   margin: 180px auto 0;
 }
 
-.login-area{
+.login-area {
   margin-top: 50px;
   text-align: center;
 }
 
-.login-area a{
+.login-area a {
   background-color: #ffffff;
   border-radius: 4px;
   padding: 15px 25px;
-  border: solid 1px #3C7BB6;
+  border: solid 1px #3c7bb6;
 }
 
-.login-area a:hover{
-  background-color: #3C7BB6;
+.login-area a:hover {
+  background-color: #3c7bb6;
   color: #ffffff;
 }
 
-.login-area a{
+.login-area a {
   text-decoration: none;
   font-size: 18px;
   font-weight: 600;
-  color: #171D2C;
+  color: #171d2c;
 }
 
-.login-image{
+.login-image {
   width: 100%;
   max-width: 630px;
   display: block;
   margin: 0 auto 2em;
 }
 
-.login-title{
-  font-family: 'Open Sans';
+.login-title {
+  font-family: "Open Sans";
   font-size: 35px;
   font-weight: 700;
-  margin-bottom:1em;
+  margin-bottom: 1em;
   text-align: center;
-  color: #23282D;
-  
+  color: #23282d;
 }
 
-.login-title::after{
+.login-title::after {
   content: "";
   display: block;
   width: 50%;
   margin: 30px auto 0;
-  border-bottom:1px solid #3C7BB6;
+  border-bottom: 1px solid #3c7bb6;
 }
 
-.container p{
+.container p {
   font-size: 20px;
   line-height: 30px;
 }
@@ -149,6 +148,7 @@
   }
 }
 
-#repolist .MuiPaper-root-13 { /*TODO: see if there's a way to put this css on the drawer itself*/
-    background-color: #171D2C;
+#repolist .MuiPaper-root-13 {
+  /*TODO: see if there's a way to put this css on the drawer itself*/
+  background-color: #171d2c;
 }

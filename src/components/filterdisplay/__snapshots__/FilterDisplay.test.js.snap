@@ -37,10 +37,10 @@ ShallowWrapper {
           style={
             Object {
               "float": "left",
-              "paddingTop": "0.5em",
+              "paddingTop": "0.25em",
             }
           }
-          variant="title"
+          variant="h6"
         >
           <span
             className="filter-text"
@@ -106,9 +106,9 @@ ShallowWrapper {
           "color": "inherit",
           "style": Object {
             "float": "left",
-            "paddingTop": "0.5em",
+            "paddingTop": "0.25em",
           },
-          "variant": "title",
+          "variant": "h6",
         },
         "ref": null,
         "rendered": Object {
@@ -163,10 +163,10 @@ ShallowWrapper {
             style={
               Object {
                 "float": "left",
-                "paddingTop": "0.5em",
+                "paddingTop": "0.25em",
               }
             }
-            variant="title"
+            variant="h6"
           >
             <span
               className="filter-text"
@@ -232,9 +232,9 @@ ShallowWrapper {
             "color": "inherit",
             "style": Object {
               "float": "left",
-              "paddingTop": "0.5em",
+              "paddingTop": "0.25em",
             },
-            "variant": "title",
+            "variant": "h6",
           },
           "ref": null,
           "rendered": Object {

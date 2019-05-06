@@ -14,7 +14,7 @@ class MessageDisplay extends BaseComponent {
     if (this.props.errorMessage) {
       ToastStore.error(
         <div style={{ width: 300 }}>
-          <Typography variant="title">{this.props.errorMessage}</Typography>
+          <Typography variant="h6">{this.props.errorMessage}</Typography>
         </div>,
       )
       this.props.uiActions.clearError()
@@ -22,7 +22,7 @@ class MessageDisplay extends BaseComponent {
     if (this.props.successMessage) {
       ToastStore.success(
         <div style={{ width: 300 }}>
-          <Typography variant="title">{this.props.successMessage}</Typography>
+          <Typography variant="h6">{this.props.successMessage}</Typography>
         </div>,
       )
       this.props.uiActions.clearSuccess()
