@@ -69,9 +69,7 @@ class App extends BaseComponent {
       )
 
       if (this.state.mounted && this.state.loggedIn === false) {
-        router = (
-          <LoginGateway loginURL={this.state.loginURL} />
-        )
+        router = <LoginGateway loginURL={this.state.loginURL} />
       }
     }
     return router
