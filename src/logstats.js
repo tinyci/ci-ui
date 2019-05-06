@@ -26,7 +26,6 @@ class CenterHeader extends React.Component {
 
 class LogStats extends BaseComponent {
   timer = null
-  run_id = null
 
   render() {
     const run = this.props.run
