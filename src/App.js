@@ -16,6 +16,7 @@ import LoginGateway from "./login-components.js"
 const theme = createMuiTheme({
   typography: {
     fontSize: 16,
+    useNextVariants: true,
   },
   palette: {
     primary: purple,

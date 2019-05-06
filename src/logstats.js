@@ -16,7 +16,7 @@ class CenterHeader extends React.Component {
   render() {
     return (
       <TableCell>
-        <Typography style={{ textAlign: "center" }} variant="subtitle">
+        <Typography style={{ textAlign: "center" }} variant="subtitle2">
           {this.props.children}
         </Typography>
       </TableCell>

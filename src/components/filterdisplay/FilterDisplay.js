@@ -36,7 +36,7 @@ class FilterDisplayView extends Component {
         </IconButton>
         <Typography
           style={{ float: "left", paddingTop: "0.5em" }}
-          variant="title"
+          variant="h5"
           color="inherit"
         >
           <span className="filter-text">
