@@ -49,4 +49,7 @@ test-debug-shell: setenv
 build: setenv
 	${DOCKER_PRECMD:API_VARS=$(API_ENV_VARS)} make build-docker
 
+upgrade-snapshots: setenv
+	${DOCKER_PRECMD:API_VARS=$(API_ENV_VARS)} bash -c "yarn install && CI=1 yarn run react-scripts test -u --all"
+
 .PHONY: check test-debug test-debug-shell build setenv
