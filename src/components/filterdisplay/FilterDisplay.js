@@ -35,8 +35,11 @@ class FilterDisplayView extends Component {
           <Icon>cancel</Icon>
         </IconButton>
         <Typography
-          style={{ float: "left", paddingTop: "0.5em" }}
-          variant="h5"
+          style={{
+            float: "left",
+            paddingTop: "0.25em",
+          }}
+          variant="h6"
           color="inherit"
         >
           <span className="filter-text">
