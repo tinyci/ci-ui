@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
+import LinkIcon from "@material-ui/icons/Link"
 import Button from "@material-ui/core/Button"
 import blue from "@material-ui/core/colors/blue"
 import grey from "@material-ui/core/colors/grey"
@@ -9,7 +10,7 @@ import * as runActions from "../../actions/runs"
 
 const styles = {
   repoButton: {
-    backgroundColor: "white",
+    backgroundColor: "inherit",
     color: blue[900],
     textDecorationStyle: "solid",
     textDecorationLine: "underline",
@@ -25,6 +26,22 @@ class RunFilterButton extends Component {
   render() {
     return (
       <React.Fragment>
+        {this.props.sha && this.props.repository ? (
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={
+              "https://github.com/" +
+              this.props.repository +
+              "/tree/" +
+              this.props.sha
+            }
+          >
+            <LinkIcon fontSize="small" style={{ verticalAlign: "middle" }} />
+          </a>
+        ) : (
+          ""
+        )}
         <Button
           style={styles.repoButton}
           onClick={() => {

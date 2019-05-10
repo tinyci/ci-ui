@@ -13,25 +13,15 @@ import * as uiActions from "./actions/ui"
 
 class Log extends BaseComponent {
   state = { panelHeight: 0, run: null }
+  timer = null
   xterm = null
   domTerm = null
+  run_id = null
 
   componentDidMount() {
-    var i = Number(this.props.match.params.id)
+    this.run_id = Number(this.props.match.params.id)
 
-    this.getAndUpdateState(
-      this.apiUrl("/uisvc/run/" + i),
-      { run: null },
-      result => {
-        this.setState({ run: result })
-      },
-      error => {
-        error
-          .then(res => res.errors[0])
-          .then(res => this.props.uiActions.processError(res))
-      },
-    )
-
+    this.refresh()
     this.domTerm = document.getElementById("terminal")
 
     if (this.xterm === null) {
@@ -40,7 +30,7 @@ class Log extends BaseComponent {
       this.xterm.open(this.domTerm)
       this.xterm.setOption("convertEol", true)
 
-      var ws = new WebSocket(this.wsUrl("/uisvc/log/attach/" + i))
+      var ws = new WebSocket(this.wsUrl("/uisvc/log/attach/" + this.run_id))
 
       ws.onmessage = event => {
         var parsed = JSON.parse(event.data)
@@ -54,11 +44,29 @@ class Log extends BaseComponent {
       window.addEventListener("resize", this.resize.bind(this))
     }
 
-    // ok. this exists because the size calculations below won't work until the
-    // DOM is fully rendered.
-    //
-    // this sucks and I hate myself for it.
-    window.setTimeout(this.resize.bind(this), 1)
+    this.timer = window.setInterval(this.refresh.bind(this), 5000)
+  }
+
+  componentWillUnmount() {
+    window.clearInterval(this.timer)
+  }
+
+  refresh() {
+    if (this.run_id) {
+      this.getAndUpdateState(
+        this.apiUrl("/uisvc/run/" + this.run_id),
+        {},
+        result => {
+          this.setState({ run: result })
+          this.resize()
+        },
+        error => {
+          error
+            .then(res => res.errors[0])
+            .then(res => this.props.uiActions.processError(res))
+        },
+      )
+    }
   }
 
   resize() {

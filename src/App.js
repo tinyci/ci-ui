@@ -1,30 +1,25 @@
 import React from "react"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
-
 import * as userActions from "./actions/users"
 import * as uiActions from "./actions/ui"
-
 import BaseComponent from "./base_component.js"
 import { Route } from "react-router-dom"
 import { ConnectedRouter } from "connected-react-router"
 import { history } from "./store/configureStore"
 import Log from "./log.js"
 import Main from "./main.js"
-import Button from "@material-ui/core/Button"
-import Card from "@material-ui/core/Card"
-import CardContent from "@material-ui/core/CardContent"
-import CardActions from "@material-ui/core/CardActions"
-import Typography from "@material-ui/core/Typography"
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles"
 import green from "@material-ui/core/colors/green"
 import purple from "@material-ui/core/colors/purple"
+import LoginGateway from "./login-components.js"
 
 import "./App.css"
 
 const theme = createMuiTheme({
   typography: {
     fontSize: 16,
+    useNextVariants: true,
   },
   palette: {
     primary: purple,
@@ -80,43 +75,9 @@ class App extends BaseComponent {
       )
 
       if (this.state.mounted && this.state.loggedIn === false) {
-        var cardStyle = {
-          position: "relative",
-          left: (window.innerWidth / 4).toFixed(0) + "px",
-          top: (window.innerHeight / 4).toFixed(0) + "px",
-          width: window.innerWidth / 2,
-        }
-
-        router = (
-          <Card style={cardStyle}>
-            <CardContent>
-              <Typography
-                variant="title"
-                style={{ textAlign: "center", marginBottom: "2em" }}
-              >
-                Login to Github
-              </Typography>
-              <Typography variant="h5" component="h2">
-                We need you to login to github to continue. This only takes a
-                moment and will redirect you to the github.com site to continue.
-                We use your github credentials to:
-                <ul>
-                  <li>Validate your access</li>
-                  <li>
-                    Orchestrate repository pulls and tests for CI projects you
-                    own
-                  </li>
-                </ul>
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button href={this.state.loginURL}>Continue</Button>
-            </CardActions>
-          </Card>
-        )
+        router = <LoginGateway loginURL={this.state.loginURL} />
       }
     }
-
     return router
   }
 }
