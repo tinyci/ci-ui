@@ -10,6 +10,7 @@ class Selector extends BaseComponent {
   render() {
     return (
       <div
+        title={this.props.tooltip}
         className={
           "finder-selector " +
           this.showIf(this.props.selected, "finder-selector-selected")

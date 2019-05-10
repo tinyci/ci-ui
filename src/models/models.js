@@ -6,7 +6,16 @@ export const get = (path, queryParams, successCallback, errorCallback) => {
   return axios
     .get(path + "?" + queryString, { withCredentials: true })
     .then(res => {
-      successCallback(res.data)
+      if (typeof successCallback == "function") {
+        successCallback(res.data)
+      } else if (successCallback !== undefined) {
+        console.error(
+          "Expected function for successCallback, got " +
+            typeof successCallback +
+            ":",
+          successCallback,
+        )
+      }
     })
     .catch(errorCallback)
 }

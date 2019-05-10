@@ -33,8 +33,9 @@ const renderStatus = run => {
         </Button>
         {cancelButton}
       </div>
-    )
-  } else if (run.task.canceled) {
+    ) // This code was originally written for runs. This line makes it
+    // work for tasks as well. TODO: rename variable
+  } else if (("task" in run && run.task.canceled) || run.canceled) {
     return (
       <Button
         disabled={true}

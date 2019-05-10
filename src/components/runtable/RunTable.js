@@ -64,48 +64,64 @@ class RunTable extends BaseComponent {
           name: "times",
         },
       ],
-      totalCount: 0,
-      pageSize: 20,
       pageSizes: [1, 5, 10, 20, 40],
-      currentPage: 0,
     }
   }
 
-  componentDidMount = () => {
-    this.getRowData()
-    var intervalID = setInterval(this.getRowData, 5000)
-    this.setState({ getRunIntervalID: intervalID })
-  }
+  componentDidMount = () => {}
 
-  componentWillUnmount = () => {
-    clearInterval(this.state.getRunIntervalID)
-  }
+  componentWillUnmount = () => {}
 
+  // TODO: find a way to unify the fetch API... maybe with an object as parameter
   getRowData = () => {
-    this.props.runActions.fetchRuns(
-      this.props.currentPage,
-      this.props.pageSize,
-      this.props.repository,
-      this.props.sha,
-    )
+    if (this.props.taskID) {
+      this.props.runActions.fetchTaskRuns(
+        this.props.currentPage,
+        this.props.pageSize,
+        this.props.taskID,
+      )
+    } else {
+      this.props.runActions.fetchRuns(
+        this.props.currentPage,
+        this.props.pageSize,
+        this.props.repository,
+        this.props.sha,
+      )
+    }
   }
 
   changeCurrentPage = currentPage => {
-    this.props.runActions.fetchRuns(
-      currentPage,
-      this.props.pageSize,
-      this.props.repository,
-      this.props.sha,
-    )
+    if (this.props.taskID) {
+      this.props.runActions.fetchTaskRuns(
+        currentPage,
+        this.props.pageSize,
+        this.props.taskID,
+      )
+    } else {
+      this.props.runActions.fetchRuns(
+        currentPage,
+        this.props.pageSize,
+        this.props.repository,
+        this.props.sha,
+      )
+    }
   }
 
   changePageSize = pageSize => {
-    this.props.runActions.fetchRuns(
-      this.props.currentPage,
-      pageSize,
-      this.props.repository,
-      this.props.sha,
-    )
+    if (this.props.taskID) {
+      this.props.runActions.fetchTaskRuns(
+        this.props.currentPage,
+        pageSize,
+        this.props.taskID,
+      )
+    } else {
+      this.props.runActions.fetchRuns(
+        this.props.currentPage,
+        pageSize,
+        this.props.repository,
+        this.props.sha,
+      )
+    }
   }
 
   render() {

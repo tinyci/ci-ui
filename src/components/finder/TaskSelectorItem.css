@@ -1,0 +1,31 @@
+.task-selector-item .status-circle:before {
+  content: ' \25CF';
+  font-size: 22px;
+}
+
+.task-selector-item .status-circle {
+		position: relative;
+		bottom: 5px;
+}
+
+/* TODO: these colors are probably not colorblind friendly */
+.task-selector-item .status-circle.failed {
+		color: #e57173;
+}
+.task-selector-item .status-circle.canceled {
+		color: #aaa;
+}
+.task-selector-item .status-circle.succeeded {
+		color: #81c585;
+}
+.task-selector-item .status-circle.active {
+		color: #c5bf81;
+}
+.task-selector-item .status-circle.pending {
+		color: #726f4c;
+}
+
+.task-selector-item .info {
+		float: left;
+		padding-right: 5px;
+}

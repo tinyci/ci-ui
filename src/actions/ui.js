@@ -19,6 +19,7 @@ export const receiveError = errorMessage => {
         errorMessage += ":\n" + error.response.data.errors.join(", ")
       }
     } else {
+      console.log(errorMessage)
       errorMessage = "tinyCI uisvc unreachable"
     }
   }

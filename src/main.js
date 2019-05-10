@@ -12,21 +12,27 @@ class Main extends BaseComponent {
   elements = [0, "repoName"]
 
   render() {
-    console.log("PARAMS", this.props.match.params)
-    const { orgName, repoName, ref, taskID, runID } = this.props.match.params
+    const {
+      orgName,
+      repoName,
+      refName,
+      sha,
+      taskID,
+      runID,
+    } = this.props.match.params
     return (
       <Base listState={this} repoName={{ state: {} }}>
         <MessageDisplay />
         <div
           style={{
-            overflowX: "scroll",
             height: "100%",
           }}
         >
           <Finder
             orgName={orgName}
             repoName={repoName}
-            refName={ref} // for some reason 'ref' doesn't work, but 'refName' does
+            refName={refName}
+            sha={sha}
             taskID={taskID}
             runID={runID}
           />

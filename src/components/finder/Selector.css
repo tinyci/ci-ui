@@ -3,10 +3,19 @@
 		padding: 10px;
 		margin: 0px 10px;
 		color: #fff;
+		overflow: hidden;
+}
+
+.light-column .finder-selector {
+		color: #333;
 }
 
 .finder-selector-selected {
 		outline: 1px solid #fff;
+}
+
+.light-column .finder-selector-selected {
+		outline-color: #333
 }
 
 .finder-org-column .finder-selector-selected {

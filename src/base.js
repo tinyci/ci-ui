@@ -58,8 +58,10 @@ class Base extends BaseComponent {
         <div
           id="repoName"
           style={{
-            position: "relative",
+            position: "absolute",
+            top: "0px",
             height: "50px",
+            width: "100%",
             backgroundColor: purple[800],
             color: "white",
           }}

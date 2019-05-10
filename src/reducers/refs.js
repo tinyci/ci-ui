@@ -7,8 +7,6 @@ export default (state = initialState.refs, action) => {
     case FETCH_REFS:
       return action
     case RECEIVE_REFS:
-      console.log("REFS", action.refs)
-
       return { ...state, list: action.refs }
     default:
       return state

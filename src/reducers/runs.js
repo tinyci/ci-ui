@@ -27,6 +27,7 @@ export default (state = initialState.runs, action) => {
           ...state.filters,
           repository: action.repository,
           sha: action.sha,
+          taskID: action.taskID,
           currentPage: action.currentPage,
           pageSize: action.pageSize,
         },

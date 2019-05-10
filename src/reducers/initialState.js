@@ -5,6 +5,7 @@ export default {
     loading: true,
     filters: {
       repository: "",
+      refName: "",
       sha: "",
       pageSize: 20,
       currentPage: 0,
@@ -25,6 +26,13 @@ export default {
   },
   tasks: {
     list: [],
+    count: 0,
+    filters: {
+      refName: "",
+      repository: "",
+      pageSize: 20,
+      currentPage: 0,
+    },
   },
   refs: {
     list: [],

@@ -70,7 +70,7 @@ class App extends BaseComponent {
           <ConnectedRouter history={history}>
             <React.Fragment>
               <Route
-                path="/:orgName?/:repoName?/:ref?/:taskID?/:runID?"
+                path="/:orgName?/:repoName?/:refName?/:sha?/:taskID?/:runID?"
                 component={Main}
               />
               <Route exact path="/log/:id" component={Log} />

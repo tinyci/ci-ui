@@ -1,33 +1,74 @@
-import { getRuns, getRunCount } from "../models/run"
+import {
+  getRuns,
+  getRunCount,
+  getTaskRuns,
+  getTaskRunCount,
+} from "../models/run"
 import { receiveError } from "./ui"
 
+export const FETCH_TASK_RUNS = "FETCH_TASK_RUNS"
+export const fetchTaskRuns = (
+  currentPage,
+  pageSize,
+  taskID,
+  callback,
+) => dispatch => {
+  dispatch(setRunFilters(currentPage, pageSize, undefined, undefined, taskID))
+  getTaskRuns(
+    currentPage,
+    pageSize,
+    taskID,
+    runs => {
+      dispatch(receiveRuns(runs))
+      if (callback) callback()
+    },
+    err => {
+      dispatch(receiveError(err))
+    },
+  )
+  getTaskRunCount(
+    taskID,
+    count => {
+      dispatch(receiveRunCount(count))
+    },
+    err => {
+      dispatch(receiveError(err))
+    },
+  )
+}
+
 export const FETCH_RUNS = "FETCH_RUNS"
-export const fetchRuns = (currentPage, pageSize, repository, sha) => {
-  return dispatch => {
-    dispatch(setRunFilters(currentPage, pageSize, repository, sha))
-    getRuns(
-      currentPage,
-      pageSize,
-      repository,
-      sha,
-      runs => {
-        dispatch(receiveRuns(runs))
-      },
-      err => {
-        dispatch(receiveError(err))
-      },
-    )
-    getRunCount(
-      repository,
-      sha,
-      count => {
-        dispatch(receiveRunCount(count))
-      },
-      err => {
-        dispatch(receiveError(err))
-      },
-    )
-  }
+export const fetchRuns = (
+  currentPage,
+  pageSize,
+  repository,
+  sha,
+  callback,
+) => dispatch => {
+  dispatch(setRunFilters(currentPage, pageSize, repository, sha, undefined))
+  getRuns(
+    currentPage,
+    pageSize,
+    repository,
+    sha,
+    runs => {
+      dispatch(receiveRuns(runs))
+      if (callback !== undefined) callback()
+    },
+    err => {
+      dispatch(receiveError(err))
+    },
+  )
+  getRunCount(
+    repository,
+    sha,
+    count => {
+      dispatch(receiveRunCount(count))
+    },
+    err => {
+      dispatch(receiveError(err))
+    },
+  )
 }
 
 export const RECEIVE_RUNS = "RECEIVE_RUNS"

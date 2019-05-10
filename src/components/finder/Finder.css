@@ -1,15 +1,31 @@
-.finder{
+#finder-container{
+		height: 100%;
+		padding-top: 50px;
+		overflow-x: scroll;
+		scroll-behavior: smooth;
+}
+
+#finder-grid-wrapper {
+		height: 100%;
+}
+
+.finder {
 		height: 100%;
 }
 
 .finder-column {
+		box-shadow: 3px 4px 10px #ccc;
 }
 
 .finder-column-header {
 		padding: 10px;
 		color: #fff;
-		
 }
+
+.light-column, .light-column .finder-column-header {
+		color: #333;
+}
+
 .finder-column-header-arrow {
 		float: right;
 }
@@ -21,5 +37,8 @@
 		background-color: #515970
 }
 .finder-ref-column {
-		background-color: #cdd3e1
+		background-color: #eaeefa
+}
+.finder-task-column {
+		background-color: #f6f7fb
 }
