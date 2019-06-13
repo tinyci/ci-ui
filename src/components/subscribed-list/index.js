@@ -11,7 +11,7 @@ class SubscribedList extends React.Component {
         {this.props.subscribed.map(elem => (
           <ListItem
             button
-            onClick={this.props.handleSelect.bind(this.props.mainui, elem)}
+            onClick={this.props.handleSelect.bind(elem)}
             key={elem.name}>
             <ListItemText>{elem.name}</ListItemText>
           </ListItem>

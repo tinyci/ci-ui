@@ -910,6 +910,39 @@
   resolved "https://registry.yarnpkg.com/@csstools/normalize.css/-/normalize.css-9.0.1.tgz#c27b391d8457d1e893f1eddeaf5e5412d12ffbb5"
   integrity sha512-6It2EVfGskxZCQhuykrfnALg7oVeiI6KclWSmGDqB0AiInVrTGB9Jp9i4/Ad21u9Jde/voVQz6eFX/eSg/UsPA==
 
+"@devexpress/dx-core@1.11.0", "@devexpress/dx-core@^1.11.0":
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-core/-/dx-core-1.11.0.tgz#f291d852e93531c3fa8a25ea7dd4f8bfe0d0c3c3"
+  integrity sha512-Kpw+Unx7lc10L3FJkLX/BbQHD8RIhirm9ZPJXpMfQdX1/KROMOoIo6n6gxcLAjU302NXNY5n7AlvHrw3KgNL+A==
+
+"@devexpress/dx-grid-core@1.11.0":
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-grid-core/-/dx-grid-core-1.11.0.tgz#c28a9b8bac2bae736da76aab5bc9be43326765ca"
+  integrity sha512-AEvppCbOhpLH6v/ZfYdEyMOjXxTQpbVizwy5U3/Zm0hNKdLSTnT0k1Iipt6elbJRvxrGe4dYgjvkiWhIaQ0pBg==
+
+"@devexpress/dx-react-core@^1.11.0":
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-react-core/-/dx-react-core-1.11.0.tgz#9f78aaf48a8b835aca6a993d8f9c82e0241feecb"
+  integrity sha512-RhqfjZxuyN/4amVVQCJmutvTQLk2mfU+CfaizWuJWw/bx7rjkSZXEV9r8k2z1Zs31mLW65LDkvesg2ty0B15sw==
+  dependencies:
+    "@devexpress/dx-core" "1.11.0"
+    prop-types "^15.7.2"
+
+"@devexpress/dx-react-grid-material-ui@^1.11.0":
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-react-grid-material-ui/-/dx-react-grid-material-ui-1.11.0.tgz#0ebd0d4bb9c3c75994b955affbc7c236af31f87d"
+  integrity sha512-ahLq8KKFzW8QpKKw5+wM75Naltp1z6dA2MTFffJqcaEnIWXpfyMV4mlReggc//jBOwkfZzUg+MOFM0S65x+a2g==
+  dependencies:
+    classnames "^2.2.6"
+    prop-types "^15.7.2"
+
+"@devexpress/dx-react-grid@^1.11.0":
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-react-grid/-/dx-react-grid-1.11.0.tgz#cfa9a46f747aea88329bb7b52d72b52eaa6b781c"
+  integrity sha512-Wy7228viYQVn8R2KkIt9C79LZz2sch2ALeerTIn1HIzf24xiayA3+MSpBT/5NOcjUwf+cqAapWdidILz812hFA==
+  dependencies:
+    "@devexpress/dx-grid-core" "1.11.0"
+
 "@emotion/hash@^0.7.1":
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/@emotion/hash/-/hash-0.7.1.tgz#9833722341379fb7d67f06a4b00ab3c37913da53"
@@ -2510,7 +2543,7 @@ chrome-trace-event@^1.0.0:
 
 "ci-agents@https://github.com/tinyci/ci-agents":
   version "0.0.0"
-  resolved "https://github.com/tinyci/ci-agents#231526a23048f51728c6cec725725220754090fa"
+  resolved "https://github.com/tinyci/ci-agents#c5a09708a3ed13c40ea087ececaf1767da12ce3e"
 
 ci-info@^2.0.0:
   version "2.0.0"
@@ -2534,6 +2567,11 @@ class-utils@^0.3.5:
     define-property "^0.2.5"
     isobject "^3.0.0"
     static-extend "^0.1.1"
+
+classnames@^2.2.6:
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
+  integrity sha512-JR/iSQOSt+LQIWwrwEzJ9uk0xfN3mTVYMwt1Ir5mUcSN6pU+V4zQFFaJsclJbPuAUQH+yfWef6tm7l1quW3C8Q==
 
 clean-css@4.2.x:
   version "4.2.1"
@@ -9201,6 +9239,11 @@ stream-shift@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/stream-shift/-/stream-shift-1.0.0.tgz#d5c752825e5367e786f78e18e445ea223a155952"
   integrity sha1-1cdSgl5TZ+eG944Y5EXqIjoVWVI=
+
+strftime@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/strftime/-/strftime-0.10.0.tgz#b3f0fa419295202a5a289f6d6be9f4909a617193"
+  integrity sha1-s/D6QZKVICpaKJ9ta+n0kJphcZM=
 
 string-length@^2.0.0:
   version "2.0.0"

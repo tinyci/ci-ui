@@ -2,7 +2,7 @@ import React from 'react';
 
 import Client from '../../lib/client/client';
 
-//import TaskList from './components/task-list';
+import TaskList from '../task-list';
 import SubmitForm from '../submit-form';
 import SubscribedList from '../subscribed-list';
 
@@ -114,6 +114,11 @@ class MainUI extends React.Component {
         ) : (
           ''
         )}
+
+        <TaskList
+          owner={this.props.match.params.owner}
+          repository={this.props.match.params.repository}
+        />
       </Box>
     );
   }
