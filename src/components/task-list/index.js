@@ -1,6 +1,6 @@
 import React from 'react';
-import strftime from 'strftime';
 import Client from '../../lib/client/client';
+import * as format from '../../lib/table-formatters';
 
 import {
   Grid,
@@ -13,72 +13,6 @@ import {
   DataTypeProvider,
   CustomPaging,
 } from '@devexpress/dx-react-grid';
-
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-
-import blue from '@material-ui/core/colors/blue';
-import yellow from '@material-ui/core/colors/yellow';
-import green from '@material-ui/core/colors/green';
-import red from '@material-ui/core/colors/red';
-
-const dateFormat = date => {
-  if (!date) {
-    return null;
-  }
-
-  return strftime('%m/%d/%Y %H:%M', new Date(date));
-};
-
-const textFormatter = ({value}) => <Typography>{value}</Typography>;
-
-const statusButtonStyle = {
-  borderRadius: '5px',
-  width: 'auto',
-  padding: '1em',
-  color: 'white',
-};
-
-const statusFormatter = ({value}) => {
-  if (value === null) {
-    return <Typography>Unfinished</Typography>;
-  }
-  if (value) {
-    return (
-      <Box
-        container="span"
-        style={Object.assign({backgroundColor: green[300]}, statusButtonStyle)}>
-        <Typography>Success</Typography>
-      </Box>
-    );
-  } else {
-    return (
-      <Box
-        container="div"
-        style={Object.assign({backgroundColor: red[300]}, statusButtonStyle)}>
-        <Typography>Failure</Typography>
-      </Box>
-    );
-  }
-};
-
-const historyFormatter = ({value}) => {
-  if (value.finished_at) {
-    return <Typography>Finished: {dateFormat(value.finished_at)}</Typography>;
-  } else if (value.started_at) {
-    return (
-      <Typography style={{color: yellow[800]}}>
-        Started: {dateFormat(value.started_at)}
-      </Typography>
-    );
-  }
-
-  return (
-    <Typography style={{color: blue[800]}}>
-      Created: {dateFormat(value.created_at)}
-    </Typography>
-  );
-};
 
 class TaskList extends React.Component {
   state = {
@@ -115,7 +49,19 @@ class TaskList extends React.Component {
   client = new Client();
   refreshInterval = null;
 
+  changeCurrentPage(pg) {
+    this.setState({currentPage: pg});
+  }
+
+  changePageSize(pz) {
+    this.setState({pageSize: pz});
+  }
+
   fetchTasks(repository) {
+    this.client.tasksCountGet({repository: repository}, (err, count) =>
+      this.setState({totalCount: count}),
+    );
+
     this.client.tasksGet(
       {
         repository: repository,
@@ -184,31 +130,28 @@ class TaskList extends React.Component {
 
     return (
       <Grid rows={this.state.tasks} columns={this.state.columns}>
-        <DataTypeProvider formatterComponent={textFormatter} for={['id']} />
+        <DataTypeProvider formatterComponent={format.text} for={['id']} />
         {!this.props.owner ? (
           <DataTypeProvider
-            formatterComponent={textFormatter}
+            formatterComponent={format.text}
             for={['repository']}
           />
         ) : (
           ''
         )}
-        <DataTypeProvider formatterComponent={textFormatter} for={['path']} />
-        <DataTypeProvider formatterComponent={textFormatter} for={['runs']} />
+        <DataTypeProvider formatterComponent={format.text} for={['path']} />
+        <DataTypeProvider formatterComponent={format.text} for={['runs']} />
+        <DataTypeProvider formatterComponent={format.status} for={['status']} />
         <DataTypeProvider
-          formatterComponent={statusFormatter}
-          for={['status']}
-        />
-        <DataTypeProvider
-          formatterComponent={historyFormatter}
+          formatterComponent={format.history}
           for={['history']}
         />
 
         <PagingState
           currentPage={this.state.currentPage}
-          onCurrentPageChange={this.changeCurrentPage}
+          onCurrentPageChange={this.changeCurrentPage.bind(this)}
           pageSize={this.state.pageSize}
-          onPageSizeChange={this.changePageSize}
+          onPageSizeChange={this.changePageSize.bind(this)}
         />
         <CustomPaging totalCount={this.state.totalCount} />
         <Table />
