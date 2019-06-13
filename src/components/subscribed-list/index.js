@@ -19,13 +19,17 @@ class SubscribedList extends React.Component {
         {this.props.subscribed.map(elem => (
           <ListItem color="inherit" button key={elem.name}>
             {elem.all ? (
-              <Link color="secondary" style={{textDecoration: 'none'}} href="/">
+              <Link
+                button
+                color="secondary"
+                style={{width: '100%', textDecoration: 'none'}}
+                href="/">
                 {elem.name}
               </Link>
             ) : (
               <Link
                 color="secondary"
-                style={{textDecoration: 'none'}}
+                style={{width: '100%', textDecoration: 'none'}}
                 href={'/tasks/' + elem.name}>
                 {elem.name}
               </Link>

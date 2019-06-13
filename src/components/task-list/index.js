@@ -14,10 +14,13 @@ import {
   CustomPaging,
 } from '@devexpress/dx-react-grid';
 
+import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 
 import blue from '@material-ui/core/colors/blue';
 import yellow from '@material-ui/core/colors/yellow';
+import green from '@material-ui/core/colors/green';
+import red from '@material-ui/core/colors/red';
 
 const dateFormat = date => {
   if (!date) {
@@ -29,20 +32,50 @@ const dateFormat = date => {
 
 const textFormatter = ({value}) => <Typography>{value}</Typography>;
 
+const statusButtonStyle = {
+  borderRadius: '5px',
+  width: 'auto',
+  padding: '1em',
+  color: 'white',
+};
+
+const statusFormatter = ({value}) => {
+  if (value === null) {
+    return <Typography>Unfinished</Typography>;
+  }
+  if (value) {
+    return (
+      <Box
+        container="span"
+        style={Object.assign({backgroundColor: green[300]}, statusButtonStyle)}>
+        <Typography>Success</Typography>
+      </Box>
+    );
+  } else {
+    return (
+      <Box
+        container="div"
+        style={Object.assign({backgroundColor: red[300]}, statusButtonStyle)}>
+        <Typography>Failure</Typography>
+      </Box>
+    );
+  }
+};
+
 const historyFormatter = ({value}) => {
   if (value.finished_at) {
-    return <Typography>Finished at {dateFormat(value.finished_at)}</Typography>;
+    return <Typography>Finished: {dateFormat(value.finished_at)}</Typography>;
   } else if (value.started_at) {
     return (
       <Typography style={{color: yellow[800]}}>
-        Started at {dateFormat(value.started_at)}
+        Started: {dateFormat(value.started_at)}
       </Typography>
     );
   }
 
   return (
     <Typography style={{color: blue[800]}}>
-      Created at {dateFormat(value.created_at)}
+      Created: {dateFormat(value.created_at)}
     </Typography>
   );
 };
@@ -95,7 +128,7 @@ class TaskList extends React.Component {
           repository: elem.parent.name,
           path: elem.path === '.' ? '*root*' : elem.path,
           runs: elem.runs,
-          status: 'success',
+          status: elem.status,
           history: {
             created_at: elem.created_at,
             started_at: elem.started_at,
@@ -162,7 +195,10 @@ class TaskList extends React.Component {
         )}
         <DataTypeProvider formatterComponent={textFormatter} for={['path']} />
         <DataTypeProvider formatterComponent={textFormatter} for={['runs']} />
-        <DataTypeProvider formatterComponent={textFormatter} for={['status']} />
+        <DataTypeProvider
+          formatterComponent={statusFormatter}
+          for={['status']}
+        />
         <DataTypeProvider
           formatterComponent={historyFormatter}
           for={['history']}
