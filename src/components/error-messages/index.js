@@ -1,17 +1,18 @@
 import React from 'react';
 
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import Snackbar from '@material-ui/core/Snackbar';
 
-var errIndex = 0;
-
 export const handleError = err => {
-  errIndex++;
   if (err) {
-    console.log(err);
     if (ErrorMessages.__singleton) {
       var errors = ErrorMessages.__singleton.state.errors;
-      errors.push([errIndex, err]);
-      ErrorMessages.__singleton.setState({errors: errors});
+      if (!errors.find(elem => elem.message === err.message)) {
+        errors.push(err);
+        ErrorMessages.__singleton.setState({errors: errors});
+      }
     }
     return true;
   }
@@ -28,25 +29,26 @@ export class ErrorMessages extends React.Component {
   }
 
   onCloseHandler(errIndex) {
-    this.setState({
-      errors: this.state.errors.filter(elem => elem[0] === errIndex),
-    });
+    this.setState({errors: []});
   }
 
   render() {
-    console.log(this.state.errors);
     return (
-      <React.Fragment>
-        {this.state.errors.map(elem => (
-          <Snackbar
-            anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
-            key={elem[0]}
-            open={true}
-            onClose={this.onCloseHandler.bind(this)}
-            message={<span>Error: {elem[1].message}</span>}
-          />
-        ))}
-      </React.Fragment>
+      <Snackbar
+        autoHideDuration={2500}
+        anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
+        open={this.state.errors.length > 0}
+        onClose={this.onCloseHandler.bind(this)}
+        message={
+          <List>
+            {this.state.errors.map(e => (
+              <ListItem key={e.message}>
+                <ListItemText>Error: {e.message}</ListItemText>
+              </ListItem>
+            ))}
+          </List>
+        }
+      />
     );
   }
 }
