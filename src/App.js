@@ -45,8 +45,8 @@ class App extends React.Component {
             {
               //<Route exact path="/log/:id" component={RunLog} />
             }
-            <Route path="/:owner/:repo" component={MainUI} />
-            <Route path="/" component={MainUI} />
+            <Route path="/tasks/:owner/:repository" exact component={MainUI} />
+            <Route path="/" exact component={MainUI} />
           </Router>
         </MuiThemeProvider>
       );

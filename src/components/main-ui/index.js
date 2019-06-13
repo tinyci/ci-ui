@@ -20,17 +20,8 @@ class MainUI extends React.Component {
     subscribed: [],
     submitDrawerOpen: false,
     listDrawerOpen: false,
-    repository: null,
   };
   client = new Client();
-
-  componentWillMount() {
-    if (this.props.owner && this.props.repository) {
-      this.setState({
-        repository: this.props.owner + '/' + this.props.repository,
-      });
-    }
-  }
 
   handleSubmitSelect() {
     this.setState({
@@ -54,27 +45,13 @@ class MainUI extends React.Component {
     }
   }
 
-  handleListSelect(repo) {
-    if (repo.all) {
-      this.setState({
-        repository: null,
-        listDrawerOpen: false,
-        submitDrawerOpen: false,
-      });
-    } else {
-      this.setState({
-        repository: repo.name,
-        listDrawerOpen: false,
-        submitDrawerOpen: false,
-      });
-    }
-  }
-
   render() {
-    var repository = 'All Repositories';
+    var repoName = 'All Repositories';
+    var owner = this.props.match.params.owner;
+    var repository = this.props.match.params.repository;
 
-    if (this.state.repository) {
-      repository = this.state.repository;
+    if (owner && repository) {
+      repoName = owner + '/' + repository;
     }
 
     return (
@@ -92,7 +69,7 @@ class MainUI extends React.Component {
                     !this.state.listDrawerOpen,
                   )}>
                   <KeyboardArrowDownIcon />
-                  {repository}
+                  {repoName}
                 </Button>
               </div>
             </Grid>
@@ -107,18 +84,12 @@ class MainUI extends React.Component {
         {this.state.submitDrawerOpen ? <SubmitForm /> : ''}
 
         {this.state.listDrawerOpen ? (
-          <SubscribedList
-            subscribed={this.state.subscribed}
-            handleSelect={this.handleListSelect.bind(this)}
-          />
+          <SubscribedList subscribed={this.state.subscribed} />
         ) : (
           ''
         )}
 
-        <TaskList
-          owner={this.props.match.params.owner}
-          repository={this.props.match.params.repository}
-        />
+        <TaskList owner={owner} repository={repository} />
       </Box>
     );
   }

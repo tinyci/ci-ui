@@ -55,10 +55,6 @@ class TaskList extends React.Component {
         name: 'id',
       },
       {
-        title: 'Repository',
-        name: 'repository',
-      },
-      {
         title: 'Section',
         name: 'path',
       },
@@ -116,6 +112,16 @@ class TaskList extends React.Component {
     var repository = '';
     if (this.props.owner && this.props.repository) {
       repository = this.props.owner + '/' + this.props.repository;
+    } else {
+      // add the repo column so it shows
+      var cols = [
+        {
+          title: 'Repository',
+          name: 'repository',
+        },
+      ].concat(this.state.columns);
+
+      this.setState({columns: cols});
     }
 
     this.refreshInterval = window.setInterval(
@@ -133,7 +139,6 @@ class TaskList extends React.Component {
   }
 
   render() {
-    console.log(this.state.tasks);
     if (this.state.loading) {
       return (
         <div style={{height: '100%', marginTop: '25%'}}>
@@ -147,10 +152,14 @@ class TaskList extends React.Component {
     return (
       <Grid rows={this.state.tasks} columns={this.state.columns}>
         <DataTypeProvider formatterComponent={textFormatter} for={['id']} />
-        <DataTypeProvider
-          formatterComponent={textFormatter}
-          for={['repository']}
-        />
+        {!this.props.owner ? (
+          <DataTypeProvider
+            formatterComponent={textFormatter}
+            for={['repository']}
+          />
+        ) : (
+          ''
+        )}
         <DataTypeProvider formatterComponent={textFormatter} for={['path']} />
         <DataTypeProvider formatterComponent={textFormatter} for={['runs']} />
         <DataTypeProvider formatterComponent={textFormatter} for={['status']} />

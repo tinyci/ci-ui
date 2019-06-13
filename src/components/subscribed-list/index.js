@@ -1,19 +1,35 @@
 import React from 'react';
 
+import Link from '@material-ui/core/Link';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+
+import grey from '@material-ui/core/colors/grey';
 
 class SubscribedList extends React.Component {
   render() {
     return (
-      <List style={{zIndex: 2, width: '35%'}}>
+      <List
+        style={{
+          backgroundColor: grey[700],
+          zIndex: 2,
+          position: 'absolute',
+          minWidth: '20%',
+        }}>
         {this.props.subscribed.map(elem => (
-          <ListItem
-            button
-            onClick={this.props.handleSelect.bind(elem)}
-            key={elem.name}>
-            <ListItemText>{elem.name}</ListItemText>
+          <ListItem color="inherit" button key={elem.name}>
+            {elem.all ? (
+              <Link color="secondary" style={{textDecoration: 'none'}} href="/">
+                {elem.name}
+              </Link>
+            ) : (
+              <Link
+                color="secondary"
+                style={{textDecoration: 'none'}}
+                href={'/tasks/' + elem.name}>
+                {elem.name}
+              </Link>
+            )}
           </ListItem>
         ))}
       </List>
