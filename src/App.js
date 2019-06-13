@@ -6,7 +6,7 @@ import grey from '@material-ui/core/colors/grey';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 import LoginGateway from './components/login-gateway';
-import MainUI from './components/main-ui';
+import {TaskUI, RunUI} from './components/main-ui';
 
 import './App.css';
 
@@ -45,8 +45,9 @@ class App extends React.Component {
             {
               //<Route exact path="/log/:id" component={RunLog} />
             }
-            <Route path="/tasks/:owner/:repository" exact component={MainUI} />
-            <Route path="/" exact component={MainUI} />
+            <Route path="/runs/:owner/:repository" exact component={RunUI} />
+            <Route path="/tasks/:owner/:repository" exact component={TaskUI} />
+            <Route path="/" exact component={TaskUI} />
           </Router>
         </MuiThemeProvider>
       );

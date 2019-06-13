@@ -16,6 +16,7 @@ import PublishIcon from '@material-ui/icons/Publish';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 class MainUI extends React.Component {
+  flavor = 'task';
   state = {
     subscribed: [],
     submitDrawerOpen: false,
@@ -81,6 +82,7 @@ class MainUI extends React.Component {
             </Grid>
           </Grid>
         </AppBar>
+
         {this.state.submitDrawerOpen ? <SubmitForm /> : ''}
 
         {this.state.listDrawerOpen ? (
@@ -89,10 +91,28 @@ class MainUI extends React.Component {
           ''
         )}
 
-        <TaskList owner={owner} repository={repository} />
+        {this.flavor === 'task' ? (
+          <TaskList owner={owner} repository={repository} />
+        ) : (
+          <div>run list</div>
+        )}
       </Box>
     );
   }
 }
 
-export default MainUI;
+class TaskUI extends MainUI {
+  constructor() {
+    super();
+    this.flavor = 'task';
+  }
+}
+
+class RunUI extends MainUI {
+  constructor() {
+    super();
+    this.flavor = 'run';
+  }
+}
+
+export {TaskUI, RunUI};
