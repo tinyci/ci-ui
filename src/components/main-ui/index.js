@@ -2,6 +2,7 @@ import React from 'react';
 
 import Client from '../../lib/client/client';
 
+import {ErrorMessages, handleError} from '../error-messages';
 import TaskList from '../task-list';
 import SubmitForm from '../submit-form';
 import SubscribedList from '../subscribed-list';
@@ -34,12 +35,16 @@ class MainUI extends React.Component {
   handleRepositorySelect(listDrawerOpen) {
     if (listDrawerOpen) {
       this.client.repositoriesSubscribedGet({}, (err, subscribed) => {
-        subscribed = [{all: true, name: 'All Repositories'}].concat(subscribed);
-        this.setState({
-          subscribed: subscribed,
-          listDrawerOpen: listDrawerOpen,
-          submitDrawerOpen: false,
-        });
+        if (!handleError(err)) {
+          subscribed = [{all: true, name: 'All Repositories'}].concat(
+            subscribed,
+          );
+          this.setState({
+            subscribed: subscribed,
+            listDrawerOpen: listDrawerOpen,
+            submitDrawerOpen: false,
+          });
+        }
       });
     } else {
       this.setState({listDrawerOpen: listDrawerOpen});
@@ -96,6 +101,8 @@ class MainUI extends React.Component {
         ) : (
           <div>run list</div>
         )}
+
+        <ErrorMessages />
       </Box>
     );
   }

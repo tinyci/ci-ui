@@ -2,6 +2,8 @@ import React from 'react';
 import Client from '../../lib/client/client';
 import * as format from '../../lib/table-formatters';
 
+import {handleError} from '../error-messages';
+
 import {
   Grid,
   Table,
@@ -58,9 +60,11 @@ class TaskList extends React.Component {
   }
 
   fetchTasks(repository) {
-    this.client.tasksCountGet({repository: repository}, (err, count) =>
-      this.setState({totalCount: count}),
-    );
+    this.client.tasksCountGet({repository: repository}, (err, count) => {
+      if (!handleError(err)) {
+        this.setState({totalCount: count});
+      }
+    });
 
     this.client.tasksGet(
       {
@@ -69,20 +73,22 @@ class TaskList extends React.Component {
         perPage: this.state.pageSize,
       },
       (err, tasks) => {
-        var taskList = tasks.map(elem => ({
-          id: elem.id,
-          repository: elem.parent.name,
-          path: elem.path === '.' ? '*root*' : elem.path,
-          runs: elem.runs,
-          status: elem.status,
-          history: {
-            created_at: elem.created_at,
-            started_at: elem.started_at,
-            finished_at: elem.finished_at,
-          },
-        }));
+        if (!handleError(err)) {
+          var taskList = tasks.map(elem => ({
+            id: elem.id,
+            repository: elem.parent.name,
+            path: elem.path === '.' ? '*root*' : elem.path,
+            runs: elem.runs,
+            status: elem.status,
+            history: {
+              created_at: elem.created_at,
+              started_at: elem.started_at,
+              finished_at: elem.finished_at,
+            },
+          }));
 
-        this.setState({tasks: taskList, loading: false});
+          this.setState({tasks: taskList, loading: false});
+        }
       },
     );
   }

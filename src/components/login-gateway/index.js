@@ -1,6 +1,8 @@
 import React from 'react';
 import './login-gateway.css';
 
+import {ErrorMessages} from '../error-messages';
+
 class LoginGateway extends React.Component {
   render() {
     return (
@@ -23,6 +25,7 @@ class LoginGateway extends React.Component {
         <div className="login-area">
           <a href={this.props.loginURL}>CONTINUE</a>
         </div>
+        <ErrorMessages />
       </div>
     );
   }

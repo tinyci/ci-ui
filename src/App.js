@@ -5,6 +5,7 @@ import blueGrey from '@material-ui/core/colors/blueGrey';
 import grey from '@material-ui/core/colors/grey';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 
+import {handleError} from './components/error-messages';
 import LoginGateway from './components/login-gateway';
 import {TaskUI, RunUI} from './components/main-ui';
 
@@ -27,9 +28,7 @@ class App extends React.Component {
 
   componentWillMount() {
     this.client.loggedinGet((err, loggedIn) => {
-      if (err !== null) {
-        this.setState({error: err});
-      } else {
+      if (!handleError(err)) {
         this.setState({loggedIn: loggedIn});
       }
     });
