@@ -14,6 +14,23 @@ import red from '@material-ui/core/colors/red';
 
 import FilterIcon from '@material-ui/icons/Filter';
 
+export const repository = ({value}) => {
+  var filter_link = '/tasks/' + value.name;
+  var parent_extra =
+    value.parentName !== '' && value.name !== value.parentName
+      ? ' (fork of ' + value.parentName + ')'
+      : '';
+  return (
+    <React.Fragment>
+      <Tooltip title={'Filter by this repository' + parent_extra}>
+        <Button variant="outlined" color="primary" href={filter_link}>
+          {value.name}
+        </Button>
+      </Tooltip>
+    </React.Fragment>
+  );
+};
+
 export const ref = ({value}) => {
   var pretty_branch = value.ref_name.replace(/^(?:refs\/)?heads\//, '');
   var branch_link =

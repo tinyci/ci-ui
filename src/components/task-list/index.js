@@ -85,7 +85,10 @@ class TaskList extends React.Component {
         if (!handleError(err)) {
           var taskList = tasks.map(elem => ({
             id: elem.id,
-            repository: elem.parent.name,
+            repository: {
+              name: elem.ref.repository.name,
+              parentName: elem.parent.name,
+            },
             // small hack to get the repo in with the ref
             ref: elem.ref,
             path: elem.path === '.' ? '*root*' : elem.path,
@@ -132,7 +135,7 @@ class TaskList extends React.Component {
     return (
       <Grid rows={this.state.tasks} columns={this.state.columns}>
         <DataTypeProvider
-          formatterComponent={format.text}
+          formatterComponent={format.repository}
           for={['repository']}
         />
         <DataTypeProvider formatterComponent={format.ref} for={['ref']} />
