@@ -60,6 +60,10 @@ class MainUI extends React.Component {
     window.addEventListener('resize', () => {
       this.setState({rerender: this.state.rerender + 1});
     });
+
+    window.addEventListener('popstate', event => {
+      document.location.reload();
+    });
   }
 
   render() {
@@ -101,7 +105,7 @@ class MainUI extends React.Component {
                 Submit
               </Button>
             </Grid>
-            <Grid xs={7} />
+            <Grid item xs={7} />
             <Grid item xs={1}>
               <Tooltip title="Home">
                 <a href={'/'}>
