@@ -108,7 +108,7 @@ class MainUI extends React.Component {
                   <img
                     alt="logo"
                     style={{marginTop: '4px', height: '32px'}}
-                    src="logo-reverse-title.png"
+                    src="/logo-reverse-title.png"
                   />
                 </a>
               </Tooltip>
