@@ -31,16 +31,16 @@ const tableColumns = [
     name: 'path',
   },
   {
-    title: 'Runs',
-    name: 'runs',
-  },
-  {
     title: 'Status',
     name: 'status',
   },
   {
     title: 'History',
     name: 'history',
+  },
+  {
+    title: 'Log',
+    name: 'id',
   },
 ];
 
@@ -59,10 +59,6 @@ const globalColumnExtensions = [
     width: 0.2,
   },
   {
-    columnName: 'runs',
-    width: 0.05,
-  },
-  {
     columnName: 'status',
     width: 0.1,
   },
@@ -70,16 +66,20 @@ const globalColumnExtensions = [
     columnName: 'history',
     width: 0.15,
   },
+  {
+    columnName: 'id',
+    width: 0.05,
+  },
 ];
 
-class TaskList extends React.Component {
+class RunList extends React.Component {
   state = {
     totalCount: 0,
     pageSize: 20,
     pageSizes: [1, 5, 10, 20, 40],
     currentPage: 0,
     loading: true,
-    tasks: [],
+    runs: [],
     rerender: 0,
   };
 
@@ -94,37 +94,29 @@ class TaskList extends React.Component {
     this.setState({pageSize: pz});
   }
 
-  fetchTasks(repository, sha) {
-    this.client.tasksCountGet(
-      {repository: repository, sha: sha},
-      (err, count) => {
-        if (!handleError(err)) {
-          this.setState({totalCount: count});
-        }
-      },
-    );
+  fetchRuns(id) {
+    this.client.tasksRunsIdCountGet(id, (err, count) => {
+      if (!handleError(err)) {
+        this.setState({totalCount: count});
+      }
+    });
 
-    this.client.tasksGet(
+    this.client.tasksRunsIdGet(
+      id,
       {
-        repository: repository,
-        sha: sha,
         page: this.state.currentPage,
         perPage: this.state.pageSize,
       },
-      (err, tasks) => {
+      (err, runs) => {
         if (!handleError(err)) {
-          var taskList = tasks.map(elem => ({
+          var runList = runs.map(elem => ({
             id: elem.id,
             repository: {
-              name: elem.ref.repository.name,
-              parentName: elem.parent.name,
+              name: elem.task.ref.repository.name,
+              parentName: elem.task.parent.name,
             },
-            ref: elem.ref,
-            path: elem.path === '.' ? '*root*' : elem.path,
-            runs: {
-              count: elem.runs,
-              id: elem.id,
-            },
+            ref: elem.task.ref,
+            path: elem.task.path === '.' ? '*root*' : elem.task.path,
             status: elem.status,
             history: {
               created_at: elem.created_at,
@@ -133,24 +125,19 @@ class TaskList extends React.Component {
             },
           }));
 
-          this.setState({tasks: taskList, loading: false});
+          this.setState({runs: runList, loading: false});
         }
       },
     );
   }
 
   componentWillMount() {
-    var repository = '';
-    if (this.props.owner && this.props.repository) {
-      repository = this.props.owner + '/' + this.props.repository;
-    }
-
     this.refreshInterval = window.setInterval(
-      this.fetchTasks.bind(this, repository, this.props.sha),
+      this.fetchRuns.bind(this, this.props.task_id),
       5000,
     );
 
-    this.fetchTasks(repository, this.props.sha);
+    this.fetchRuns(this.props.task_id);
   }
 
   componentWillUnmount() {
@@ -174,14 +161,14 @@ class TaskList extends React.Component {
 
     return (
       <div style={{minWidth: minWidth, overflowX: 'scroll'}}>
-        <Grid rows={this.state.tasks} columns={tableColumns}>
+        <Grid rows={this.state.runs} columns={tableColumns}>
           <DataTypeProvider
             formatterComponent={format.repository}
             for={['repository']}
           />
           <DataTypeProvider formatterComponent={format.ref} for={['ref']} />
           <DataTypeProvider formatterComponent={format.text} for={['path']} />
-          <DataTypeProvider formatterComponent={format.runs} for={['runs']} />
+          <DataTypeProvider formatterComponent={format.text} for={['id']} />
           <DataTypeProvider
             formatterComponent={format.status}
             for={['status']}
@@ -207,4 +194,4 @@ class TaskList extends React.Component {
   }
 }
 
-export default TaskList;
+export default RunList;

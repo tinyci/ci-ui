@@ -14,6 +14,14 @@ import red from '@material-ui/core/colors/red';
 
 import FilterIcon from '@material-ui/icons/Filter';
 
+export const runs = ({value}) => {
+  return (
+    <Button color="primary" variant="contained" href={'/runs/' + value.id}>
+      <Typography>{value.count}</Typography>
+    </Button>
+  );
+};
+
 export const repository = ({value}) => {
   var filter_link = '/tasks/' + value.name;
   var parent_extra =

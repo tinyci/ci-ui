@@ -3,6 +3,7 @@ import React from 'react';
 import Client from '../../lib/client/client';
 
 import {ErrorMessages, handleError} from '../error-messages';
+import RunList from '../run-list';
 import TaskList from '../task-list';
 import SubmitForm from '../submit-form';
 import SubscribedList from '../subscribed-list';
@@ -65,6 +66,7 @@ class MainUI extends React.Component {
     var owner = this.props.match.params.owner;
     var repository = this.props.match.params.repository;
     var sha = this.props.match.params.sha;
+    var task_id = this.props.match.params.task_id;
 
     if (owner && repository) {
       repoName = owner + '/' + repository;
@@ -117,7 +119,7 @@ class MainUI extends React.Component {
             sha={sha}
           />
         ) : (
-          <div>run list</div>
+          <RunList minWidth={thisMinWidth} task_id={task_id} />
         )}
 
         <ErrorMessages />
