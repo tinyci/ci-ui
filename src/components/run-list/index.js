@@ -81,7 +81,7 @@ class RunList extends React.Component {
   state = {
     totalCount: 0,
     perPage: 20,
-    perPageList: [1, 5, 10, 20, 40],
+    perPageList: [1, 5, 10, 20, 40, 100],
     currentPage: 0,
     loading: true,
     runs: [],
