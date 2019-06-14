@@ -21,6 +21,10 @@ class TaskList extends React.Component {
   state = {
     columns: [
       {
+        title: 'Ref Info',
+        name: 'ref',
+      },
+      {
         title: 'Task ID',
         name: 'id',
       },
@@ -60,7 +64,7 @@ class TaskList extends React.Component {
     this.setState({pageSize: pz});
   }
 
-  fetchTasks(repository) {
+  fetchTasks(repository, sha) {
     this.client.tasksCountGet({repository: repository}, (err, count) => {
       if (!handleError(err)) {
         this.setState({totalCount: count});
@@ -70,6 +74,7 @@ class TaskList extends React.Component {
     this.client.tasksGet(
       {
         repository: repository,
+        sha: sha,
         page: this.state.currentPage,
         perPage: this.state.pageSize,
       },
@@ -78,6 +83,7 @@ class TaskList extends React.Component {
           var taskList = tasks.map(elem => ({
             id: elem.id,
             repository: elem.parent.name,
+            ref: elem.ref,
             path: elem.path === '.' ? '*root*' : elem.path,
             runs: elem.runs,
             status: elem.status,
@@ -115,7 +121,7 @@ class TaskList extends React.Component {
       5000,
     );
 
-    this.fetchTasks(repository);
+    this.fetchTasks(repository, this.props.sha);
   }
 
   componentWillUnmount() {
@@ -140,6 +146,7 @@ class TaskList extends React.Component {
         ) : (
           ''
         )}
+        <DataTypeProvider formatterComponent={format.ref} for={['ref']} />
         <DataTypeProvider formatterComponent={format.text} for={['path']} />
         <DataTypeProvider formatterComponent={format.text} for={['runs']} />
         <DataTypeProvider formatterComponent={format.status} for={['status']} />

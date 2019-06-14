@@ -2,12 +2,32 @@ import React from 'react';
 import strftime from 'strftime';
 
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 
 import blue from '@material-ui/core/colors/blue';
 import yellow from '@material-ui/core/colors/yellow';
 import green from '@material-ui/core/colors/green';
 import red from '@material-ui/core/colors/red';
+
+export const ref = ({value}) => {
+  var base_branch = value.ref_name.replace(/^refs\/heads\//, '');
+  return (
+    <React.Fragment>
+      <Box component="div">
+        <Tooltip title={value.ref_name}>
+          <Button>{base_branch}</Button>
+        </Tooltip>
+      </Box>
+      <Box component="div">
+        <Tooltip title={value.sha}>
+          <Button>{value.sha.substring(0, 8)}</Button>
+        </Tooltip>
+      </Box>
+    </React.Fragment>
+  );
+};
 
 const dateFormat = date => {
   if (!date) {
