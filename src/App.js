@@ -26,13 +26,23 @@ const muiTheme = createMuiTheme({
 class App extends React.Component {
   state = {loggedIn: null};
   client = new Client();
+  interval = null;
 
-  componentDidMount() {
+  checkLogin() {
     this.client.loggedinGet((err, loggedIn) => {
       if (!handleError(err)) {
         this.setState({loggedIn: loggedIn});
       }
     });
+  }
+
+  componentDidMount() {
+    this.interval = window.setInterval(this.checkLogin.bind(this), 60000);
+    this.checkLogin();
+  }
+
+  componentWillUnmount() {
+    window.clearInterval(this.interval);
   }
 
   render() {
