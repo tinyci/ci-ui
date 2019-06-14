@@ -16,12 +16,15 @@ import Grid from '@material-ui/core/Grid';
 import PublishIcon from '@material-ui/icons/Publish';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
+const minWidth = 1080; // optimize for 1080p
+
 class MainUI extends React.Component {
   flavor = 'task';
   state = {
     subscribed: [],
     submitDrawerOpen: false,
     listDrawerOpen: false,
+    rerender: 0,
   };
   client = new Client();
 
@@ -51,6 +54,12 @@ class MainUI extends React.Component {
     }
   }
 
+  componentDidMount() {
+    window.addEventListener('resize', () => {
+      this.setState({rerender: this.state.rerender + 1});
+    });
+  }
+
   render() {
     var repoName = 'All Repositories';
     var owner = this.props.match.params.owner;
@@ -60,8 +69,11 @@ class MainUI extends React.Component {
       repoName = owner + '/' + repository;
     }
 
+    var thisMinWidth =
+      window.innerWidth < minWidth ? minWidth : window.innerWidth;
+
     return (
-      <Box>
+      <Box style={{minWidth: thisMinWidth}}>
         <CssBaseline />
         <AppBar position="static" color="primary">
           <Grid container spacing={0}>
@@ -97,7 +109,11 @@ class MainUI extends React.Component {
         )}
 
         {this.flavor === 'task' ? (
-          <TaskList owner={owner} repository={repository} />
+          <TaskList
+            minWidth={thisMinWidth}
+            owner={owner}
+            repository={repository}
+          />
         ) : (
           <div>run list</div>
         )}

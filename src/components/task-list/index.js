@@ -43,10 +43,12 @@ const tableColumns = [
     name: 'history',
   },
 ];
+
+// these should add up to 1 or close to it
 const globalColumnExtensions = [
   {
     columnName: 'repository',
-    width: 0.3,
+    width: 0.25,
   },
   {
     columnName: 'ref',
@@ -54,7 +56,7 @@ const globalColumnExtensions = [
   },
   {
     columnName: 'path',
-    width: 0.1,
+    width: 0.2,
   },
   {
     columnName: 'runs',
@@ -147,9 +149,6 @@ class TaskList extends React.Component {
     );
 
     this.fetchTasks(repository, this.props.sha);
-    window.addEventListener('resize', () => {
-      this.setState({rerender: this.state.rerender + 1});
-    });
   }
 
   componentWillUnmount() {
@@ -163,39 +162,45 @@ class TaskList extends React.Component {
       return <Loading />;
     }
 
+    var minWidth = this.props.minWidth;
     var tableColumnExtensions = globalColumnExtensions.map(elem => {
       return {
         columnName: elem.columnName,
-        width: window.innerWidth * elem.width,
+        width: minWidth * elem.width,
       };
     });
 
     return (
-      <Grid rows={this.state.tasks} columns={tableColumns}>
-        <DataTypeProvider
-          formatterComponent={format.repository}
-          for={['repository']}
-        />
-        <DataTypeProvider formatterComponent={format.ref} for={['ref']} />
-        <DataTypeProvider formatterComponent={format.text} for={['path']} />
-        <DataTypeProvider formatterComponent={format.text} for={['runs']} />
-        <DataTypeProvider formatterComponent={format.status} for={['status']} />
-        <DataTypeProvider
-          formatterComponent={format.history}
-          for={['history']}
-        />
+      <div style={{minWidth: minWidth, overflowX: 'scroll'}}>
+        <Grid rows={this.state.tasks} columns={tableColumns}>
+          <DataTypeProvider
+            formatterComponent={format.repository}
+            for={['repository']}
+          />
+          <DataTypeProvider formatterComponent={format.ref} for={['ref']} />
+          <DataTypeProvider formatterComponent={format.text} for={['path']} />
+          <DataTypeProvider formatterComponent={format.text} for={['runs']} />
+          <DataTypeProvider
+            formatterComponent={format.status}
+            for={['status']}
+          />
+          <DataTypeProvider
+            formatterComponent={format.history}
+            for={['history']}
+          />
 
-        <PagingState
-          currentPage={this.state.currentPage}
-          onCurrentPageChange={this.changeCurrentPage.bind(this)}
-          pageSize={this.state.pageSize}
-          onPageSizeChange={this.changePageSize.bind(this)}
-        />
-        <CustomPaging totalCount={this.state.totalCount} />
-        <Table columnExtensions={tableColumnExtensions} />
-        <TableHeaderRow />
-        <PagingPanel pageSizes={this.state.pageSizes} />
-      </Grid>
+          <PagingState
+            currentPage={this.state.currentPage}
+            onCurrentPageChange={this.changeCurrentPage.bind(this)}
+            pageSize={this.state.pageSize}
+            onPageSizeChange={this.changePageSize.bind(this)}
+          />
+          <CustomPaging totalCount={this.state.totalCount} />
+          <Table columnExtensions={tableColumnExtensions} />
+          <TableHeaderRow />
+          <PagingPanel pageSizes={this.state.pageSizes} />
+        </Grid>
+      </div>
     );
   }
 }
