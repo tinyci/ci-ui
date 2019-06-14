@@ -17,40 +17,68 @@ import {
   CustomPaging,
 } from '@devexpress/dx-react-grid';
 
+const tableColumns = [
+  {
+    title: 'Repository',
+    name: 'repository',
+  },
+  {
+    title: 'Ref Info',
+    name: 'ref',
+  },
+  {
+    title: 'Section',
+    name: 'path',
+  },
+  {
+    title: 'Runs',
+    name: 'runs',
+  },
+  {
+    title: 'Status',
+    name: 'status',
+  },
+  {
+    title: 'History',
+    name: 'history',
+  },
+];
+const globalColumnExtensions = [
+  {
+    columnName: 'repository',
+    width: 0.3,
+  },
+  {
+    columnName: 'ref',
+    width: 0.25,
+  },
+  {
+    columnName: 'path',
+    width: 0.1,
+  },
+  {
+    columnName: 'runs',
+    width: 0.05,
+  },
+  {
+    columnName: 'status',
+    width: 0.1,
+  },
+  {
+    columnName: 'history',
+    width: 0.15,
+  },
+];
+
 class TaskList extends React.Component {
   state = {
-    columns: [
-      {
-        title: 'Repository',
-        name: 'repository',
-      },
-      {
-        title: 'Ref Info',
-        name: 'ref',
-      },
-      {
-        title: 'Section',
-        name: 'path',
-      },
-      {
-        title: 'Runs',
-        name: 'runs',
-      },
-      {
-        title: 'Status',
-        name: 'status',
-      },
-      {
-        title: 'History',
-        name: 'history',
-      },
-    ],
     totalCount: 0,
     pageSize: 20,
     pageSizes: [1, 5, 10, 20, 40],
     currentPage: 0,
     loading: true,
     tasks: [],
+    rerender: 0,
   };
 
   client = new Client();
@@ -119,6 +147,9 @@ class TaskList extends React.Component {
     );
 
     this.fetchTasks(repository, this.props.sha);
+    window.addEventListener('resize', () => {
+      this.setState({rerender: this.state.rerender + 1});
+    });
   }
 
   componentWillUnmount() {
@@ -132,8 +163,15 @@ class TaskList extends React.Component {
       return <Loading />;
     }
 
+    var tableColumnExtensions = globalColumnExtensions.map(elem => {
+      return {
+        columnName: elem.columnName,
+        width: window.innerWidth * elem.width,
+      };
+    });
+
     return (
-      <Grid rows={this.state.tasks} columns={this.state.columns}>
+      <Grid rows={this.state.tasks} columns={tableColumns}>
         <DataTypeProvider
           formatterComponent={format.repository}
           for={['repository']}
@@ -154,7 +192,7 @@ class TaskList extends React.Component {
           onPageSizeChange={this.changePageSize.bind(this)}
         />
         <CustomPaging totalCount={this.state.totalCount} />
-        <Table />
+        <Table columnExtensions={tableColumnExtensions} />
         <TableHeaderRow />
         <PagingPanel pageSizes={this.state.pageSizes} />
       </Grid>
