@@ -1,5 +1,10 @@
 import React from 'react';
 import Client from '../../lib/client/client';
+import {
+  loadPaginationState,
+  changePage,
+  changePerPage,
+} from '../../lib/pagination';
 import * as format from '../../lib/table-formatters';
 
 import {handleError} from '../error-messages';
@@ -75,8 +80,8 @@ const globalColumnExtensions = [
 class RunList extends React.Component {
   state = {
     totalCount: 0,
-    pageSize: 20,
-    pageSizes: [1, 5, 10, 20, 40],
+    perPage: 20,
+    perPageList: [1, 5, 10, 20, 40],
     currentPage: 0,
     loading: true,
     runs: [],
@@ -85,14 +90,6 @@ class RunList extends React.Component {
 
   client = new Client();
   refreshInterval = null;
-
-  changeCurrentPage(pg) {
-    this.setState({currentPage: pg});
-  }
-
-  changePageSize(pz) {
-    this.setState({pageSize: pz});
-  }
 
   fetchRuns(id) {
     this.client.tasksRunsIdCountGet(id, (err, count) => {
@@ -105,7 +102,7 @@ class RunList extends React.Component {
       id,
       {
         page: this.state.currentPage,
-        perPage: this.state.pageSize,
+        perPage: this.state.perPage,
       },
       (err, runs) => {
         if (!handleError(err)) {
@@ -116,7 +113,7 @@ class RunList extends React.Component {
               parentName: elem.task.parent.name,
             },
             ref: elem.task.ref,
-            path: elem.task.path === '.' ? '*root*' : elem.task.path,
+            path: elem.name,
             status: elem.status,
             history: {
               created_at: elem.created_at,
@@ -137,6 +134,7 @@ class RunList extends React.Component {
       5000,
     );
 
+    loadPaginationState(this);
     this.fetchRuns(this.props.task_id);
   }
 
@@ -180,14 +178,14 @@ class RunList extends React.Component {
 
           <PagingState
             currentPage={this.state.currentPage}
-            onCurrentPageChange={this.changeCurrentPage.bind(this)}
-            pageSize={this.state.pageSize}
-            onPageSizeChange={this.changePageSize.bind(this)}
+            onCurrentPageChange={changePage(this)}
+            pageSize={this.state.perPage}
+            onPageSizeChange={changePerPage(this)}
           />
           <CustomPaging totalCount={this.state.totalCount} />
           <Table columnExtensions={tableColumnExtensions} />
           <TableHeaderRow />
-          <PagingPanel pageSizes={this.state.pageSizes} />
+          <PagingPanel pageSizes={this.state.perPageList} />
         </Grid>
       </div>
     );
