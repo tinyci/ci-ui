@@ -92,12 +92,6 @@ class RunList extends React.Component {
   refreshInterval = null;
 
   fetchRuns(id) {
-    this.client.tasksRunsIdCountGet(id, (err, count) => {
-      if (!handleError(err)) {
-        this.setState({totalCount: count});
-      }
-    });
-
     this.client.tasksRunsIdGet(
       id,
       {
@@ -122,7 +116,11 @@ class RunList extends React.Component {
             },
           }));
 
-          this.setState({runs: runList, loading: false});
+          this.client.tasksRunsIdCountGet(id, (err, count) => {
+            if (!handleError(err)) {
+              this.setState({totalCount: count, runs: runList, loading: false});
+            }
+          });
         }
       },
     );

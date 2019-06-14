@@ -92,15 +92,6 @@ class TaskList extends React.Component {
   refreshInterval = null;
 
   fetchTasks(repository, sha) {
-    this.client.tasksCountGet(
-      {repository: repository, sha: sha},
-      (err, count) => {
-        if (!handleError(err)) {
-          this.setState({totalCount: count});
-        }
-      },
-    );
-
     this.client.tasksGet(
       {
         repository: repository,
@@ -130,7 +121,18 @@ class TaskList extends React.Component {
             },
           }));
 
-          this.setState({tasks: taskList, loading: false});
+          this.client.tasksCountGet(
+            {repository: repository, sha: sha},
+            (err, count) => {
+              if (!handleError(err)) {
+                this.setState({
+                  tasks: taskList,
+                  loading: false,
+                  totalCount: count,
+                });
+              }
+            },
+          );
         }
       },
     );
