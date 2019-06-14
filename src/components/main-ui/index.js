@@ -11,6 +11,7 @@ import SubscribedList from '../subscribed-list';
 import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -35,6 +36,14 @@ class MainUI extends React.Component {
       listDrawerOpen: false,
       submitDrawerOpen: !this.state.submitDrawerOpen,
     });
+  }
+
+  submitClickAwayHandler() {
+    this.setState({submitDrawerOpen: false});
+  }
+
+  drawerClickAwayHandler() {
+    this.setState({listDrawerOpen: false});
   }
 
   handleRepositorySelect(listDrawerOpen) {
@@ -120,10 +129,20 @@ class MainUI extends React.Component {
           </Grid>
         </AppBar>
 
-        {this.state.submitDrawerOpen ? <SubmitForm /> : ''}
+        {this.state.submitDrawerOpen ? (
+          <ClickAwayListener
+            onClickAway={this.submitClickAwayHandler.bind(this)}>
+            <SubmitForm />
+          </ClickAwayListener>
+        ) : (
+          ''
+        )}
 
         {this.state.listDrawerOpen ? (
-          <SubscribedList subscribed={this.state.subscribed} />
+          <ClickAwayListener
+            onClickAway={this.drawerClickAwayHandler.bind(this)}>
+            <SubscribedList subscribed={this.state.subscribed} />
+          </ClickAwayListener>
         ) : (
           ''
         )}

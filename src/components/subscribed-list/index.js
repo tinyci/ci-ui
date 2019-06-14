@@ -3,6 +3,7 @@ import React from 'react';
 import Link from '@material-ui/core/Link';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 import grey from '@material-ui/core/colors/grey';
 
@@ -16,8 +17,11 @@ class SubscribedList extends React.Component {
           position: 'absolute',
           minWidth: '20%',
         }}>
+        <ListItem>
+          <ListItemText>Subscribed Repositories</ListItemText>
+        </ListItem>
         {this.props.subscribed.map(elem => (
-          <ListItem color="inherit" button key={elem.name}>
+          <ListItem button key={elem.name}>
             {elem.all ? (
               <Link
                 button
