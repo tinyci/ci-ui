@@ -64,6 +64,7 @@ class MainUI extends React.Component {
     var repoName = 'All Repositories';
     var owner = this.props.match.params.owner;
     var repository = this.props.match.params.repository;
+    var sha = this.props.match.params.sha;
 
     if (owner && repository) {
       repoName = owner + '/' + repository;
@@ -113,6 +114,7 @@ class MainUI extends React.Component {
             minWidth={thisMinWidth}
             owner={owner}
             repository={repository}
+            sha={sha}
           />
         ) : (
           <div>run list</div>

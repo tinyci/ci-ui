@@ -143,7 +143,7 @@ class TaskList extends React.Component {
     }
 
     this.refreshInterval = window.setInterval(
-      this.fetchTasks.bind(this, repository),
+      this.fetchTasks.bind(this, repository, this.props.sha),
       5000,
     );
 
