@@ -28,7 +28,7 @@ class SubmitForm extends React.Component {
             <Grid item xs={1}>
               <Typography
                 align="center"
-                color="textSecondary"
+                color="text.secondary"
                 style={{
                   marginLeft: '0.5em',
                   marginTop: '1em',
@@ -53,7 +53,7 @@ class SubmitForm extends React.Component {
                 }}>
                 Test All
                 <Checkbox
-                  color="inherit"
+                  color="textSecondary"
                   onChange={(e, res) => {
                     this.testAll = res;
                   }}

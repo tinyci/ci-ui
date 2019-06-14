@@ -26,7 +26,7 @@ class App extends React.Component {
   state = {loggedIn: null};
   client = new Client();
 
-  componentWillMount() {
+  componentDidMount() {
     this.client.loggedinGet((err, loggedIn) => {
       if (!handleError(err)) {
         this.setState({loggedIn: loggedIn});
@@ -35,9 +35,9 @@ class App extends React.Component {
   }
 
   render() {
-    if (this.state.loggedIn !== 'true') {
-      return <LoginGateway loginURL={this.state.loggedIn} />;
-    } else if (this.state.loggedIn !== null) {
+    if (!this.state.loggedIn) {
+      return <div />;
+    } else if (this.state.loggedIn === 'true') {
       return (
         <MuiThemeProvider theme={muiTheme}>
           <Router>
@@ -50,8 +50,8 @@ class App extends React.Component {
           </Router>
         </MuiThemeProvider>
       );
-    } else {
-      return <div />;
+    } else if (this.state.loggedIn !== 'true') {
+      return <LoginGateway loginURL={this.state.loggedIn} />;
     }
   }
 }
