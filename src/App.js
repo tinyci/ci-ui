@@ -6,6 +6,7 @@ import grey from '@material-ui/core/colors/grey';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 import {handleError} from './components/error-messages';
+import Loading from './components/loading';
 import LoginGateway from './components/login-gateway';
 import {TaskUI, RunUI} from './components/main-ui';
 
@@ -36,7 +37,7 @@ class App extends React.Component {
 
   render() {
     if (!this.state.loggedIn) {
-      return <div />;
+      return <Loading />;
     } else if (this.state.loggedIn === 'true') {
       return (
         <MuiThemeProvider theme={muiTheme}>

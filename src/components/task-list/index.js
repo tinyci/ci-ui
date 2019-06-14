@@ -3,6 +3,7 @@ import Client from '../../lib/client/client';
 import * as format from '../../lib/table-formatters';
 
 import {handleError} from '../error-messages';
+import Loading from '../loading';
 
 import {
   Grid,
@@ -125,13 +126,7 @@ class TaskList extends React.Component {
 
   render() {
     if (this.state.loading) {
-      return (
-        <div style={{height: '100%', marginTop: '25%'}}>
-          <center>
-            <img src="tiny-loading.gif" alt="" />
-          </center>
-        </div>
-      );
+      return <Loading />;
     }
 
     return (
