@@ -12,17 +12,26 @@ import green from '@material-ui/core/colors/green';
 import red from '@material-ui/core/colors/red';
 
 export const ref = ({value}) => {
-  var base_branch = value.ref_name.replace(/^refs\/heads\//, '');
+  var pretty_branch = value.ref_name.replace(/^(?:refs\/)?heads\//, '');
+  var branch_link =
+    'https://github.com/' + value.repository.name + '/tree/' + pretty_branch;
+  var sha_link =
+    'https://github.com/' + value.repository.name + '/tree/' + value.sha;
+
   return (
     <React.Fragment>
-      <Box component="div">
+      <Box component="span">
         <Tooltip title={value.ref_name}>
-          <Button>{base_branch}</Button>
+          <Button variant="outlined" color="primary" href={branch_link}>
+            {pretty_branch}
+          </Button>
         </Tooltip>
-      </Box>
-      <Box component="div">
+      </Box>{' '}
+      <Box component="span">
         <Tooltip title={value.sha}>
-          <Button>{value.sha.substring(0, 8)}</Button>
+          <Button variant="outlined" color="primary" href={sha_link}>
+            {value.sha.substring(0, 8)}
+          </Button>
         </Tooltip>
       </Box>
     </React.Fragment>

@@ -25,10 +25,6 @@ class TaskList extends React.Component {
         name: 'ref',
       },
       {
-        title: 'Task ID',
-        name: 'id',
-      },
-      {
         title: 'Section',
         name: 'path',
       },
@@ -83,6 +79,7 @@ class TaskList extends React.Component {
           var taskList = tasks.map(elem => ({
             id: elem.id,
             repository: elem.parent.name,
+            // small hack to get the repo in with the ref
             ref: elem.ref,
             path: elem.path === '.' ? '*root*' : elem.path,
             runs: elem.runs,
