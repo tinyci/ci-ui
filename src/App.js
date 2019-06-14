@@ -56,6 +56,11 @@ class App extends React.Component {
               //<Route exact path="/log/:id" component={RunLog} />
             }
             <Route path="/runs/:owner/:repository" exact component={RunUI} />
+            <Route
+              path="/tasks/:owner/:repository/:sha"
+              exact
+              component={TaskUI}
+            />
             <Route path="/tasks/:owner/:repository" exact component={TaskUI} />
             <Route path="/" exact component={TaskUI} />
           </Router>

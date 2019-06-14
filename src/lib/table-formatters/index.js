@@ -3,6 +3,7 @@ import strftime from 'strftime';
 
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 
@@ -11,29 +12,32 @@ import yellow from '@material-ui/core/colors/yellow';
 import green from '@material-ui/core/colors/green';
 import red from '@material-ui/core/colors/red';
 
+import FilterIcon from '@material-ui/icons/Filter';
+
 export const ref = ({value}) => {
   var pretty_branch = value.ref_name.replace(/^(?:refs\/)?heads\//, '');
   var branch_link =
     'https://github.com/' + value.repository.name + '/tree/' + pretty_branch;
   var sha_link =
     'https://github.com/' + value.repository.name + '/tree/' + value.sha;
-
+  var filter_link = '/tasks/' + value.repository.name + '/' + value.sha;
   return (
     <React.Fragment>
-      <Box component="span">
-        <Tooltip title={value.ref_name}>
-          <Button variant="outlined" color="primary" href={branch_link}>
-            {pretty_branch}
-          </Button>
-        </Tooltip>
-      </Box>{' '}
-      <Box component="span">
-        <Tooltip title={value.sha}>
-          <Button variant="outlined" color="primary" href={sha_link}>
-            {value.sha.substring(0, 8)}
-          </Button>
-        </Tooltip>
-      </Box>
+      <Tooltip title={value.ref_name}>
+        <Button variant="outlined" color="primary" href={branch_link}>
+          {pretty_branch}
+        </Button>
+      </Tooltip>{' '}
+      <Tooltip title={value.sha}>
+        <Button variant="outlined" color="primary" href={sha_link}>
+          {value.sha.substring(0, 8)}
+        </Button>
+      </Tooltip>
+      <Tooltip title="Filter for this SHA">
+        <IconButton href={filter_link}>
+          <FilterIcon />
+        </IconButton>
+      </Tooltip>
     </React.Fragment>
   );
 };
