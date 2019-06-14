@@ -77,7 +77,7 @@ const statusButtonStyle = {
 };
 
 export const status = ({value}) => {
-  if (value === null) {
+  if (value === undefined) {
     return <Typography>Unfinished</Typography>;
   }
   if (value) {
