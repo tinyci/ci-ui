@@ -13,6 +13,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import PublishIcon from '@material-ui/icons/Publish';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
@@ -99,6 +100,18 @@ class MainUI extends React.Component {
                 <PublishIcon />
                 Submit
               </Button>
+            </Grid>
+            <Grid xs={7} />
+            <Grid item xs={1}>
+              <Tooltip title="Home">
+                <a href={'/'}>
+                  <img
+                    alt="logo"
+                    style={{marginTop: '4px', height: '32px'}}
+                    src="logo-reverse-title.png"
+                  />
+                </a>
+              </Tooltip>
             </Grid>
           </Grid>
         </AppBar>
