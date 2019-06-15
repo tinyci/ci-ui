@@ -1,5 +1,8 @@
 import React from 'react';
 
+import Client from '../../lib/client/client';
+import {handleError} from '../error-messages';
+
 import AppBar from '@material-ui/core/AppBar';
 import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
@@ -12,8 +15,22 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import SendIcon from '@material-ui/icons/Send';
 
 class SubmitForm extends React.Component {
-  state = {submitting: false};
+  client = new Client();
+  state = {repository: '', sha: '', submitting: false};
   testAll = false;
+
+  submit() {
+    this.setState({submitting: true});
+    this.client.submitGet(
+      this.state.repository,
+      this.state.sha,
+      {all: this.testAll},
+      (err, _, resp) => {
+        handleError(err, resp);
+        this.setState({submitting: false});
+      },
+    );
+  }
 
   render() {
     return (
@@ -28,7 +45,7 @@ class SubmitForm extends React.Component {
             <Grid item xs={1}>
               <Typography
                 align="center"
-                color="text.secondary"
+                color="textSecondary"
                 style={{
                   marginLeft: '0.5em',
                   marginTop: '1em',
@@ -37,12 +54,21 @@ class SubmitForm extends React.Component {
               </Typography>
             </Grid>
             <Grid item xs={2}>
-              <TextField label="Repository" placeholder="owner/repo" />
+              <TextField
+                label="Repository"
+                placeholder="owner/repo"
+                onChange={chg => {
+                  this.setState({repository: chg});
+                }}
+              />
             </Grid>
             <Grid item xs={2}>
               <TextField
                 label="SHA or Branch"
                 placeholder="name or 40 char SHA"
+                onChange={chg => {
+                  this.setState({sha: chg});
+                }}
               />
             </Grid>
             <Grid item xs={1}>
@@ -53,7 +79,7 @@ class SubmitForm extends React.Component {
                 }}>
                 Test All
                 <Checkbox
-                  color="textSecondary"
+                  color="primary"
                   onChange={(e, res) => {
                     this.testAll = res;
                   }}
@@ -66,7 +92,8 @@ class SubmitForm extends React.Component {
                 style={{
                   marginLeft: '0.5em',
                   marginTop: '1em',
-                }}>
+                }}
+                onClick={this.submit.bind(this)}>
                 {this.state.submitting ? <MoreHorizIcon /> : <SendIcon />}
               </IconButton>
             </Grid>

@@ -98,8 +98,8 @@ class RunList extends React.Component {
         page: this.state.currentPage,
         perPage: this.state.perPage,
       },
-      (err, runs) => {
-        if (!handleError(err)) {
+      (err, runs, resp) => {
+        if (!handleError(err, resp)) {
           var runList = runs.map(elem => ({
             id: elem.id,
             repository: {
@@ -116,8 +116,8 @@ class RunList extends React.Component {
             },
           }));
 
-          this.client.tasksRunsIdCountGet(id, (err, count) => {
-            if (!handleError(err)) {
+          this.client.tasksRunsIdCountGet(id, (err, count, resp) => {
+            if (!handleError(err, resp)) {
               this.setState({totalCount: count, runs: runList, loading: false});
             }
           });

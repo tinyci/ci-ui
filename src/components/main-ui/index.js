@@ -53,8 +53,8 @@ class MainUI extends React.Component {
 
   handleRepositorySelect(listDrawerOpen) {
     if (listDrawerOpen) {
-      this.client.repositoriesSubscribedGet({}, (err, subscribed) => {
-        if (!handleError(err)) {
+      this.client.repositoriesSubscribedGet({}, (err, subscribed, resp) => {
+        if (!handleError(err, resp)) {
           subscribed = [{all: true, name: 'All Repositories'}].concat(
             subscribed,
           );
@@ -71,8 +71,8 @@ class MainUI extends React.Component {
   }
 
   componentDidMount() {
-    this.client.userPropertiesGet((err, elem) => {
-      if (!handleError(err)) {
+    this.client.userPropertiesGet((err, elem, resp) => {
+      if (!handleError(err, resp)) {
         this.setState({userProperties: elem});
       }
     });

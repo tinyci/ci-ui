@@ -99,8 +99,8 @@ class TaskList extends React.Component {
         page: this.state.currentPage,
         perPage: this.state.perPage,
       },
-      (err, tasks) => {
-        if (!handleError(err)) {
+      (err, tasks, resp) => {
+        if (!handleError(err, resp)) {
           var taskList = tasks.map(elem => ({
             id: elem.id,
             repository: {
@@ -123,8 +123,8 @@ class TaskList extends React.Component {
 
           this.client.tasksCountGet(
             {repository: repository, sha: sha},
-            (err, count) => {
-              if (!handleError(err)) {
+            (err, count, resp) => {
+              if (!handleError(err, resp)) {
                 this.setState({
                   tasks: taskList,
                   loading: false,
