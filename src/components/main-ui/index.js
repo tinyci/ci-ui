@@ -15,6 +15,7 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
 
 import PublishIcon from '@material-ui/icons/Publish';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
@@ -28,6 +29,10 @@ class MainUI extends React.Component {
     submitDrawerOpen: false,
     listDrawerOpen: false,
     rerender: 0,
+    userProperties: {
+      username: '',
+      capabilities: [],
+    },
   };
   client = new Client();
 
@@ -66,6 +71,12 @@ class MainUI extends React.Component {
   }
 
   componentDidMount() {
+    this.client.userPropertiesGet((err, elem) => {
+      if (!handleError(err)) {
+        this.setState({userProperties: elem});
+      }
+    });
+
     window.addEventListener('resize', () => {
       this.setState({rerender: this.state.rerender + 1});
     });
@@ -108,23 +119,48 @@ class MainUI extends React.Component {
                 </Button>
               </div>
             </Grid>
+            {this.state.userProperties.capabilities &&
+            this.state.userProperties.capabilities.includes('submit') ? (
+              <Grid item xs={1}>
+                <div style={{height: '100%'}}>
+                  <Button
+                    size="large"
+                    style={{height: 'inherit'}}
+                    onClick={this.handleSubmitSelect.bind(this)}>
+                    <PublishIcon />
+                    Submit
+                  </Button>
+                </div>
+              </Grid>
+            ) : (
+              <Grid item xs={1} />
+            )}
+            <Grid item xs={6} />
             <Grid item xs={1}>
-              <Button size="large" onClick={this.handleSubmitSelect.bind(this)}>
-                <PublishIcon />
-                Submit
-              </Button>
+              <Box
+                style={{
+                  height: '100%',
+                  padding: '1em',
+                  textAlign: 'center',
+                }}>
+                <Typography>{this.state.userProperties.username}</Typography>
+              </Box>
             </Grid>
-            <Grid item xs={7} />
             <Grid item xs={1}>
-              <Tooltip title="Home">
-                <a href={'/'}>
-                  <img
-                    alt="logo"
-                    style={{marginTop: '4px', height: '32px'}}
-                    src="/logo-reverse-title.png"
-                  />
-                </a>
-              </Tooltip>
+              <div style={{height: '100%'}}>
+                <Tooltip title="Home">
+                  <a href={'/'}>
+                    <img
+                      alt="logo"
+                      style={{
+                        height: '32px',
+                        marginTop: '8px',
+                      }}
+                      src="/logo-reverse-title.png"
+                    />
+                  </a>
+                </Tooltip>
+              </div>
             </Grid>
           </Grid>
         </AppBar>
