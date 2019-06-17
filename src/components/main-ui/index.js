@@ -2,6 +2,7 @@ import React from 'react';
 
 import Client from '../../lib/client/client';
 
+import AddToCI from '../add-to-ci';
 import {ErrorMessages, handleError} from '../error-messages';
 import RunList from '../run-list';
 import TaskList from '../task-list';
@@ -17,6 +18,7 @@ import Grid from '@material-ui/core/Grid';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 
+import AddIcon from '@material-ui/icons/Add';
 import PublishIcon from '@material-ui/icons/Publish';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
@@ -28,6 +30,7 @@ class MainUI extends React.Component {
     subscribed: [],
     submitDrawerOpen: false,
     listDrawerOpen: false,
+    addDrawerOpen: false,
     rerender: 0,
     userProperties: {
       username: '',
@@ -41,6 +44,14 @@ class MainUI extends React.Component {
       listDrawerOpen: false,
       submitDrawerOpen: !this.state.submitDrawerOpen,
     });
+  }
+
+  handleAddSelect() {
+    this.setState({addDrawerOpen: true});
+  }
+
+  addClickAwayHandler() {
+    this.setState({addDrawerOpen: false});
   }
 
   submitClickAwayHandler() {
@@ -68,6 +79,13 @@ class MainUI extends React.Component {
     } else {
       this.setState({listDrawerOpen: listDrawerOpen});
     }
+  }
+
+  hasCapability(cap) {
+    return (
+      this.state.userProperties.capabilities &&
+      this.state.userProperties.capabilities.includes(cap)
+    );
   }
 
   componentDidMount() {
@@ -103,64 +121,63 @@ class MainUI extends React.Component {
     return (
       <Box style={{minWidth: thisMinWidth}}>
         <CssBaseline />
-        <AppBar position="static" color="primary">
+        <AppBar
+          position="static"
+          style={{paddingBottom: '1em', paddingTop: '1em'}}
+          color="primary">
           <Grid container spacing={0}>
-            <Grid item xs={3}>
-              <div style={{height: '100%'}}>
-                <Button
-                  style={{height: 'inherit'}}
-                  size="large"
-                  onClick={this.handleRepositorySelect.bind(
-                    this,
-                    !this.state.listDrawerOpen,
-                  )}>
-                  <KeyboardArrowDownIcon />
-                  {repoName}
-                </Button>
-              </div>
+            <Grid item xs={2}>
+              <Button
+                onClick={this.handleRepositorySelect.bind(
+                  this,
+                  !this.state.listDrawerOpen,
+                )}>
+                <KeyboardArrowDownIcon />
+                <Typography>{repoName}</Typography>
+              </Button>
             </Grid>
-            {this.state.userProperties.capabilities &&
-            this.state.userProperties.capabilities.includes('submit') ? (
+            {this.hasCapability('submit') ? (
               <Grid item xs={1}>
-                <div style={{height: '100%'}}>
-                  <Button
-                    size="large"
-                    style={{height: 'inherit'}}
-                    onClick={this.handleSubmitSelect.bind(this)}>
-                    <PublishIcon />
-                    Submit
-                  </Button>
-                </div>
+                <Button onClick={this.handleSubmitSelect.bind(this)}>
+                  <PublishIcon />
+                  <Typography>Submit</Typography>
+                </Button>
               </Grid>
             ) : (
               <Grid item xs={1} />
             )}
+            <Grid item xs={1}>
+              {this.hasCapability('modify:ci') ? (
+                <React.Fragment>
+                  <Button onClick={this.handleAddSelect.bind(this)}>
+                    <AddIcon>add</AddIcon>
+                    <Typography>Add to CI</Typography>
+                  </Button>
+                </React.Fragment>
+              ) : (
+                ''
+              )}
+            </Grid>
             <Grid item xs={6} />
             <Grid item xs={1}>
-              <Box
-                style={{
-                  height: '100%',
-                  padding: '1em',
-                  textAlign: 'center',
-                }}>
-                <Typography>{this.state.userProperties.username}</Typography>
+              <Box style={{height: '100%'}}>
+                <Typography variant="h5">
+                  {this.state.userProperties.username}
+                </Typography>
               </Box>
             </Grid>
             <Grid item xs={1}>
-              <div style={{height: '100%'}}>
-                <Tooltip title="Home">
-                  <a href={'/'}>
-                    <img
-                      alt="logo"
-                      style={{
-                        height: '32px',
-                        marginTop: '8px',
-                      }}
-                      src="/logo-reverse-title.png"
-                    />
-                  </a>
-                </Tooltip>
-              </div>
+              <Tooltip title="Home">
+                <a href={'/'}>
+                  <img
+                    alt="logo"
+                    style={{
+                      height: '32px',
+                    }}
+                    src="/logo-reverse-title.png"
+                  />
+                </a>
+              </Tooltip>
             </Grid>
           </Grid>
         </AppBar>
@@ -178,6 +195,14 @@ class MainUI extends React.Component {
           <ClickAwayListener
             onClickAway={this.drawerClickAwayHandler.bind(this)}>
             <SubscribedList subscribed={this.state.subscribed} />
+          </ClickAwayListener>
+        ) : (
+          ''
+        )}
+
+        {this.state.addDrawerOpen ? (
+          <ClickAwayListener onClickAway={this.addClickAwayHandler.bind(this)}>
+            <AddToCI />
           </ClickAwayListener>
         ) : (
           ''

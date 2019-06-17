@@ -58,7 +58,7 @@ class SubmitForm extends React.Component {
                 label="Repository"
                 placeholder="owner/repo"
                 onChange={chg => {
-                  this.setState({repository: chg});
+                  this.setState({repository: chg.target.value});
                 }}
               />
             </Grid>
@@ -67,7 +67,7 @@ class SubmitForm extends React.Component {
                 label="SHA or Branch"
                 placeholder="name or 40 char SHA"
                 onChange={chg => {
-                  this.setState({sha: chg});
+                  this.setState({sha: chg.target.value});
                 }}
               />
             </Grid>
