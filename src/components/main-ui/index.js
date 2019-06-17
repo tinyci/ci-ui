@@ -43,11 +43,16 @@ class MainUI extends React.Component {
     this.setState({
       listDrawerOpen: false,
       submitDrawerOpen: !this.state.submitDrawerOpen,
+      addDrawerOpen: false,
     });
   }
 
   handleAddSelect() {
-    this.setState({addDrawerOpen: true});
+    this.setState({
+      addDrawerOpen: true,
+      submitDrawerOpen: false,
+      listDrawerOpen: false,
+    });
   }
 
   addClickAwayHandler() {
@@ -73,6 +78,7 @@ class MainUI extends React.Component {
             subscribed: subscribed,
             listDrawerOpen: listDrawerOpen,
             submitDrawerOpen: false,
+            addDrawerOpen: false,
           });
         }
       });
