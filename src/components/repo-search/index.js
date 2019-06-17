@@ -72,19 +72,22 @@ class RepoSearch extends React.Component {
           />
           {this.state.searching ? <MoreHorizIcon /> : <SearchIcon />}
         </ListItem>
+        <ListItem key="tinyci-scanhelpitem">{this.props.children}</ListItem>
         {this.state.matchedRepositories.map(elem => (
           <ListItem key={elem.name}>
             {this.state.changing ? (
-              <IconButton>
+              <IconButton color="secondary">
                 <MoreHorizIcon />
               </IconButton>
             ) : elem.disabled ? (
               <IconButton
+                color="secondary"
                 onClick={this.performAction.bind(this, this.props.onAdd, elem)}>
                 <AddIcon />
               </IconButton>
             ) : (
               <IconButton
+                color="secondary"
                 onClick={this.performAction.bind(
                   this,
                   this.props.onRemove,
@@ -93,20 +96,9 @@ class RepoSearch extends React.Component {
                 <RemoveIcon />
               </IconButton>
             )}
-            <Typography>{elem.name}</Typography>
+            <Typography color="textPrimary">{elem.name}</Typography>
           </ListItem>
         ))}
-        {this.state.matchedRepositories.length === 0 ? (
-          <ListItem key="tinyci-scanhelpitem">
-            <Typography>
-              Scan for items from remote resources by clicking the cloud icon
-              above, then search and add the repositories you wish to use in
-              tinyCI.
-            </Typography>
-          </ListItem>
-        ) : (
-          ''
-        )}
       </React.Fragment>
     );
   }

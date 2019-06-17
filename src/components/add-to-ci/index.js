@@ -55,7 +55,7 @@ class AddToCI extends React.Component {
       <React.Fragment>
         <List
           style={{
-            backgroundColor: blueGrey.A400,
+            backgroundColor: blueGrey[500],
             zIndex: 2,
             position: 'absolute',
             minWidth: '35%',
@@ -90,13 +90,29 @@ class AddToCI extends React.Component {
             }}
             onRemove={(elem, promise) => {
               this.removeFromCI(elem.name, promise);
-            }}
-          />
+            }}>
+            <Box container="span">
+              <Typography>
+                Scan for items from remote resources by clicking the cloud icon
+                above, then search and add the repositories you wish to use in
+                tinyCI.
+              </Typography>
+              <hr color="black" />
+              <Typography>
+                Please note you will also need an "upgraded" set of OAuth scopes
+                to process/admin CI jobs which will be granted if you click the
+                "people" icon above. You will be redirected to your OAuth
+                source.
+              </Typography>
+            </Box>
+          </RepoSearch>
         </List>
         <Snackbar
           anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
           open={this.state.scanning}
-          message="Scanning repositories from the remote resource. This can take some time, please be patient."
+          message="Scanning repositories from the remote resource. This can take some
+          time, please be patient. Note you will need to have an upgraded token
+          (people icon above)"
         />
       </React.Fragment>
     );
