@@ -86,6 +86,8 @@ class AddToCI extends React.Component {
             </Box>
           </ListItem>
           <RepoSearch
+            filter={elem => true}
+            enabled={elem => !elem.disabled}
             onAdd={(elem, promise) => {
               this.addToCI(elem.name, promise);
             }}

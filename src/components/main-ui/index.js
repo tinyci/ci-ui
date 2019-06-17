@@ -194,7 +194,7 @@ class MainUI extends React.Component {
         {this.state.listDrawerOpen ? (
           <ClickAwayListener
             onClickAway={this.drawerClickAwayHandler.bind(this)}>
-            <SubscribedList subscribed={this.state.subscribed} />
+            <SubscribedList mainui={this} />
           </ClickAwayListener>
         ) : (
           ''

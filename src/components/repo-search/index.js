@@ -7,6 +7,7 @@ import {handleError} from '../error-messages';
 import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import TextField from '@material-ui/core/TextField';
+import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 
 import AddIcon from '@material-ui/icons/Add';
@@ -41,7 +42,9 @@ class RepoSearch extends React.Component {
       (err, res, resp) => {
         if (!handleError(err, resp)) {
           this.setState({
-            matchedRepositories: res.slice(0, 10),
+            matchedRepositories: res
+              .filter(this.props.filter ? this.props.filter : obj => true)
+              .slice(0, 10),
             searching: false,
             changing: false,
           });
@@ -79,22 +82,30 @@ class RepoSearch extends React.Component {
               <IconButton color="secondary">
                 <MoreHorizIcon />
               </IconButton>
-            ) : elem.disabled ? (
-              <IconButton
-                color="secondary"
-                onClick={this.performAction.bind(this, this.props.onAdd, elem)}>
-                <AddIcon />
-              </IconButton>
+            ) : this.props.enabled(elem) ? (
+              <Tooltip title="Remove this item">
+                <IconButton
+                  color="secondary"
+                  onClick={this.performAction.bind(
+                    this,
+                    this.props.onRemove,
+                    elem,
+                  )}>
+                  <RemoveIcon />
+                </IconButton>
+              </Tooltip>
             ) : (
-              <IconButton
-                color="secondary"
-                onClick={this.performAction.bind(
-                  this,
-                  this.props.onRemove,
-                  elem,
-                )}>
-                <RemoveIcon />
-              </IconButton>
+              <Tooltip title="Add this item">
+                <IconButton
+                  color="secondary"
+                  onClick={this.performAction.bind(
+                    this,
+                    this.props.onAdd,
+                    elem,
+                  )}>
+                  <AddIcon />
+                </IconButton>
+              </Tooltip>
             )}
             <Typography color="textPrimary">{elem.name}</Typography>
           </ListItem>
