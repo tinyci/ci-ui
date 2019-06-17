@@ -60,6 +60,7 @@ class AddToCI extends React.Component {
             position: 'absolute',
             minWidth: '35%',
             maxWidth: '50%',
+            boxShadow: '0 10px 10px rgba(0, 0, 0, 0.5)',
           }}>
           <ListItem key="tinyci-scanupgradeitem">
             <Box>
