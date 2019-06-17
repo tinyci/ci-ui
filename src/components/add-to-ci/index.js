@@ -50,6 +50,13 @@ class AddToCI extends React.Component {
     });
   }
 
+  repositoryList(search, promise) {
+    this.client.repositoriesMyGet({search: search}, (err, res, resp) => {
+      handleError(err, resp);
+      promise(res);
+    });
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -86,7 +93,9 @@ class AddToCI extends React.Component {
             </Box>
           </ListItem>
           <RepoSearch
-            filter={elem => true}
+            list={(search, promise) => {
+              this.repositoryList(search, promise);
+            }}
             enabled={elem => !elem.disabled}
             onAdd={(elem, promise) => {
               this.addToCI(elem.name, promise);

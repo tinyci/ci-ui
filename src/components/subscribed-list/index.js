@@ -16,6 +16,13 @@ import blueGrey from '@material-ui/core/colors/blueGrey';
 class SubscribedList extends React.Component {
   client = new Client();
 
+  repositoryList(search, promise) {
+    this.client.repositoriesVisibleGet({search: search}, (err, res, resp) => {
+      handleError(err, resp);
+      promise(res);
+    });
+  }
+
   filter(obj) {
     return !obj.disabled;
   }
@@ -85,6 +92,9 @@ class SubscribedList extends React.Component {
           ))}
         </List>
         <RepoSearch
+          list={(search, promise) => {
+            this.repositoryList(search, promise);
+          }}
           filter={elem => this.filter(elem)}
           enabled={elem => this.enabled(elem)}
           onAdd={(elem, promise) => {

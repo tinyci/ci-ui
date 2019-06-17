@@ -2,8 +2,6 @@ import React from 'react';
 
 import Client from '../../lib/client/client';
 
-import {handleError} from '../error-messages';
-
 import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import TextField from '@material-ui/core/TextField';
@@ -37,20 +35,18 @@ class RepoSearch extends React.Component {
   }
 
   doSearch() {
-    this.client.repositoriesMyGet(
-      {search: this.state.search},
-      (err, res, resp) => {
-        if (!handleError(err, resp)) {
-          this.setState({
-            matchedRepositories: res
-              .filter(this.props.filter ? this.props.filter : obj => true)
-              .slice(0, 10),
-            searching: false,
-            changing: false,
-          });
-        }
-      },
-    );
+    this.props.list(this.state.search, res => {
+      if (res) {
+        res = res
+          .filter(this.props.filter ? this.props.filter : obj => true)
+          .slice(0, 10);
+      }
+      this.setState({
+        matchedRepositories: res || [],
+        searching: false,
+        changing: false,
+      });
+    });
   }
 
   performAction(action, elem) {
