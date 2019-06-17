@@ -25,16 +25,14 @@ class RepoSearch extends React.Component {
   client = new Client();
   searchTimer = null;
 
-  handleSearch(chg, immediate) {
+  handleSearch(chg) {
     this.setState({searching: true, search: chg});
     if (this.searchTimer) {
       window.clearTimeout(this.searchTimer);
       this.searchTimer = null;
     }
 
-    if (!immediate) {
-      this.searchTimer = window.setTimeout(this.doSearch.bind(this), 500);
-    }
+    this.searchTimer = window.setTimeout(this.doSearch.bind(this), 500);
   }
 
   doSearch() {
