@@ -17,6 +17,6 @@ exec-shell:
 
 dist:
 	rm -rf $(BUILDDIR) $(DISTFILE) $(DISTDIR)
-	$(DOCKER_CMD_PREFIX) node:$(DIST_NODE_VERSION) yarn build
+	$(DOCKER_CMD_PREFIX) node:$(DIST_NODE_VERSION) bash -c "yarn install && yarn build"
 	mv $(BUILDDIR) $(DISTDIR)
 	tar -cvz -f $(DISTFILE) $(DISTDIR)
