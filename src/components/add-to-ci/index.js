@@ -109,7 +109,7 @@ class AddToCI extends React.Component {
                 above, then search and add the repositories you wish to use in
                 tinyCI.
               </Typography>
-              <hr color="black" />
+              <br />
               <Typography>
                 Please note you will also need an "upgraded" set of OAuth scopes
                 to process/admin CI jobs which will be granted if you click the
@@ -124,7 +124,7 @@ class AddToCI extends React.Component {
           open={this.state.scanning}
           message="Scanning repositories from the remote resource. This can take some
           time, please be patient. Note you will need to have an upgraded token
-          (people icon above)"
+          (the people icon above) to add things to CI."
         />
       </React.Fragment>
     );

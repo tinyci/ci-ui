@@ -8,6 +8,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {handleError} from './components/error-messages';
 import Loading from './components/loading';
 import LoginGateway from './components/login-gateway';
+import LogUI from './components/log-ui';
 import {TaskUI, RunUI} from './components/main-ui';
 
 import './App.css';
@@ -52,9 +53,7 @@ class App extends React.Component {
       return (
         <MuiThemeProvider theme={muiTheme}>
           <Router>
-            {
-              //<Route exact path="/log/:id" component={RunLog} />
-            }
+            <Route exact path="/log/:id" component={LogUI} />
             <Route path="/runs/:task_id" exact component={RunUI} />
             <Route
               path="/tasks/:owner/:repository/:sha"

@@ -45,7 +45,7 @@ const tableColumns = [
   },
   {
     title: 'Log',
-    name: 'id',
+    name: 'log',
   },
 ];
 
@@ -72,7 +72,7 @@ const globalColumnExtensions = [
     width: 0.15,
   },
   {
-    columnName: 'id',
+    columnName: 'log',
     width: 0.05,
   },
 ];
@@ -101,7 +101,6 @@ class RunList extends React.Component {
       (err, runs, resp) => {
         if (!handleError(err, resp)) {
           var runList = runs.map(elem => ({
-            id: elem.id,
             repository: {
               name: elem.task.ref.repository.name,
               parentName: elem.task.parent.name,
@@ -113,6 +112,10 @@ class RunList extends React.Component {
               created_at: elem.created_at,
               started_at: elem.started_at,
               finished_at: elem.finished_at,
+            },
+            log: {
+              run_id: elem.id,
+              started: !!elem.started_at,
             },
           }));
 
@@ -164,7 +167,7 @@ class RunList extends React.Component {
           />
           <DataTypeProvider formatterComponent={format.ref} for={['ref']} />
           <DataTypeProvider formatterComponent={format.text} for={['path']} />
-          <DataTypeProvider formatterComponent={format.text} for={['id']} />
+          <DataTypeProvider formatterComponent={format.log} for={['log']} />
           <DataTypeProvider
             formatterComponent={format.status}
             for={['status']}

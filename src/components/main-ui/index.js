@@ -178,6 +178,8 @@ class MainUI extends React.Component {
                   <img
                     alt="logo"
                     style={{
+                      marginRight: '10px',
+                      float: 'right',
                       height: '32px',
                     }}
                     src="/logo-reverse-title.png"

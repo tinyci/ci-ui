@@ -41,10 +41,15 @@ export const repository = ({value}) => {
 
 export const ref = ({value}) => {
   var pretty_branch = value.ref_name.replace(/^(?:refs\/)?heads\//, '');
-  var branch_link =
-    'https://github.com/' + value.repository.name + '/tree/' + pretty_branch;
-  var sha_link =
-    'https://github.com/' + value.repository.name + '/tree/' + value.sha;
+
+  var branch_link = new URL(
+    'https://github.com/' + value.repository.name + '/tree/' + pretty_branch,
+  ).toString();
+
+  var sha_link = new URL(
+    'https://github.com/' + value.repository.name + '/tree/' + value.sha,
+  ).toString();
+
   var filter_link = '/tasks/' + value.repository.name + '/' + value.sha;
   return (
     <React.Fragment>
@@ -109,7 +114,18 @@ export const status = ({value}) => {
 
 export const history = ({value}) => {
   if (value.finished_at) {
-    return <Typography>Finished: {dateFormat(value.finished_at)}</Typography>;
+    return (
+      <React.Fragment>
+        <Box>
+          <Typography>
+            <b>Finished:</b>
+          </Typography>
+        </Box>
+        <Box>
+          <Typography>{dateFormat(value.finished_at)}</Typography>
+        </Box>
+      </React.Fragment>
+    );
   } else if (value.started_at) {
     return (
       <Typography style={{color: yellow[800]}}>
@@ -122,5 +138,15 @@ export const history = ({value}) => {
     <Typography style={{color: blue[800]}}>
       Created: {dateFormat(value.created_at)}
     </Typography>
+  );
+};
+
+export const log = ({value}) => {
+  return value.started ? (
+    <Button variant="contained" href={'/log/' + value.run_id}>
+      {value.run_id}
+    </Button>
+  ) : (
+    ''
   );
 };

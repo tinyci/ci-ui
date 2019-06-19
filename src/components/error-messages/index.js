@@ -5,6 +5,17 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Snackbar from '@material-ui/core/Snackbar';
 
+export const handlePlainError = payload => {
+  if (ErrorMessages.__singleton) {
+    var errors = ErrorMessages.__singleton.state.errors;
+    if (!errors.find(elem => elem.message === payload)) {
+      errors.push({message: payload});
+    }
+
+    ErrorMessages.__singleton.setState({errors: errors});
+  }
+};
+
 export const handleError = (err, resp) => {
   if (err) {
     if (ErrorMessages.__singleton) {
