@@ -14,6 +14,20 @@ import grey from '@material-ui/core/colors/grey';
 import green from '@material-ui/core/colors/green';
 import red from '@material-ui/core/colors/red';
 
+const StatusLabel = props => {
+  return (
+    <Button
+      disabled
+      variant="outlined"
+      style={{
+        border: '1px solid ' + props.borderColor,
+        color: props.color,
+      }}>
+      {props.text}
+    </Button>
+  );
+};
+
 class RunGrid extends React.Component {
   state = {run: null};
   client = new Client();
@@ -22,7 +36,6 @@ class RunGrid extends React.Component {
   refreshRun() {
     this.client.runRunIdGet(this.props.run_id, (err, run, resp) => {
       if (!handleError(err, resp)) {
-        console.log(run);
         this.setState({run: run});
       }
     });
@@ -31,43 +44,27 @@ class RunGrid extends React.Component {
   formatStatus(status) {
     if (status === undefined || status === null) {
       return (
-        <Button
-          disabled
-          variant="outlined"
-          style={{
-            border: '1px solid ' + grey[800],
-            color: grey[900],
-          }}>
-          Unfinished
-        </Button>
+        <StatusLabel
+          borderColor={grey[800]}
+          color={grey[900]}
+          text="Unfinished"
+        />
       );
     }
 
     if (status) {
       return (
-        <Button
-          disabled
-          variant="outlined"
-          style={{
-            border: '1px solid ' + green[800],
-            color: green[900],
-          }}>
-          Success
-        </Button>
-      );
-    } else {
-      return (
-        <Button
-          disabled
-          variant="outlined"
-          style={{
-            border: '1px solid ' + red[800],
-            color: red[900],
-          }}>
-          Failure
-        </Button>
+        <StatusLabel
+          borderColor={green[800]}
+          color={green[900]}
+          text="Success"
+        />
       );
     }
+
+    return (
+      <StatusLabel borderColor={red[800]} color={red[900]} text="Failure" />
+    );
   }
 
   componentDidMount() {
@@ -89,6 +86,10 @@ class RunGrid extends React.Component {
         '/pull/' +
         this.state.run.task.pull_request_id;
       refText = this.state.run.task.pull_request_id;
+    }
+
+    if (this.state.run && !this.state.run.started_at) {
+      handleError({message: 'Run has not started'}, {});
     }
 
     return (

@@ -2,7 +2,6 @@ import queryString from 'query-string';
 
 export const loadPaginationState = stateObj => {
   var params = new queryString.parse(window.location.search);
-  console.log(params);
   // all this business is about making the url line up with the pagination buttons.
   var page = (Number(params.page) || stateObj.state.currentPage || 1) - 1;
   var perPage = Number(params.perPage) || stateObj.state.perPage || 20;

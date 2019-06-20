@@ -112,32 +112,38 @@ export const status = ({value}) => {
   }
 };
 
+const HistoryDetail = props => {
+  return (
+    <React.Fragment>
+      <Box style={{color: props.color}}>
+        <Typography>
+          <b>{props.detail}:</b>
+        </Typography>
+      </Box>
+      <Box>
+        <Typography>{dateFormat(props.date)}</Typography>
+      </Box>
+    </React.Fragment>
+  );
+};
+
 export const history = ({value}) => {
   if (value.finished_at) {
     return (
-      <React.Fragment>
-        <Box>
-          <Typography>
-            <b>Finished:</b>
-          </Typography>
-        </Box>
-        <Box>
-          <Typography>{dateFormat(value.finished_at)}</Typography>
-        </Box>
-      </React.Fragment>
+      <HistoryDetail color="black" detail="Finished" date={value.finished_at} />
     );
   } else if (value.started_at) {
     return (
-      <Typography style={{color: yellow[800]}}>
-        Started: {dateFormat(value.started_at)}
-      </Typography>
+      <HistoryDetail
+        color={yellow[800]}
+        detail="Started"
+        date={value.started_at}
+      />
     );
   }
 
   return (
-    <Typography style={{color: blue[800]}}>
-      Created: {dateFormat(value.created_at)}
-    </Typography>
+    <HistoryDetail color={blue[800]} detail="Created" date={value.created_at} />
   );
 };
 
