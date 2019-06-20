@@ -98,8 +98,40 @@ class RunGrid extends React.Component {
           <React.Fragment>
             <Grid item xs={1}>
               <Box style={{height: '100%', paddingLeft: '1em', margin: 'auto'}}>
-                <Typography>Run ID: {this.props.run_id}</Typography>
+                <Typography>
+                  Run ID: <b>{this.props.run_id}</b>
+                </Typography>
+                {refURL && refText ? (
+                  <Box style={{height: '100%', margin: 'auto'}}>
+                    <Button href={refURL} variant="contained">
+                      PR #{refText}
+                    </Button>
+                  </Box>
+                ) : (
+                  ''
+                )}
               </Box>
+            </Grid>
+            <Grid item xs={2}>
+              <Box style={{height: '100%', paddingLeft: '1em', margin: 'auto'}}>
+                <Typography>
+                  <b>{this.state.run.task.ref.repository.name}</b>
+                </Typography>
+                {this.state.run.task.parent &&
+                this.state.run.task.parent.name !==
+                  this.state.run.task.ref.repository.name ? (
+                  <Typography>
+                    (fork of {this.state.run.task.parent.name})
+                  </Typography>
+                ) : (
+                  ''
+                )}
+              </Box>
+            </Grid>
+            <Grid item xs={2}>
+              <Typography>
+                Test: <b>{this.state.run.name}</b>
+              </Typography>
             </Grid>
             <Grid item xs={1}>
               {this.formatStatus(this.state.run.status)}
@@ -114,16 +146,7 @@ class RunGrid extends React.Component {
                 {format.ref({value: this.state.run.task.ref})}
               </Box>
             </Grid>
-            <Grid item xs={1}>
-              {refURL && refText ? (
-                <Box style={{height: '100%', margin: 'auto'}}>
-                  <Button href={refURL}>{refText}</Button>
-                </Box>
-              ) : (
-                ''
-              )}
-            </Grid>
-            <Grid item xs={this.props.size - 6} />
+            <Grid item xs={this.props.size - 9} />
           </React.Fragment>
         ) : (
           <Grid item xs={this.props.size} />
