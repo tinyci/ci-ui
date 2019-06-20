@@ -16,15 +16,18 @@ import red from '@material-ui/core/colors/red';
 
 const StatusLabel = props => {
   return (
-    <Button
-      disabled
-      variant="outlined"
-      style={{
-        border: '1px solid ' + props.borderColor,
-        color: props.color,
-      }}>
-      {props.text}
-    </Button>
+    <Box style={{height: '100%', marginTop: '0.5em'}}>
+      <Button
+        disabled
+        size="small"
+        variant="outlined"
+        style={{
+          border: '1px solid ' + props.borderColor,
+          color: props.color,
+        }}>
+        {props.text}
+      </Button>
+    </Box>
   );
 };
 
@@ -98,12 +101,12 @@ class RunGrid extends React.Component {
           <React.Fragment>
             <Grid item xs={1}>
               <Box style={{height: '100%', paddingLeft: '1em', margin: 'auto'}}>
-                <Typography>
+                <Typography variant="subtitle2">
                   Run ID: <b>{this.props.run_id}</b>
                 </Typography>
                 {refURL && refText ? (
                   <Box style={{height: '100%', margin: 'auto'}}>
-                    <Button href={refURL} variant="contained">
+                    <Button size="small" href={refURL} variant="contained">
                       PR #{refText}
                     </Button>
                   </Box>
@@ -112,9 +115,12 @@ class RunGrid extends React.Component {
                 )}
               </Box>
             </Grid>
+            <Grid item xs={1}>
+              {this.formatStatus(this.state.run.status)}
+            </Grid>
             <Grid item xs={2}>
               <Box style={{height: '100%', paddingLeft: '1em', margin: 'auto'}}>
-                <Typography>
+                <Typography variant="subtitle2">
                   <b>{this.state.run.task.ref.repository.name}</b>
                 </Typography>
                 {this.state.run.task.parent &&
@@ -129,21 +135,18 @@ class RunGrid extends React.Component {
               </Box>
             </Grid>
             <Grid item xs={2}>
-              <Typography>
+              <Typography variant="subtitle2">
                 Test: <b>{this.state.run.name}</b>
               </Typography>
             </Grid>
-            <Grid item xs={1}>
-              {this.formatStatus(this.state.run.status)}
-            </Grid>
-            <Grid item xs={1}>
-              <Box style={{height: '100%', margin: 'auto'}}>
-                {format.history({value: this.state.run})}
+            <Grid item xs={2}>
+              <Box style={{height: '100%', marginTop: '0.5em'}}>
+                {format.ref({value: this.state.run.task.ref})}
               </Box>
             </Grid>
-            <Grid item xs={2}>
-              <Box style={{height: '100%', margin: 'auto'}}>
-                {format.ref({value: this.state.run.task.ref})}
+            <Grid item xs={1}>
+              <Box style={{height: '100%', marginTop: '0.5em'}}>
+                {format.history({value: this.state.run})}
               </Box>
             </Grid>
             <Grid item xs={this.props.size - 9} />

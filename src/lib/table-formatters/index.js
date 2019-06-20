@@ -54,17 +54,21 @@ export const ref = ({value}) => {
   return (
     <React.Fragment>
       <Tooltip title="Filter for this SHA">
-        <IconButton href={filter_link}>
+        <IconButton size="small" href={filter_link}>
           <FilterIcon />
         </IconButton>
       </Tooltip>
       <Tooltip title={value.ref_name}>
-        <Button variant="outlined" color="primary" href={branch_link}>
+        <Button
+          size="small"
+          variant="outlined"
+          color="primary"
+          href={branch_link}>
           {pretty_branch}
         </Button>
       </Tooltip>{' '}
       <Tooltip title={value.sha}>
-        <Button variant="outlined" color="primary" href={sha_link}>
+        <Button size="small" variant="outlined" color="primary" href={sha_link}>
           {value.sha.substring(0, 8)}
         </Button>
       </Tooltip>
@@ -116,12 +120,12 @@ const HistoryDetail = props => {
   return (
     <React.Fragment>
       <Box style={{color: props.color}}>
-        <Typography>
+        <Typography variant="subtitle2">
           <b>{props.detail}:</b>
         </Typography>
       </Box>
       <Box>
-        <Typography>{dateFormat(props.date)}</Typography>
+        <Typography variant="subtitle2">{dateFormat(props.date)}</Typography>
       </Box>
     </React.Fragment>
   );
