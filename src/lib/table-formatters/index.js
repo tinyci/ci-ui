@@ -74,7 +74,8 @@ export const ref = ({value}) => {
           href={branch_link}>
           {pretty_branch}
         </Button>
-      </Tooltip>{' '}
+      </Tooltip>
+      &nbsp;&nbsp;
       <Tooltip title={value.sha}>
         <Button size="small" variant="outlined" color="primary" href={sha_link}>
           {value.sha.substring(0, 8)}
