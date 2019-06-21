@@ -7,7 +7,7 @@ DIST_NODE_VERSION := 11
 BUILDDIR := build
 
 start:
-	$(DOCKER_RUN) yarn start
+	$(DOCKER_RUN) bash -c "yarn install && yarn start"
 
 shell:
 	$(DOCKER_RUN) bash
