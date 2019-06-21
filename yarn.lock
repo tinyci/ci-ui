@@ -2543,7 +2543,7 @@ chrome-trace-event@^1.0.0:
 
 "ci-agents@https://github.com/tinyci/ci-agents":
   version "0.0.0"
-  resolved "https://github.com/tinyci/ci-agents#d620a0a219d54c02a75b9ed5837aca93b66aea75"
+  resolved "https://github.com/tinyci/ci-agents#ab07b817b8c094ea8b58704ec327a8331851becd"
 
 ci-info@^2.0.0:
   version "2.0.0"
