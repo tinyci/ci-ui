@@ -65,6 +65,7 @@ export const ref = ({value}) => {
           <FilterIcon />
         </IconButton>
       </Tooltip>
+      &nbsp;&nbsp;
       <Tooltip title={value.ref_name}>
         <Button
           size="small"
