@@ -118,6 +118,7 @@ class TaskList extends React.Component {
               status: elem.status,
               type: 'task',
               canceled: elem.canceled,
+              started_at: elem.started_at,
             },
             history: {
               created_at: elem.created_at,

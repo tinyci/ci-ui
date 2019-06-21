@@ -132,6 +132,20 @@ class MainUI extends React.Component {
           style={{paddingBottom: '1em', paddingTop: '1em'}}
           color="primary">
           <Grid container spacing={0}>
+            <Grid item xs={1}>
+              <Tooltip title="Home">
+                <a href={'/'}>
+                  <img
+                    alt="logo"
+                    style={{
+                      marginLeft: '10px',
+                      height: '32px',
+                    }}
+                    src="/logo-reverse-title.png"
+                  />
+                </a>
+              </Tooltip>
+            </Grid>
             <Grid item xs={2}>
               <Button
                 onClick={this.handleRepositorySelect.bind(
@@ -166,26 +180,11 @@ class MainUI extends React.Component {
             </Grid>
             <Grid item xs={6} />
             <Grid item xs={1}>
-              <Box style={{height: '100%'}}>
+              <Box style={{float: 'right', marginRight: '1em', height: '100%'}}>
                 <Typography variant="h5">
                   {this.state.userProperties.username}
                 </Typography>
               </Box>
-            </Grid>
-            <Grid item xs={1}>
-              <Tooltip title="Home">
-                <a href={'/'}>
-                  <img
-                    alt="logo"
-                    style={{
-                      marginRight: '10px',
-                      float: 'right',
-                      height: '32px',
-                    }}
-                    src="/logo-reverse-title.png"
-                  />
-                </a>
-              </Tooltip>
             </Grid>
           </Grid>
         </AppBar>

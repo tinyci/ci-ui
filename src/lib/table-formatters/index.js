@@ -118,36 +118,6 @@ const cancelThing = value => {
 };
 
 export const status = ({value}) => {
-  if (value.canceled) {
-    return (
-      <Box
-        container="span"
-        style={Object.assign(
-          {backgroundColor: purple[300]},
-          statusButtonStyle,
-        )}>
-        <Typography>Canceled</Typography>
-      </Box>
-    );
-  }
-
-  if (value.status === undefined) {
-    return (
-      <Box>
-        <Typography style={{marginTop: '0.5em', float: 'left'}}>
-          Unfinished
-        </Typography>
-        <IconButton
-          style={{float: 'right'}}
-          onClick={() => {
-            cancelThing(value, value.type);
-          }}>
-          <CancelIcon />
-        </IconButton>
-      </Box>
-    );
-  }
-
   if (value.status) {
     return (
       <Box
@@ -157,9 +127,50 @@ export const status = ({value}) => {
       </Box>
     );
   } else {
+    if (value.canceled) {
+      return (
+        <Box
+          container="span"
+          style={Object.assign(
+            {backgroundColor: purple[300]},
+            statusButtonStyle,
+          )}>
+          <Typography>Canceled</Typography>
+        </Box>
+      );
+    }
+
+    if (value.status === undefined) {
+      return (
+        <Box
+          container="span"
+          style={Object.assign(
+            {
+              margin: 0,
+              padding: 0,
+              backgroundColor: value.started_at ? yellow[800] : 'inherit',
+            },
+            statusButtonStyle,
+          )}>
+          <IconButton
+            size="small"
+            style={{width: '100%'}}
+            onClick={() => {
+              cancelThing(value, value.type);
+            }}>
+            <CancelIcon size="small" />
+            &nbsp;&nbsp;
+            <Typography>
+              {value.started_at ? 'Running' : 'Unstarted'}
+            </Typography>
+          </IconButton>
+        </Box>
+      );
+    }
+
     return (
       <Box
-        container="div"
+        container="span"
         style={Object.assign({backgroundColor: red[300]}, statusButtonStyle)}>
         <Typography>Failure</Typography>
       </Box>
