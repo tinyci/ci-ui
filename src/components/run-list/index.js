@@ -107,7 +107,12 @@ class RunList extends React.Component {
             },
             ref: elem.task.ref,
             path: elem.name,
-            status: elem.status,
+            status: {
+              run_id: elem.id,
+              status: elem.status,
+              canceled: elem.task.canceled,
+              type: 'run',
+            },
             history: {
               created_at: elem.created_at,
               started_at: elem.started_at,

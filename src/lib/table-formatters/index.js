@@ -1,6 +1,9 @@
 import React from 'react';
 import strftime from 'strftime';
 
+import Client from '../client/client';
+import {handleError} from '../../components/error-messages';
+
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -11,8 +14,12 @@ import blue from '@material-ui/core/colors/blue';
 import yellow from '@material-ui/core/colors/yellow';
 import green from '@material-ui/core/colors/green';
 import red from '@material-ui/core/colors/red';
+import purple from '@material-ui/core/colors/purple';
 
 import FilterIcon from '@material-ui/icons/Filter';
+import CancelIcon from '@material-ui/icons/Cancel';
+
+const thisClient = new Client();
 
 export const runs = ({value}) => {
   return (
@@ -93,11 +100,45 @@ const statusButtonStyle = {
   color: 'white',
 };
 
+const cancelRun = run_id => {
+  thisClient.cancelRunIdPost(run_id, (err, _, resp) => {
+    handleError(err, resp);
+  });
+};
+
 export const status = ({value}) => {
-  if (value === undefined) {
-    return <Typography>Unfinished</Typography>;
+  if (value.canceled) {
+    return (
+      <Box
+        container="span"
+        style={Object.assign(
+          {backgroundColor: purple[300]},
+          statusButtonStyle,
+        )}>
+        <Typography>Canceled</Typography>
+      </Box>
+    );
   }
-  if (value) {
+
+  if (value.status === undefined) {
+    return (
+      <React.Fragment>
+        <Typography>Unfinished</Typography>
+        {value.type === 'run' ? (
+          <IconButton
+            onClick={() => {
+              cancelRun(value.run_id);
+            }}>
+            <CancelIcon />
+          </IconButton>
+        ) : (
+          ''
+        )}
+      </React.Fragment>
+    );
+  }
+
+  if (value.status) {
     return (
       <Box
         container="span"
