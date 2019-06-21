@@ -103,26 +103,18 @@ const statusButtonStyle = {
 const cancelThing = value => {
   switch (value.type) {
     case 'task':
-      cancelTask(value.task_id);
+      thisClient.tasksCancelIdPost(value.task_id, (err, _, resp) => {
+        handleError(err, resp);
+      });
       break;
     case 'run':
-      cancelRun(value.run_id);
+      thisClient.cancelRunIdPost(value.run_id, (err, _, resp) => {
+        handleError(err, resp);
+      });
       break;
     default:
       handleError({message: 'unexpected api error in cancel code'}, null);
   }
-};
-
-const cancelTask = task_id => {
-  thisClient.tasksCancelIdPost(task_id, (err, _, resp) => {
-    handleError(err, resp);
-  });
-};
-
-const cancelRun = run_id => {
-  thisClient.cancelRunIdPost(run_id, (err, _, resp) => {
-    handleError(err, resp);
-  });
 };
 
 export const status = ({value}) => {
@@ -141,15 +133,18 @@ export const status = ({value}) => {
 
   if (value.status === undefined) {
     return (
-      <React.Fragment>
-        <Typography>Unfinished</Typography>
+      <Box>
+        <Typography style={{marginTop: '0.5em', float: 'left'}}>
+          Unfinished
+        </Typography>
         <IconButton
+          style={{float: 'right'}}
           onClick={() => {
             cancelThing(value, value.type);
           }}>
           <CancelIcon />
         </IconButton>
-      </React.Fragment>
+      </Box>
     );
   }
 
