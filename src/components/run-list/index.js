@@ -53,7 +53,7 @@ const tableColumns = [
 const globalColumnExtensions = [
   {
     columnName: 'repository',
-    width: 0.25,
+    width: 0.2,
   },
   {
     columnName: 'ref',
@@ -61,19 +61,19 @@ const globalColumnExtensions = [
   },
   {
     columnName: 'path',
-    width: 0.2,
-  },
-  {
-    columnName: 'status',
     width: 0.1,
   },
   {
-    columnName: 'history',
+    columnName: 'status',
     width: 0.15,
   },
   {
+    columnName: 'history',
+    width: 0.2,
+  },
+  {
     columnName: 'log',
-    width: 0.05,
+    width: 0.1,
   },
 ];
 
