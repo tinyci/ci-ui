@@ -100,6 +100,25 @@ const statusButtonStyle = {
   color: 'white',
 };
 
+const cancelThing = value => {
+  switch (value.type) {
+    case 'task':
+      cancelTask(value.task_id);
+      break;
+    case 'run':
+      cancelRun(value.run_id);
+      break;
+    default:
+      handleError({message: 'unexpected api error in cancel code'}, null);
+  }
+};
+
+const cancelTask = task_id => {
+  thisClient.tasksCancelIdPost(task_id, (err, _, resp) => {
+    handleError(err, resp);
+  });
+};
+
 const cancelRun = run_id => {
   thisClient.cancelRunIdPost(run_id, (err, _, resp) => {
     handleError(err, resp);
@@ -124,16 +143,12 @@ export const status = ({value}) => {
     return (
       <React.Fragment>
         <Typography>Unfinished</Typography>
-        {value.type === 'run' ? (
-          <IconButton
-            onClick={() => {
-              cancelRun(value.run_id);
-            }}>
-            <CancelIcon />
-          </IconButton>
-        ) : (
-          ''
-        )}
+        <IconButton
+          onClick={() => {
+            cancelThing(value, value.type);
+          }}>
+          <CancelIcon />
+        </IconButton>
       </React.Fragment>
     );
   }
