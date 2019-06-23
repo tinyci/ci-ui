@@ -61,7 +61,7 @@ class AddToCI extends React.Component {
       <React.Fragment>
         <List
           style={{
-            backgroundColor: muiTheme.palette.primary.main,
+            backgroundColor: muiTheme.palette.secondary.main,
             zIndex: 2,
             position: 'absolute',
             minWidth: '35%',
@@ -70,11 +70,11 @@ class AddToCI extends React.Component {
           }}>
           <ListItem key="tinyci-scanupgradeitem">
             <Box>
-              <Typography color="secondary">Actions:</Typography>
+              <Typography color="primary">Actions:</Typography>
               <Box>
                 <Tooltip title="Scan remote repositories">
                   <Button
-                    color="secondary"
+                    color="primary"
                     onClick={this.startScan.bind(this)}
                     variant="outlined">
                     {this.state.scanning ? (
@@ -86,7 +86,7 @@ class AddToCI extends React.Component {
                 </Tooltip>
                 <Tooltip title="Upgrade your oauth account to allow repository adding">
                   <Button
-                    color="secondary"
+                    color="primary"
                     href="/uisvc/login/upgrade"
                     variant="outlined">
                     <PeopleIcon />
@@ -107,13 +107,15 @@ class AddToCI extends React.Component {
               this.removeFromCI(elem.name, promise);
             }}>
             <Box container="span">
-              <Typography style={{color: muiTheme.palette.primary.light}}>
+              <Typography
+                style={{color: muiTheme.palette.secondary.contrastText}}>
                 Scan for items from remote resources by clicking the cloud icon
                 above, then search and add the repositories you wish to use in
                 tinyCI.
               </Typography>
               <br />
-              <Typography style={{color: muiTheme.palette.primary.light}}>
+              <Typography
+                style={{color: muiTheme.palette.secondary.contrastText}}>
                 Please note you will also need an "upgraded" set of OAuth scopes
                 to process/admin CI jobs which will be granted if you click the
                 "people" icon above. You will be redirected to your OAuth

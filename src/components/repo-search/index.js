@@ -19,7 +19,7 @@ import SearchIcon from '@material-ui/icons/Search';
 const Field = withStyles({
   root: {
     '& label.MuiFormLabel-root': {
-      color: muiTheme.palette.primary.light,
+      color: muiTheme.palette.primary.dark,
     },
     '& input.MuiInputBase-input': {
       color: muiTheme.palette.primary.contrastText,
@@ -89,13 +89,13 @@ class RepoSearch extends React.Component {
         {this.state.matchedRepositories.map(elem => (
           <ListItem key={elem.name}>
             {this.state.changing ? (
-              <IconButton color="secondary">
+              <IconButton color="primary">
                 <MoreHorizIcon />
               </IconButton>
             ) : this.props.enabled(elem) ? (
               <Tooltip title="Remove this item">
                 <IconButton
-                  color="secondary"
+                  color="primary"
                   onClick={this.performAction.bind(
                     this,
                     this.props.onRemove,
@@ -107,7 +107,7 @@ class RepoSearch extends React.Component {
             ) : (
               <Tooltip title="Add this item">
                 <IconButton
-                  color="secondary"
+                  color="primary"
                   onClick={this.performAction.bind(
                     this,
                     this.props.onAdd,

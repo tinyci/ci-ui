@@ -60,7 +60,7 @@ class SubscribedList extends React.Component {
     return (
       <div
         style={{
-          backgroundColor: muiTheme.palette.primary.main,
+          backgroundColor: muiTheme.palette.secondary.main,
           zIndex: 2,
           position: 'absolute',
           minWidth: '35%',
@@ -75,14 +75,14 @@ class SubscribedList extends React.Component {
             <ListItem button key={elem.name}>
               {elem.all ? (
                 <Link
-                  color="secondary"
+                  color="primary"
                   style={{width: '100%', textDecoration: 'none'}}
                   href="/">
                   {elem.name}
                 </Link>
               ) : (
                 <Link
-                  color="secondary"
+                  color="primary"
                   style={{width: '100%', textDecoration: 'none'}}
                   href={'/tasks/' + elem.name}>
                   {elem.name}
@@ -109,7 +109,7 @@ class SubscribedList extends React.Component {
               promise();
             });
           }}>
-          <Typography color="secondary">
+          <Typography color="primary">
             Find a repository to watch for changes.
           </Typography>
         </RepoSearch>

@@ -3,14 +3,13 @@ import {createMuiTheme} from '@material-ui/core/styles';
 const muiTheme = createMuiTheme({
   palette: {
     primary: {
-      main: '#323E55',
-      light: '#728D9B',
-      contrastText: '#fff',
+      main: '#323D54',
     },
     secondary: {
-      main: '#728D9B',
-      contrastText: '#fff',
+      main: '#53658a',
     },
+    contrastThreshold: 10,
+    tonalOffset: 0.5,
   },
 });
 

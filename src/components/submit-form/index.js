@@ -18,6 +18,9 @@ import SendIcon from '@material-ui/icons/Send';
 
 const Field = withStyles({
   root: {
+    width: '90%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
     '& label.MuiFormLabel-root': {
       color: muiTheme.palette.secondary.dark,
       marginTop: '1em',
@@ -25,6 +28,9 @@ const Field = withStyles({
     '& input.MuiInputBase-input': {
       color: muiTheme.palette.primary.contrastText,
       marginTop: '1em',
+    },
+    '& div.MuiInput-root': {
+      marginRight: '1em',
     },
   },
 })(TextField);
@@ -80,7 +86,6 @@ class SubmitForm extends React.Component {
             <Grid item xs={2}>
               <Field
                 required
-                fullWidth
                 label="Repository"
                 placeholder="owner/repo"
                 onChange={chg => {
@@ -91,7 +96,6 @@ class SubmitForm extends React.Component {
             <Grid item xs={4}>
               <Field
                 required
-                fullWidth
                 label="SHA or Branch"
                 placeholder="name or 40 char SHA"
                 onChange={chg => {
