@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Client from '../../lib/client/client';
+import muiTheme from '../../muitheme.js';
 
 import {handleError} from '../error-messages';
 import RepoSearch from '../repo-search';
@@ -12,8 +13,6 @@ import ListItem from '@material-ui/core/ListItem';
 import Snackbar from '@material-ui/core/Snackbar';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
-
-import blueGrey from '@material-ui/core/colors/blueGrey';
 
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
@@ -62,7 +61,7 @@ class AddToCI extends React.Component {
       <React.Fragment>
         <List
           style={{
-            backgroundColor: blueGrey[500],
+            backgroundColor: muiTheme.palette.primary.main,
             zIndex: 2,
             position: 'absolute',
             minWidth: '35%',
@@ -71,10 +70,11 @@ class AddToCI extends React.Component {
           }}>
           <ListItem key="tinyci-scanupgradeitem">
             <Box>
-              <Typography>Actions:</Typography>
+              <Typography color="secondary">Actions:</Typography>
               <Box>
                 <Tooltip title="Scan remote repositories">
                   <Button
+                    color="secondary"
                     onClick={this.startScan.bind(this)}
                     variant="outlined">
                     {this.state.scanning ? (
@@ -85,7 +85,10 @@ class AddToCI extends React.Component {
                   </Button>
                 </Tooltip>
                 <Tooltip title="Upgrade your oauth account to allow repository adding">
-                  <Button href="/uisvc/login/upgrade" variant="outlined">
+                  <Button
+                    color="secondary"
+                    href="/uisvc/login/upgrade"
+                    variant="outlined">
                     <PeopleIcon />
                   </Button>
                 </Tooltip>
@@ -104,13 +107,13 @@ class AddToCI extends React.Component {
               this.removeFromCI(elem.name, promise);
             }}>
             <Box container="span">
-              <Typography>
+              <Typography style={{color: muiTheme.palette.primary.light}}>
                 Scan for items from remote resources by clicking the cloud icon
                 above, then search and add the repositories you wish to use in
                 tinyCI.
               </Typography>
               <br />
-              <Typography>
+              <Typography style={{color: muiTheme.palette.primary.light}}>
                 Please note you will also need an "upgraded" set of OAuth scopes
                 to process/admin CI jobs which will be granted if you click the
                 "people" icon above. You will be redirected to your OAuth

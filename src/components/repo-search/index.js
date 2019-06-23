@@ -1,6 +1,9 @@
 import React from 'react';
 
 import Client from '../../lib/client/client';
+import muiTheme from '../../muitheme.js';
+
+import {withStyles} from '@material-ui/core/styles';
 
 import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
@@ -12,6 +15,17 @@ import AddIcon from '@material-ui/icons/Add';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import RemoveIcon from '@material-ui/icons/Remove';
 import SearchIcon from '@material-ui/icons/Search';
+
+const Field = withStyles({
+  root: {
+    '& label.MuiFormLabel-root': {
+      color: muiTheme.palette.primary.light,
+    },
+    '& input.MuiInputBase-input': {
+      color: muiTheme.palette.primary.contrastText,
+    },
+  },
+})(TextField);
 
 class RepoSearch extends React.Component {
   state = {
@@ -61,7 +75,7 @@ class RepoSearch extends React.Component {
     return (
       <React.Fragment>
         <ListItem key="tinyci-searchitem">
-          <TextField
+          <Field
             fullWidth
             label="Search for a Repository"
             placeholder="owner/repo"
