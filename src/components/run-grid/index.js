@@ -2,8 +2,10 @@ import React from 'react';
 
 import Client from '../../lib/client/client';
 import * as format from '../../lib/table-formatters';
+import muiTheme from '../../muitheme.js';
 
 import {handleError} from '../error-messages';
+import {TopButton} from '../top-button';
 
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -16,12 +18,18 @@ import red from '@material-ui/core/colors/red';
 
 const StatusLabel = props => {
   return (
-    <Box style={{height: '100%', marginTop: '0.5em'}}>
+    <Box
+      style={{
+        marginLeft: '2em',
+        borderRight: '1px solid ' + muiTheme.palette.primary.light,
+        height: '100%',
+      }}>
       <Button
         disabled
         size="small"
         variant="outlined"
         style={{
+          marginTop: '1em',
           border: '1px solid ' + props.borderColor,
           color: props.color,
         }}>
@@ -48,8 +56,8 @@ class RunGrid extends React.Component {
     if (status === undefined || status === null) {
       return (
         <StatusLabel
-          borderColor={grey[800]}
-          color={grey[900]}
+          borderColor={grey[200]}
+          color={grey[100]}
           text="Unfinished"
         />
       );
@@ -58,15 +66,15 @@ class RunGrid extends React.Component {
     if (status) {
       return (
         <StatusLabel
-          borderColor={green[800]}
-          color={green[900]}
+          borderColor={green[600]}
+          color={green[700]}
           text="Success"
         />
       );
     }
 
     return (
-      <StatusLabel borderColor={red[800]} color={red[900]} text="Failure" />
+      <StatusLabel borderColor={red[200]} color={red[100]} text="Failure" />
     );
   }
 
@@ -101,18 +109,27 @@ class RunGrid extends React.Component {
           <React.Fragment>
             <Grid item xs={1}>
               <Box style={{height: '100%', paddingLeft: '1em', margin: 'auto'}}>
-                <Typography variant="subtitle2">
-                  Run ID: <b>{this.props.run_id}</b>
-                </Typography>
-                {refURL && refText ? (
-                  <Box style={{height: '100%', margin: 'auto'}}>
-                    <Button size="small" href={refURL} variant="contained">
-                      PR #{refText}
-                    </Button>
-                  </Box>
-                ) : (
-                  ''
-                )}
+                <TopButton
+                  flavor={
+                    <React.Fragment>
+                      <Typography variant="subtitle2">
+                        Run ID: <b>{this.props.run_id}</b>{' '}
+                      </Typography>
+                      {refURL && refText ? (
+                        <Box style={{height: '100%', margin: 'auto'}}>
+                          <Button
+                            size="small"
+                            href={refURL}
+                            variant="contained">
+                            PR #{refText}
+                          </Button>
+                        </Box>
+                      ) : (
+                        ''
+                      )}
+                    </React.Fragment>
+                  }
+                />
               </Box>
             </Grid>
             <Grid item xs={1}>
@@ -120,36 +137,53 @@ class RunGrid extends React.Component {
             </Grid>
             <Grid item xs={2}>
               <Box style={{height: '100%', paddingLeft: '1em', margin: 'auto'}}>
-                <Typography variant="subtitle2">
-                  <b>{this.state.run.task.ref.repository.name}</b>
-                </Typography>
-                {this.state.run.task.parent &&
-                this.state.run.task.parent.name !==
-                  this.state.run.task.ref.repository.name ? (
-                  <Typography>
-                    (fork of {this.state.run.task.parent.name})
-                  </Typography>
-                ) : (
-                  ''
-                )}
+                <TopButton
+                  flavor={
+                    <React.Fragment>
+                      <Typography variant="subtitle2">
+                        <b>{this.state.run.task.ref.repository.name}</b>
+                      </Typography>
+                      {this.state.run.task.parent &&
+                      this.state.run.task.parent.name !==
+                        this.state.run.task.ref.repository.name ? (
+                        <Typography>
+                          (fork of {this.state.run.task.parent.name})
+                        </Typography>
+                      ) : (
+                        ''
+                      )}
+                    </React.Fragment>
+                  }
+                />
               </Box>
             </Grid>
             <Grid item xs={2}>
-              <Typography variant="subtitle2">
-                Test: <b>{this.state.run.name}</b>
-              </Typography>
+              <TopButton
+                flavor={
+                  <Box style={{marginLeft: '3em'}}>
+                    <Typography variant="subtitle2">
+                      Test: <b>{this.state.run.name}</b>
+                    </Typography>
+                  </Box>
+                }
+              />
             </Grid>
             <Grid item xs={2}>
-              <Box style={{height: '100%', marginTop: '0.5em'}}>
-                {format.ref({value: this.state.run.task.ref})}
-              </Box>
+              <TopButton
+                flavor={format.ref({value: this.state.run.task.ref})}
+              />
             </Grid>
-            <Grid item xs={1}>
-              <Box style={{height: '100%', marginTop: '0.5em'}}>
+            <Grid item xs={2}>
+              <Box
+                style={{
+                  height: '100%',
+                  marginLeft: '3em',
+                  marginTop: '0.5em',
+                }}>
                 {format.history({value: this.state.run})}
               </Box>
             </Grid>
-            <Grid item xs={this.props.size - 9} />
+            <Grid item xs={this.props.size - 10} />
           </React.Fragment>
         ) : (
           <Grid item xs={this.props.size} />

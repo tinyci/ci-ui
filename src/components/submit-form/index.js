@@ -6,7 +6,6 @@ import muiTheme from '../../muitheme.js';
 
 import {withStyles} from '@material-ui/core/styles';
 
-import AppBar from '@material-ui/core/AppBar';
 import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
@@ -20,10 +19,12 @@ import SendIcon from '@material-ui/icons/Send';
 const Field = withStyles({
   root: {
     '& label.MuiFormLabel-root': {
-      color: muiTheme.palette.primary.light,
+      color: muiTheme.palette.secondary.dark,
+      marginTop: '1em',
     },
     '& input.MuiInputBase-input': {
       color: muiTheme.palette.primary.contrastText,
+      marginTop: '1em',
     },
   },
 })(TextField);
@@ -48,11 +49,20 @@ class SubmitForm extends React.Component {
 
   render() {
     return (
-      <AppBar style={{height: '6em', zIndex: 2}} position="static">
+      <div
+        style={{
+          width: window.innerWidth,
+          backgroundColor: muiTheme.palette.secondary.main,
+          margin: 0,
+          padding: 0,
+          height: '6em',
+          position: 'absolute',
+          zIndex: 2,
+        }}
+        position="static">
         <form>
           <Grid
             container
-            spacing={4}
             style={{
               height: '100%',
             }}>
@@ -89,21 +99,23 @@ class SubmitForm extends React.Component {
                 }}
               />
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={1}>
               <div
-                style={{height: '100%', marginTop: '1em', marginBottom: '1em'}}>
+                style={{
+                  height: '100%',
+                  marginTop: '1em',
+                  marginBottom: '1em',
+                }}>
                 <InputLabel
                   style={{
-                    float: 'left',
-                    color: muiTheme.palette.primary.light,
+                    color: muiTheme.palette.secondary.dark,
                     marginTop: '1em',
                   }}>
                   Test All
                 </InputLabel>
                 <Checkbox
                   style={{
-                    float: 'right',
-                    color: muiTheme.palette.primary.light,
+                    color: muiTheme.palette.secondary.dark,
                   }}
                   onChange={(e, res) => {
                     this.testAll = res;
@@ -113,11 +125,15 @@ class SubmitForm extends React.Component {
             </Grid>
             <Grid item xs={1}>
               <div
-                style={{height: '100%', marginTop: '1em', marginBottom: '1em'}}>
+                style={{
+                  height: '100%',
+                  marginTop: '1em',
+                  marginBottom: '1em',
+                }}>
                 <IconButton
                   disabled={this.state.submitting}
                   style={{
-                    color: muiTheme.palette.primary.light,
+                    color: muiTheme.palette.secondary.dark,
                   }}
                   onClick={this.submit.bind(this)}>
                   {this.state.submitting ? <MoreHorizIcon /> : <SendIcon />}
@@ -126,7 +142,7 @@ class SubmitForm extends React.Component {
             </Grid>
           </Grid>
         </form>
-      </AppBar>
+      </div>
     );
   }
 }

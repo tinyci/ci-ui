@@ -59,9 +59,9 @@ export const ref = ({value}) => {
 
   var filter_link = '/tasks/' + value.repository.name + '/' + value.sha;
   return (
-    <React.Fragment>
+    <Box style={{marginLeft: '3em', bottom: '2em'}}>
       <Tooltip title="Filter for this SHA">
-        <IconButton size="small" href={filter_link}>
+        <IconButton size="small" color="secondary" href={filter_link}>
           <FilterIcon />
         </IconButton>
       </Tooltip>
@@ -70,18 +70,22 @@ export const ref = ({value}) => {
         <Button
           size="small"
           variant="outlined"
-          color="primary"
+          color="secondary"
           href={branch_link}>
           {pretty_branch}
         </Button>
       </Tooltip>
       &nbsp;&nbsp;
       <Tooltip title={value.sha}>
-        <Button size="small" variant="outlined" color="primary" href={sha_link}>
+        <Button
+          size="small"
+          variant="outlined"
+          color="secondary"
+          href={sha_link}>
           {value.sha.substring(0, 8)}
         </Button>
       </Tooltip>
-    </React.Fragment>
+    </Box>
   );
 };
 

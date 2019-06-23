@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Client from '../../lib/client/client';
-import muiTheme from '../../muitheme.js';
 
 import AddToCI from '../add-to-ci';
 import {ErrorMessages, handleError} from '../error-messages';
@@ -9,13 +8,14 @@ import RunList from '../run-list';
 import TaskList from '../task-list';
 import SubmitForm from '../submit-form';
 import SubscribedList from '../subscribed-list';
+import Home from '../home';
+import {TopButton} from '../top-button';
 
 import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
-import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 
 import AddIcon from '@material-ui/icons/Add';
@@ -23,32 +23,6 @@ import PublishIcon from '@material-ui/icons/Publish';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 const minWidth = 1080; // optimize for 1080p
-const topBorder = '1px solid ' + muiTheme.palette.primary.light;
-const topStyle = {
-  width: '100%',
-  height: '100%',
-  borderRight: topBorder,
-  paddingTop: '1em',
-  paddingBottom: '1em',
-  cursor: 'pointer',
-  '-moz-user-select': 'none',
-  '-webkit-user-select': 'none',
-  '-ms-user-select': 'none',
-  userSelect: 'none',
-  '-o-user-select': 'none',
-};
-
-const TopButton = props => (
-  <React.Fragment>
-    <div style={topStyle} onClick={props.onClick}>
-      <span style={{float: 'left', marginLeft: '1em'}}>{props.icon}</span>
-      <Typography style={{float: 'right', marginRight: '1em'}}>
-        {props.flavor}
-      </Typography>
-    </div>
-  </React.Fragment>
-);
-
 class MainUI extends React.Component {
   flavor = 'task';
   state = {
@@ -152,30 +126,10 @@ class MainUI extends React.Component {
     return (
       <Box style={{minWidth: thisMinWidth}}>
         <CssBaseline />
-        <AppBar style={{height: '50px'}} position="static">
+        <AppBar style={{height: '60px'}} position="static">
           <Grid container style={{height: '100%'}} spacing={0}>
             <Grid item xs={2}>
-              <Tooltip title="Home">
-                <div
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    borderRight: topBorder,
-                  }}>
-                  <a href={'/'}>
-                    <img
-                      alt="logo"
-                      style={{
-                        marginTop: '8px',
-                        marginLeft: '30px',
-                        marginRight: 'auto',
-                        height: '32px',
-                      }}
-                      src="/logo-reverse-title.png"
-                    />
-                  </a>
-                </div>
-              </Tooltip>
+              <Home />
             </Grid>
             <Grid item xs={2}>
               <TopButton

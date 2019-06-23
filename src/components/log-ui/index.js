@@ -2,20 +2,19 @@ import React from 'react';
 
 import {handleError, handlePlainError, ErrorMessages} from '../error-messages';
 import RunGrid from '../run-grid';
+import Home from '../home';
+import muiTheme from '../../muitheme.js';
 
 import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
-import Tooltip from '@material-ui/core/Tooltip';
-
-import grey from '@material-ui/core/colors/grey';
 
 import {Terminal} from 'xterm';
 import {fit} from 'xterm/dist/addons/fit/fit';
 import 'xterm/dist/xterm.css';
 
-const barHeight = 80;
+const barHeight = 60;
 
 class LogUI extends React.Component {
   run_id = null;
@@ -80,29 +79,15 @@ class LogUI extends React.Component {
         <AppBar
           position="static"
           style={{
-            background: grey[300],
-            color: grey[800],
+            background: muiTheme.palette.primary.main,
+            color: muiTheme.palette.primary.light,
             height: barHeight + 'px',
-            paddingBottom: '1em',
-            paddingTop: '1em',
           }}>
-          <Grid container spacing={0}>
-            <RunGrid run_id={this.props.match.params.id} size={11} />
-            <Grid item xs={1}>
-              <Tooltip title="Home">
-                <a href={'/'}>
-                  <img
-                    alt="logo"
-                    style={{
-                      marginRight: '10px',
-                      float: 'right',
-                      height: '32px',
-                    }}
-                    src="/logo-main.png"
-                  />
-                </a>
-              </Tooltip>
+          <Grid style={{height: '100%'}} container spacing={0}>
+            <Grid item xs={2}>
+              <Home />
             </Grid>
+            <RunGrid run_id={this.props.match.params.id} size={11} />
           </Grid>
         </AppBar>
         <div
