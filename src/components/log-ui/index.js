@@ -79,6 +79,7 @@ class LogUI extends React.Component {
         <AppBar
           position="static"
           style={{
+            borderBottom: '1px solid ' + muiTheme.palette.primary.light,
             background: muiTheme.palette.primary.main,
             color: muiTheme.palette.primary.light,
             height: barHeight + 'px',
