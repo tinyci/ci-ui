@@ -2,6 +2,9 @@ import React from 'react';
 
 import Client from '../../lib/client/client';
 import {handleError} from '../error-messages';
+import muiTheme from '../../muitheme.js';
+
+import {withStyles} from '@material-ui/core/styles';
 
 import AppBar from '@material-ui/core/AppBar';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -13,6 +16,17 @@ import Typography from '@material-ui/core/Typography';
 
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import SendIcon from '@material-ui/icons/Send';
+
+const Field = withStyles({
+  root: {
+    '& label.MuiFormLabel-root': {
+      color: muiTheme.palette.primary.light,
+    },
+    '& input.MuiInputBase-input': {
+      color: muiTheme.palette.primary.contrastText,
+    },
+  },
+})(TextField);
 
 class SubmitForm extends React.Component {
   client = new Client();
@@ -34,7 +48,7 @@ class SubmitForm extends React.Component {
 
   render() {
     return (
-      <AppBar style={{zIndex: 2}} position="static" color="secondary">
+      <AppBar style={{height: '6em', zIndex: 2}} position="static">
         <form>
           <Grid
             container
@@ -42,19 +56,21 @@ class SubmitForm extends React.Component {
             style={{
               height: '100%',
             }}>
-            <Grid item xs={1}>
+            <Grid item xs={2}>
               <Typography
                 align="center"
-                color="textSecondary"
                 style={{
+                  color: muiTheme.palette.primary.contrastText,
                   marginLeft: '0.5em',
-                  marginTop: '1em',
+                  marginTop: '1.5em',
                 }}>
                 Submit a Test
               </Typography>
             </Grid>
             <Grid item xs={2}>
-              <TextField
+              <Field
+                required
+                fullWidth
                 label="Repository"
                 placeholder="owner/repo"
                 onChange={chg => {
@@ -62,8 +78,10 @@ class SubmitForm extends React.Component {
                 }}
               />
             </Grid>
-            <Grid item xs={2}>
-              <TextField
+            <Grid item xs={4}>
+              <Field
+                required
+                fullWidth
                 label="SHA or Branch"
                 placeholder="name or 40 char SHA"
                 onChange={chg => {
@@ -71,31 +89,40 @@ class SubmitForm extends React.Component {
                 }}
               />
             </Grid>
-            <Grid item xs={1}>
-              <InputLabel
-                style={{
-                  marginLeft: '0.5em',
-                  marginTop: '1em',
-                }}>
-                Test All
+            <Grid item xs={2}>
+              <div
+                style={{height: '100%', marginTop: '1em', marginBottom: '1em'}}>
+                <InputLabel
+                  style={{
+                    float: 'left',
+                    color: muiTheme.palette.primary.light,
+                    marginTop: '1em',
+                  }}>
+                  Test All
+                </InputLabel>
                 <Checkbox
-                  color="primary"
+                  style={{
+                    float: 'right',
+                    color: muiTheme.palette.primary.light,
+                  }}
                   onChange={(e, res) => {
                     this.testAll = res;
                   }}
                 />
-              </InputLabel>
+              </div>
             </Grid>
             <Grid item xs={1}>
-              <IconButton
-                disabled={this.state.submitting}
-                style={{
-                  marginLeft: '0.5em',
-                  marginTop: '1em',
-                }}
-                onClick={this.submit.bind(this)}>
-                {this.state.submitting ? <MoreHorizIcon /> : <SendIcon />}
-              </IconButton>
+              <div
+                style={{height: '100%', marginTop: '1em', marginBottom: '1em'}}>
+                <IconButton
+                  disabled={this.state.submitting}
+                  style={{
+                    color: muiTheme.palette.primary.light,
+                  }}
+                  onClick={this.submit.bind(this)}>
+                  {this.state.submitting ? <MoreHorizIcon /> : <SendIcon />}
+                </IconButton>
+              </div>
             </Grid>
           </Grid>
         </form>

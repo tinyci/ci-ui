@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Client from '../../lib/client/client';
+import muiTheme from '../../muitheme.js';
 
 import AddToCI from '../add-to-ci';
 import {ErrorMessages, handleError} from '../error-messages';
@@ -11,7 +12,6 @@ import SubscribedList from '../subscribed-list';
 
 import AppBar from '@material-ui/core/AppBar';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
@@ -23,6 +23,31 @@ import PublishIcon from '@material-ui/icons/Publish';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 const minWidth = 1080; // optimize for 1080p
+const topBorder = '1px solid ' + muiTheme.palette.primary.light;
+const topStyle = {
+  width: '100%',
+  height: '100%',
+  borderRight: topBorder,
+  paddingTop: '1em',
+  paddingBottom: '1em',
+  cursor: 'pointer',
+  '-moz-user-select': 'none',
+  '-webkit-user-select': 'none',
+  '-ms-user-select': 'none',
+  userSelect: 'none',
+  '-o-user-select': 'none',
+};
+
+const TopButton = props => (
+  <React.Fragment>
+    <div style={topStyle} onClick={props.onClick}>
+      <span style={{float: 'left', marginLeft: '1em'}}>{props.icon}</span>
+      <Typography style={{float: 'right', marginRight: '1em'}}>
+        {props.flavor}
+      </Typography>
+    </div>
+  </React.Fragment>
+);
 
 class MainUI extends React.Component {
   flavor = 'task';
@@ -127,60 +152,72 @@ class MainUI extends React.Component {
     return (
       <Box style={{minWidth: thisMinWidth}}>
         <CssBaseline />
-        <AppBar
-          position="static"
-          style={{paddingBottom: '1em', paddingTop: '1em'}}
-          color="primary">
-          <Grid container spacing={0}>
-            <Grid item xs={1}>
+        <AppBar style={{height: '50px'}} position="static">
+          <Grid container style={{height: '100%'}} spacing={0}>
+            <Grid item xs={2}>
               <Tooltip title="Home">
-                <a href={'/'}>
-                  <img
-                    alt="logo"
-                    style={{
-                      marginLeft: '10px',
-                      height: '32px',
-                    }}
-                    src="/logo-reverse-title.png"
-                  />
-                </a>
+                <div
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    borderRight: topBorder,
+                  }}>
+                  <a href={'/'}>
+                    <img
+                      alt="logo"
+                      style={{
+                        marginTop: '8px',
+                        marginLeft: '30px',
+                        marginRight: 'auto',
+                        height: '32px',
+                      }}
+                      src="/logo-reverse-title.png"
+                    />
+                  </a>
+                </div>
               </Tooltip>
             </Grid>
             <Grid item xs={2}>
-              <Button
+              <TopButton
+                flavor={repoName}
+                icon={<KeyboardArrowDownIcon />}
                 onClick={this.handleRepositorySelect.bind(
                   this,
                   !this.state.listDrawerOpen,
-                )}>
-                <KeyboardArrowDownIcon />
-                <Typography>{repoName}</Typography>
-              </Button>
+                )}
+              />
             </Grid>
             {this.hasCapability('submit') ? (
-              <Grid item xs={1}>
-                <Button onClick={this.handleSubmitSelect.bind(this)}>
-                  <PublishIcon />
-                  <Typography>Submit</Typography>
-                </Button>
+              <Grid item xs={2}>
+                <TopButton
+                  onClick={this.handleSubmitSelect.bind(this)}
+                  icon={<PublishIcon />}
+                  flavor="Submit"
+                />
               </Grid>
             ) : (
-              <Grid item xs={1} />
+              <Grid item xs={2} />
             )}
-            <Grid item xs={1}>
+            <Grid item xs={2}>
               {this.hasCapability('modify:ci') ? (
-                <React.Fragment>
-                  <Button onClick={this.handleAddSelect.bind(this)}>
-                    <AddIcon>add</AddIcon>
-                    <Typography>Add to CI</Typography>
-                  </Button>
-                </React.Fragment>
+                <TopButton
+                  onClick={this.handleAddSelect.bind(this)}
+                  icon={<AddIcon />}
+                  flavor="Add to CI"
+                />
               ) : (
-                ''
+                <Grid item xs={2} />
               )}
             </Grid>
-            <Grid item xs={6} />
+            <Grid item xs={3} />
             <Grid item xs={1}>
-              <Box style={{float: 'right', marginRight: '1em', height: '100%'}}>
+              <Box
+                style={{
+                  float: 'right',
+                  marginTop: '8px',
+                  marginRight: '30px',
+                  height: '100%',
+                }}>
                 <Typography variant="h5">
                   {this.state.userProperties.username}
                 </Typography>

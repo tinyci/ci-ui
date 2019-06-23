@@ -1,8 +1,7 @@
 import React from 'react';
 import Client from './lib/client/client';
-import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
-import blueGrey from '@material-ui/core/colors/blueGrey';
-import grey from '@material-ui/core/colors/grey';
+import muiTheme from './muitheme.js';
+import {MuiThemeProvider} from '@material-ui/core/styles';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 import {handleError} from './components/error-messages';
@@ -12,17 +11,6 @@ import LogUI from './components/log-ui';
 import {TaskUI, RunUI} from './components/main-ui';
 
 import './App.css';
-
-const muiTheme = createMuiTheme({
-  palette: {
-    primary: blueGrey,
-    secondary: {
-      light: grey[200],
-      dark: grey[700],
-      main: grey[400],
-    },
-  },
-});
 
 class App extends React.Component {
   state = {loggedIn: null};
