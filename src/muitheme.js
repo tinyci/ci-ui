@@ -8,7 +8,7 @@ const muiTheme = createMuiTheme({
     secondary: {
       main: '#53658a',
     },
-    contrastThreshold: 10,
+    contrastThreshold: 5,
     tonalOffset: 0.5,
   },
 });

@@ -6,6 +6,7 @@ import muiTheme from '../../muitheme.js';
 import {handleError} from '../error-messages';
 import RepoSearch from '../repo-search';
 
+import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -67,30 +68,36 @@ class SubscribedList extends React.Component {
           maxWidth: '50%',
           boxShadow: '0 10px 10px rgba(0, 0, 0, 0.5)',
         }}>
-        <List>
-          <ListItem>
-            <ListItemText>Subscribed Repositories</ListItemText>
-          </ListItem>
-          {this.props.mainui.state.subscribed.map(elem => (
-            <ListItem button key={elem.name}>
-              {elem.all ? (
-                <Link
-                  color="primary"
-                  style={{width: '100%', textDecoration: 'none'}}
-                  href="/">
-                  {elem.name}
-                </Link>
-              ) : (
-                <Link
-                  color="primary"
-                  style={{width: '100%', textDecoration: 'none'}}
-                  href={'/tasks/' + elem.name}>
-                  {elem.name}
-                </Link>
-              )}
+        <Box color="secondary.contrastText">
+          <List>
+            <ListItem>
+              <ListItemText>Subscribed Repositories</ListItemText>
             </ListItem>
-          ))}
-        </List>
+            {this.props.mainui.state.subscribed.map(elem => (
+              <ListItem button key={elem.name}>
+                {elem.all ? (
+                  <Box color="secondary.dark">
+                    <Link
+                      color="inherit"
+                      style={{width: '100%', textDecoration: 'none'}}
+                      href="/">
+                      {elem.name}
+                    </Link>
+                  </Box>
+                ) : (
+                  <Box color="secondary.light">
+                    <Link
+                      color="inherit"
+                      style={{width: '100%', textDecoration: 'none'}}
+                      href={'/tasks/' + elem.name}>
+                      {elem.name}
+                    </Link>
+                  </Box>
+                )}
+              </ListItem>
+            ))}
+          </List>
+        </Box>
         <RepoSearch
           list={(search, promise) => {
             this.repositoryList(search, promise);

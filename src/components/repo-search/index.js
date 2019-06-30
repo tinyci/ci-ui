@@ -5,11 +5,11 @@ import muiTheme from '../../muitheme.js';
 
 import {withStyles} from '@material-ui/core/styles';
 
+import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import TextField from '@material-ui/core/TextField';
 import Tooltip from '@material-ui/core/Tooltip';
-import Typography from '@material-ui/core/Typography';
 
 import AddIcon from '@material-ui/icons/Add';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
@@ -105,19 +105,20 @@ class RepoSearch extends React.Component {
                 </IconButton>
               </Tooltip>
             ) : (
-              <Tooltip title="Add this item">
-                <IconButton
-                  color="primary"
-                  onClick={this.performAction.bind(
-                    this,
-                    this.props.onAdd,
-                    elem,
-                  )}>
-                  <AddIcon />
-                </IconButton>
-              </Tooltip>
+              <Box color="secondary.light">
+                <Tooltip title="Add this item">
+                  <IconButton
+                    onClick={this.performAction.bind(
+                      this,
+                      this.props.onAdd,
+                      elem,
+                    )}>
+                    <AddIcon />
+                  </IconButton>
+                </Tooltip>
+              </Box>
             )}
-            <Typography color="textPrimary">{elem.name}</Typography>
+            <Box color="secondary.light">{elem.name}</Box>
           </ListItem>
         ))}
       </React.Fragment>

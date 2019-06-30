@@ -70,12 +70,14 @@ class AddToCI extends React.Component {
           }}>
           <ListItem key="tinyci-scanupgradeitem">
             <Box>
-              <Typography color="primary">Actions:</Typography>
-              <Box>
+              <Box color="secondary.light" style={{marginBottom: '1em'}}>
+                <h4>Actions:</h4>
+              </Box>
+              <Box color="secondary.light">
                 <Tooltip title="Scan remote repositories">
                   <Button
-                    color="primary"
                     onClick={this.startScan.bind(this)}
+                    color="inherit"
                     variant="outlined">
                     {this.state.scanning ? (
                       <MoreHorizIcon />
@@ -86,8 +88,8 @@ class AddToCI extends React.Component {
                 </Tooltip>
                 <Tooltip title="Upgrade your oauth account to allow repository adding">
                   <Button
-                    color="primary"
                     href="/uisvc/login/upgrade"
+                    color="inherit"
                     variant="outlined">
                     <PeopleIcon />
                   </Button>

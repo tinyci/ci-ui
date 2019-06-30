@@ -22,7 +22,7 @@ const Field = withStyles({
     marginLeft: 'auto',
     marginRight: 'auto',
     '& label.MuiFormLabel-root': {
-      color: muiTheme.palette.secondary.dark,
+      color: muiTheme.palette.secondary.light,
       marginTop: '1em',
     },
     '& input.MuiInputBase-input': {
@@ -112,14 +112,14 @@ class SubmitForm extends React.Component {
                 }}>
                 <InputLabel
                   style={{
-                    color: muiTheme.palette.secondary.dark,
+                    color: muiTheme.palette.secondary.light,
                     marginTop: '1em',
                   }}>
                   Test All
                 </InputLabel>
                 <Checkbox
                   style={{
-                    color: muiTheme.palette.secondary.dark,
+                    color: muiTheme.palette.secondary.light,
                   }}
                   onChange={(e, res) => {
                     this.testAll = res;
@@ -137,7 +137,7 @@ class SubmitForm extends React.Component {
                 <IconButton
                   disabled={this.state.submitting}
                   style={{
-                    color: muiTheme.palette.secondary.dark,
+                    color: muiTheme.palette.secondary.light,
                   }}
                   onClick={this.submit.bind(this)}>
                   {this.state.submitting ? <MoreHorizIcon /> : <SendIcon />}
