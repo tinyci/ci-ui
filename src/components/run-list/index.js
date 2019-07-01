@@ -1,7 +1,7 @@
 import React from 'react';
 import Client from '../../lib/client/client';
 import {
-  loadPaginationState,
+  getPaginationState,
   changePage,
   changePerPage,
 } from '../../lib/pagination';
@@ -81,7 +81,7 @@ class RunList extends React.Component {
   state = {
     totalCount: 0,
     perPage: 20,
-    perPageList: [1, 5, 10, 20, 40, 100],
+    perPageList: [5, 10, 20, 40, 100],
     currentPage: 0,
     loading: true,
     runs: [],
@@ -91,7 +91,8 @@ class RunList extends React.Component {
   client = new Client();
   refreshInterval = null;
 
-  fetchRuns(id) {
+  fetchRuns(id, extraState) {
+    extraState = Object.assign(this.state, extraState);
     this.client.tasksRunsIdGet(
       id,
       {
@@ -127,7 +128,13 @@ class RunList extends React.Component {
 
           this.client.tasksRunsIdCountGet(id, (err, count, resp) => {
             if (!handleError(err, resp)) {
-              this.setState({totalCount: count, runs: runList, loading: false});
+              this.setState(
+                Object.assign(extraState, {
+                  totalCount: count,
+                  runs: runList,
+                  loading: false,
+                }),
+              );
             }
           });
         }
@@ -137,12 +144,11 @@ class RunList extends React.Component {
 
   componentWillMount() {
     this.refreshInterval = window.setInterval(
-      this.fetchRuns.bind(this, this.props.task_id),
+      this.fetchRuns.bind(this, this.props.task_id, getPaginationState(this)),
       5000,
     );
 
-    loadPaginationState(this);
-    this.fetchRuns(this.props.task_id);
+    this.fetchRuns(this.props.task_id, getPaginationState(this));
   }
 
   componentWillUnmount() {
@@ -185,9 +191,13 @@ class RunList extends React.Component {
 
           <PagingState
             currentPage={this.state.currentPage}
-            onCurrentPageChange={changePage(this)}
+            onCurrentPageChange={changePage(this, state => {
+              this.fetchRuns(this.props.task_id, state);
+            })}
             pageSize={this.state.perPage}
-            onPageSizeChange={changePerPage(this)}
+            onPageSizeChange={changePerPage(this, state => {
+              this.fetchRuns(this.props.task_id, state);
+            })}
           />
           <CustomPaging totalCount={this.state.totalCount} />
           <Table columnExtensions={tableColumnExtensions} />

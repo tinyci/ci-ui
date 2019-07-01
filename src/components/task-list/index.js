@@ -1,7 +1,7 @@
 import React from 'react';
 import Client from '../../lib/client/client';
 import {
-  loadPaginationState,
+  getPaginationState,
   changePage,
   changePerPage,
 } from '../../lib/pagination';
@@ -81,21 +81,23 @@ class TaskList extends React.Component {
   state = {
     totalCount: 0,
     perPage: 20,
-    perPageList: [1, 5, 10, 20, 40, 100],
+    perPageList: [5, 10, 20, 40, 100],
     currentPage: 0,
     loading: true,
     tasks: [],
     rerender: 0,
   };
 
+  repository = '';
   client = new Client();
   refreshInterval = null;
 
-  fetchTasks(repository, sha) {
+  fetchTasks(extraState) {
+    extraState = Object.assign(this.state, extraState);
     this.client.tasksGet(
       {
-        repository: repository,
-        sha: sha,
+        repository: this.repository,
+        sha: this.props.sha,
         page: this.state.currentPage,
         perPage: this.state.perPage,
       },
@@ -128,14 +130,17 @@ class TaskList extends React.Component {
           }));
 
           this.client.tasksCountGet(
-            {repository: repository, sha: sha},
+            {repository: this.repository, sha: this.props.sha},
             (err, count, resp) => {
               if (!handleError(err, resp)) {
-                this.setState({
-                  tasks: taskList,
-                  loading: false,
-                  totalCount: count,
-                });
+                this.setState(
+                  Object.assign(extraState, {
+                    tasks: taskList,
+                    loading: false,
+                    rerender: this.state.rerender + 1,
+                    totalCount: count,
+                  }),
+                );
               }
             },
           );
@@ -144,19 +149,17 @@ class TaskList extends React.Component {
     );
   }
 
-  componentDidMount() {
-    var repository = '';
+  componentWillMount() {
+    this.repository = '';
     if (this.props.owner && this.props.repository) {
-      repository = this.props.owner + '/' + this.props.repository;
+      this.repository = this.props.owner + '/' + this.props.repository;
     }
 
+    this.fetchTasks(getPaginationState(this));
     this.refreshInterval = window.setInterval(
-      this.fetchTasks.bind(this, repository, this.props.sha),
+      this.fetchTasks.bind(this, getPaginationState(this)),
       5000,
     );
-
-    loadPaginationState(this);
-    this.fetchTasks(repository, this.props.sha);
   }
 
   componentWillUnmount() {
@@ -199,14 +202,14 @@ class TaskList extends React.Component {
 
           <PagingState
             currentPage={this.state.currentPage}
-            onCurrentPageChange={changePage(this)}
+            onCurrentPageChange={changePage(this, this.fetchTasks.bind(this))}
             pageSize={this.state.perPage}
-            onPageSizeChange={changePerPage(this)}
+            onPageSizeChange={changePerPage(this, this.fetchTasks.bind(this))}
           />
+          <PagingPanel pageSizes={this.state.perPageList} />
           <CustomPaging totalCount={this.state.totalCount} />
           <Table columnExtensions={tableColumnExtensions} />
           <TableHeaderRow />
-          <PagingPanel pageSizes={this.state.perPageList} />
         </Grid>
       </div>
     );
