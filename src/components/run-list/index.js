@@ -96,8 +96,8 @@ class RunList extends React.Component {
     this.client.tasksRunsIdGet(
       id,
       {
-        page: this.state.currentPage,
-        perPage: this.state.perPage,
+        page: extraState.currentPage,
+        perPage: extraState.perPage,
       },
       (err, runs, resp) => {
         if (!handleError(err, resp)) {
@@ -128,13 +128,13 @@ class RunList extends React.Component {
 
           this.client.tasksRunsIdCountGet(id, (err, count, resp) => {
             if (!handleError(err, resp)) {
-              this.setState(
-                Object.assign(extraState, {
-                  totalCount: count,
-                  runs: runList,
-                  loading: false,
-                }),
-              );
+              this.setState({
+                currentPage: extraState.currentPage,
+                perPage: extraState.perPage,
+                totalCount: count,
+                runs: runList,
+                loading: false,
+              });
             }
           });
         }
@@ -143,12 +143,14 @@ class RunList extends React.Component {
   }
 
   componentWillMount() {
+    this.fetchRuns(this.props.task_id, getPaginationState(this));
+
     this.refreshInterval = window.setInterval(
-      this.fetchRuns.bind(this, this.props.task_id, getPaginationState(this)),
+      this.fetchRuns.bind(this, this.props.task_id, () => {
+        getPaginationState(this);
+      }),
       5000,
     );
-
-    this.fetchRuns(this.props.task_id, getPaginationState(this));
   }
 
   componentWillUnmount() {

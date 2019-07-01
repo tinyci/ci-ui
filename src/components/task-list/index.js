@@ -98,8 +98,8 @@ class TaskList extends React.Component {
       {
         repository: this.repository,
         sha: this.props.sha,
-        page: this.state.currentPage,
-        perPage: this.state.perPage,
+        page: extraState.currentPage,
+        perPage: extraState.perPage,
       },
       (err, tasks, resp) => {
         if (!handleError(err, resp)) {
@@ -137,7 +137,6 @@ class TaskList extends React.Component {
                   Object.assign(extraState, {
                     tasks: taskList,
                     loading: false,
-                    rerender: this.state.rerender + 1,
                     totalCount: count,
                   }),
                 );
@@ -157,7 +156,9 @@ class TaskList extends React.Component {
 
     this.fetchTasks(getPaginationState(this));
     this.refreshInterval = window.setInterval(
-      this.fetchTasks.bind(this, getPaginationState(this)),
+      this.fetchTasks.bind(this, () => {
+        getPaginationState(this);
+      }),
       5000,
     );
   }
