@@ -11,7 +11,6 @@ import Link from '@material-ui/core/Link';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Typography from '@material-ui/core/Typography';
 
 class SubscribedList extends React.Component {
   client = new Client();
@@ -116,9 +115,9 @@ class SubscribedList extends React.Component {
               promise();
             });
           }}>
-          <Typography color="primary">
+          <Box color="secondary.contrastText">
             Find a repository to watch for changes.
-          </Typography>
+          </Box>
         </RepoSearch>
       </div>
     );
