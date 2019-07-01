@@ -136,7 +136,7 @@ class RunGrid extends React.Component {
               {this.formatStatus(this.state.run.status)}
             </Grid>
             <Grid item xs={2}>
-              <Box style={{height: '100%', paddingLeft: '1em', margin: 'auto'}}>
+              <Box style={{height: '100%', margin: 'auto'}}>
                 <TopButton
                   flavor={
                     <React.Fragment>
@@ -159,6 +159,7 @@ class RunGrid extends React.Component {
             </Grid>
             <Grid item xs={2}>
               <TopButton
+                nopad
                 flavor={
                   <Box style={{marginLeft: '3em'}}>
                     <Typography variant="subtitle2">

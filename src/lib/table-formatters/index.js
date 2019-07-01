@@ -59,7 +59,7 @@ export const ref = ({value}) => {
 
   var filter_link = '/tasks/' + value.repository.name + '/' + value.sha;
   return (
-    <Box style={{marginLeft: '3em', bottom: '2em'}}>
+    <Box style={{bottom: '2em'}}>
       <Tooltip title="Filter for this SHA">
         <IconButton size="small" color="secondary" href={filter_link}>
           <FilterIcon />

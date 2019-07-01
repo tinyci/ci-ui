@@ -2,7 +2,7 @@ import React from 'react';
 
 import muiTheme from '../../muitheme.js';
 
-import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 
 export const topBorder = '1px solid ' + muiTheme.palette.primary.light;
 
@@ -12,6 +12,8 @@ const topStyle = {
   borderRight: topBorder,
   paddingTop: '1em',
   paddingBottom: '1em',
+  paddingLeft: '1em',
+  marginRight: '1em',
   MozUserSelect: 'none',
   WebkitUserSelect: 'none',
   msUserSelect: 'none',
@@ -27,15 +29,15 @@ export const TopButton = props => (
         topStyle,
       )}
       onClick={props.onClick}>
-      {props.icon ? (
-        <span style={{float: 'left', marginLeft: '1em'}}>{props.icon}</span>
-      ) : (
-        ''
-      )}
-      <Typography
-        style={{float: props.icon ? 'right' : 'none', marginRight: '1em'}}>
+      {props.icon ? <span style={{float: 'left'}}>{props.icon}</span> : ''}
+      <Box
+        style={{
+          float: props.icon ? 'right' : 'none',
+          marginRight: props.nopad ? 0 : '1em',
+          marginLeft: props.nopad ? 0 : '1em',
+        }}>
         {props.flavor}
-      </Typography>
+      </Box>
     </div>
   </React.Fragment>
 );
