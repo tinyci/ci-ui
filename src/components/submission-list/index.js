@@ -24,20 +24,24 @@ import {
 
 const tableColumns = [
   {
-    title: 'Repository',
-    name: 'repository',
+    title: 'Parent',
+    name: 'parent',
   },
   {
-    title: 'Ref Info',
-    name: 'ref',
+    title: 'Base Ref',
+    name: 'base_ref',
   },
   {
-    title: 'Section',
-    name: 'path',
+    title: 'Fork',
+    name: 'fork',
   },
   {
-    title: 'Runs',
-    name: 'runs',
+    title: 'Head Ref',
+    name: 'head_ref',
+  },
+  {
+    title: 'Tasks',
+    name: 'tasks',
   },
   {
     title: 'Status',
@@ -52,39 +56,43 @@ const tableColumns = [
 // these should add up to 1 or close to it
 const globalColumnExtensions = [
   {
-    columnName: 'repository',
+    columnName: 'parent',
+    width: 0.15,
+  },
+  {
+    columnName: 'base_ref',
     width: 0.2,
   },
   {
-    columnName: 'ref',
-    width: 0.25,
+    columnName: 'fork',
+    width: 0.15,
   },
   {
-    columnName: 'path',
-    width: 0.1,
+    columnName: 'head_ref',
+    width: 0.2,
   },
   {
-    columnName: 'runs',
+    columnName: 'tasks',
     width: 0.1,
   },
   {
     columnName: 'status',
-    width: 0.15,
+    width: 0.1,
   },
   {
     columnName: 'history',
-    width: 0.2,
+    width: 0.1,
   },
 ];
 
-class TaskList extends React.Component {
+class SubmissionList extends React.Component {
   state = {
     totalCount: 0,
     perPage: 20,
     perPageList: [5, 10, 20, 40, 100],
     currentPage: 0,
     loading: true,
-    tasks: [],
+    subs: [],
     rerender: 0,
   };
 
@@ -94,42 +102,56 @@ class TaskList extends React.Component {
 
   fetchTasks(extraState) {
     extraState = Object.assign(this.state, extraState);
-    this.client.submissionIdTasksGet(
-      this.props.submission_id,
-      {},
-      (err, tasks, resp) => {
+    this.client.submissionsGet(
+      {
+        repository: this.repository,
+        sha: this.props.sha,
+        page: extraState.currentPage,
+        perPage: extraState.perPage,
+      },
+      (err, subs, resp) => {
         if (!handleError(err, resp)) {
-          var taskList = tasks.map(elem => ({
+          var subsList = subs.map(elem => ({
             id: elem.id,
-            repository: {
-              name: elem.ref.repository.name,
-              parentName: elem.parent.name,
+            parent: {
+              name: elem.base_ref.repository.name,
             },
-            ref: elem.ref,
-            path: elem.path === '.' ? '*root*' : elem.path,
-            runs: {
-              count: elem.runs,
+            fork: {
+              name: elem.head_ref.repository.name,
+            },
+            base_ref: elem.base_ref,
+            head_ref: elem.head_ref,
+            tasks: {
+              count: elem.tasks_count,
               id: elem.id,
             },
             status: {
-              task_id: elem.id,
               status: elem.status,
-              type: 'task',
-              canceled: elem.canceled,
+              canceled: false,
+              type: 'submission',
               started_at: elem.started_at,
+              submission_id: elem.id,
             },
             history: {
-              created_at: elem.created_at,
               started_at: elem.started_at,
+              created_at: elem.created_at,
               finished_at: elem.finished_at,
             },
           }));
-          this.setState(
-            Object.assign(extraState, {
-              tasks: taskList,
-              loading: false,
-              totalCount: 1000000,
-            }),
+
+          this.client.submissionsCountGet(
+            {repository: this.repository, sha: this.props.sha},
+            (err, count, resp) => {
+              if (!handleError(err, resp)) {
+                this.setState(
+                  Object.assign(extraState, {
+                    subs: subsList,
+                    loading: false,
+                    totalCount: count,
+                  }),
+                );
+              }
+            },
           );
         }
       },
@@ -137,6 +159,11 @@ class TaskList extends React.Component {
   }
 
   componentWillMount() {
+    this.repository = '';
+    if (this.props.owner && this.props.repository) {
+      this.repository = this.props.owner + '/' + this.props.repository;
+    }
+
     this.fetchTasks(getPaginationState(this));
     this.refreshInterval = window.setInterval(
       this.fetchTasks.bind(this, () => {
@@ -167,14 +194,24 @@ class TaskList extends React.Component {
 
     return (
       <div style={{minWidth: minWidth, overflowX: 'scroll'}}>
-        <Grid rows={this.state.tasks} columns={tableColumns}>
+        <Grid rows={this.state.subs} columns={tableColumns}>
           <DataTypeProvider
             formatterComponent={format.repository}
-            for={['repository']}
+            for={['parent']}
           />
-          <DataTypeProvider formatterComponent={format.ref} for={['ref']} />
-          <DataTypeProvider formatterComponent={format.text} for={['path']} />
-          <DataTypeProvider formatterComponent={format.runs} for={['runs']} />
+          <DataTypeProvider
+            formatterComponent={format.ref}
+            for={['base_ref']}
+          />
+          <DataTypeProvider
+            formatterComponent={format.repository}
+            for={['fork']}
+          />
+          <DataTypeProvider
+            formatterComponent={format.ref}
+            for={['head_ref']}
+          />
+          <DataTypeProvider formatterComponent={format.tasks} for={['tasks']} />
           <DataTypeProvider
             formatterComponent={format.status}
             for={['status']}
@@ -200,4 +237,4 @@ class TaskList extends React.Component {
   }
 }
 
-export default TaskList;
+export default SubmissionList;

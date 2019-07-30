@@ -8,7 +8,7 @@ import {handleError} from './components/error-messages';
 import Loading from './components/loading';
 import LoginGateway from './components/login-gateway';
 import LogUI from './components/log-ui';
-import {TaskUI, RunUI} from './components/main-ui';
+import {SubmissionUI, TaskUI, RunUI} from './components/main-ui';
 
 import './App.css';
 
@@ -43,13 +43,18 @@ class App extends React.Component {
           <Router>
             <Route exact path="/log/:id" component={LogUI} />
             <Route path="/runs/:task_id" exact component={RunUI} />
+            <Route path="/tasks/:submission_id" exact component={TaskUI} />
             <Route
-              path="/tasks/:owner/:repository/:sha"
+              path="/submissions/:owner/:repository/:sha"
               exact
-              component={TaskUI}
+              component={SubmissionUI}
             />
-            <Route path="/tasks/:owner/:repository" exact component={TaskUI} />
-            <Route path="/" exact component={TaskUI} />
+            <Route
+              path="/submissions/:owner/:repository"
+              exact
+              component={SubmissionUI}
+            />
+            <Route path="/" exact component={SubmissionUI} />
           </Router>
         </MuiThemeProvider>
       );
