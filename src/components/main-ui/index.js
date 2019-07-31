@@ -4,6 +4,7 @@ import Client from '../../lib/client/client';
 
 import AddToCI from '../add-to-ci';
 import {ErrorMessages, handleError} from '../error-messages';
+import SubmissionList from '../submission-list';
 import RunList from '../run-list';
 import TaskList from '../task-list';
 import SubmitForm from '../submit-form';
@@ -115,6 +116,7 @@ class MainUI extends React.Component {
     var repository = this.props.match.params.repository;
     var sha = this.props.match.params.sha;
     var task_id = this.props.match.params.task_id;
+    var submission_id = this.props.match.params.submission_id;
 
     if (owner && repository) {
       repoName = owner + '/' + repository;
@@ -122,6 +124,32 @@ class MainUI extends React.Component {
 
     var thisMinWidth =
       window.innerWidth < minWidth ? minWidth : window.innerWidth;
+
+    var list;
+
+    switch (this.flavor) {
+      case 'task': {
+        list = (
+          <TaskList minWidth={thisMinWidth} submission_id={submission_id} />
+        );
+        break;
+      }
+      case 'run': {
+        list = <RunList minWidth={thisMinWidth} task_id={task_id} />;
+        break;
+      }
+      default: {
+        list = (
+          <SubmissionList
+            owner={owner}
+            repository={repository}
+            sha={sha}
+            minWidth={thisMinWidth}
+          />
+        );
+        break;
+      }
+    }
 
     return (
       <Box style={{minWidth: thisMinWidth}}>
@@ -206,20 +234,18 @@ class MainUI extends React.Component {
           ''
         )}
 
-        {this.flavor === 'task' ? (
-          <TaskList
-            minWidth={thisMinWidth}
-            owner={owner}
-            repository={repository}
-            sha={sha}
-          />
-        ) : (
-          <RunList minWidth={thisMinWidth} task_id={task_id} />
-        )}
+        {list}
 
         <ErrorMessages />
       </Box>
     );
+  }
+}
+
+class SubmissionUI extends MainUI {
+  constructor() {
+    super();
+    this.flavor = 'submission';
   }
 }
 
@@ -237,4 +263,4 @@ class RunUI extends MainUI {
   }
 }
 
-export {TaskUI, RunUI};
+export {SubmissionUI, TaskUI, RunUI};

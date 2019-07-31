@@ -21,6 +21,14 @@ import CancelIcon from '@material-ui/icons/Cancel';
 
 const thisClient = new Client();
 
+export const tasks = ({value}) => {
+  return (
+    <Button color="primary" variant="contained" href={'/tasks/' + value.id}>
+      <Typography>{value.count}</Typography>
+    </Button>
+  );
+};
+
 export const runs = ({value}) => {
   return (
     <Button color="primary" variant="contained" href={'/runs/' + value.id}>
@@ -118,6 +126,11 @@ const cancelThing = value => {
         handleError(err, resp);
       });
       break;
+    case 'submission':
+      thisClient.submissionIdCancelPost(value.submission_id, (err, _, resp) => {
+        handleError(err, resp);
+      });
+      break;
     default:
       handleError({message: 'unexpected api error in cancel code'}, null);
   }
@@ -146,7 +159,7 @@ export const status = ({value}) => {
       );
     }
 
-    if (value.status === undefined) {
+    if (value.status === undefined || value.status === null) {
       return (
         <Box
           container="span"

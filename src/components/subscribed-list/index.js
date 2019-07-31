@@ -88,7 +88,7 @@ class SubscribedList extends React.Component {
                     <Link
                       color="inherit"
                       style={{width: '100%', textDecoration: 'none'}}
-                      href={'/tasks/' + elem.name}>
+                      href={'/submissions/' + elem.name}>
                       {elem.name}
                     </Link>
                   </Box>
