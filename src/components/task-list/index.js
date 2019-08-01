@@ -124,12 +124,19 @@ class TaskList extends React.Component {
               finished_at: elem.finished_at,
             },
           }));
-          this.setState(
-            Object.assign(extraState, {
-              tasks: taskList,
-              loading: false,
-              totalCount: 1000000,
-            }),
+          this.client.submissionIdGet(
+            this.props.submission_id,
+            (err, sub, resp) => {
+              if (!handleError(err, resp)) {
+                this.setState(
+                  Object.assign(extraState, {
+                    tasks: taskList,
+                    loading: false,
+                    totalCount: sub.tasks_count,
+                  }),
+                );
+              }
+            },
           );
         }
       },
