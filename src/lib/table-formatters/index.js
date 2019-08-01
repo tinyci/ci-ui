@@ -65,7 +65,7 @@ export const ref = ({value}) => {
     'https://github.com/' + value.repository.name + '/tree/' + value.sha,
   ).toString();
 
-  var filter_link = '/tasks/' + value.repository.name + '/' + value.sha;
+  var filter_link = '/submissions/' + value.repository.name + '/' + value.sha;
   return (
     <Box style={{bottom: '2em'}}>
       <Tooltip title="Filter for this SHA">
