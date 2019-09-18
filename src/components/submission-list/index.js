@@ -193,7 +193,7 @@ class SubmissionList extends React.Component {
     });
 
     return (
-      <div style={{minWidth: minWidth, overflowX: 'scroll'}}>
+      <div style={{minWidth: minWidth, overflowX: 'auto'}}>
         <Grid rows={this.state.subs} columns={tableColumns}>
           <DataTypeProvider
             formatterComponent={format.repository}

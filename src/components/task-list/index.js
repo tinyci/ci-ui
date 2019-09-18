@@ -173,7 +173,7 @@ class TaskList extends React.Component {
     });
 
     return (
-      <div style={{minWidth: minWidth, overflowX: 'scroll'}}>
+      <div style={{minWidth: minWidth, overflowX: 'auto'}}>
         <Grid rows={this.state.tasks} columns={tableColumns}>
           <DataTypeProvider
             formatterComponent={format.repository}
