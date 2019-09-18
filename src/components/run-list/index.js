@@ -173,7 +173,7 @@ class RunList extends React.Component {
     });
 
     return (
-      <div style={{minWidth: minWidth, overflowX: 'scroll'}}>
+      <div style={{minWidth: minWidth, overflowX: 'auto'}}>
         <Grid rows={this.state.runs} columns={tableColumns}>
           <DataTypeProvider
             formatterComponent={format.repository}
