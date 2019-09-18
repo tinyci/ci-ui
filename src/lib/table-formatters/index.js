@@ -38,7 +38,7 @@ export const runs = ({value}) => {
 };
 
 export const repository = ({value}) => {
-  var filter_link = '/tasks/' + value.name;
+  var filter_link = '/submissions/' + value.name;
   var parent_extra =
     value.parentName !== '' && value.name !== value.parentName
       ? ' (fork of ' + value.parentName + ')'
