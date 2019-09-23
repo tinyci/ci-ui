@@ -124,6 +124,7 @@ class MainUI extends React.Component {
 
     var thisMinWidth =
       window.innerWidth < minWidth ? minWidth : window.innerWidth;
+    thisMinWidth -= 20
 
     var list;
 
