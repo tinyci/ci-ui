@@ -127,7 +127,7 @@ class SubmissionList extends React.Component {
             },
             status: {
               status: elem.status,
-              canceled: false,
+              canceled: elem.canceled,
               type: 'submission',
               started_at: elem.started_at,
               submission_id: elem.id,
