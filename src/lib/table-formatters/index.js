@@ -241,3 +241,15 @@ export const log = ({value}) => {
     ''
   );
 };
+
+export const ticket = ({value}) =>
+  value.id !== null ? (
+    <Button
+      color="secondary"
+      variant="contained"
+      href={
+        'https://github.com/' + value.repository.name + '/pull/' + value.id
+      }>
+      <Typography>{value.id}</Typography>
+    </Button>
+  ) : null;
