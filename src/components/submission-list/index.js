@@ -40,6 +40,10 @@ const tableColumns = [
     name: 'head_ref',
   },
   {
+    title: 'Ticket',
+    name: 'ticket',
+  },
+  {
     title: 'Tasks',
     name: 'tasks',
   },
@@ -61,7 +65,7 @@ const globalColumnExtensions = [
   },
   {
     columnName: 'base_ref',
-    width: 0.2,
+    width: 0.15,
   },
   {
     columnName: 'fork',
@@ -69,7 +73,11 @@ const globalColumnExtensions = [
   },
   {
     columnName: 'head_ref',
-    width: 0.2,
+    width: 0.15,
+  },
+  {
+    columnName: 'ticket',
+    width: 0.1,
   },
   {
     columnName: 'tasks',
@@ -124,6 +132,10 @@ class SubmissionList extends React.Component {
             tasks: {
               count: elem.tasks_count,
               id: elem.id,
+            },
+            ticket: {
+              id: elem.ticket_id === 0 ? null : elem.ticket_id,
+              repository: elem.base_ref.repository,
             },
             status: {
               status: elem.status,
@@ -210,6 +222,10 @@ class SubmissionList extends React.Component {
           <DataTypeProvider
             formatterComponent={format.ref}
             for={['head_ref']}
+          />
+          <DataTypeProvider
+            formatterComponent={format.ticket}
+            for={['ticket']}
           />
           <DataTypeProvider formatterComponent={format.tasks} for={['tasks']} />
           <DataTypeProvider
