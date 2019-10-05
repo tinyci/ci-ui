@@ -988,9 +988,9 @@
     "@hapi/topo" "3.x.x"
 
 "@hapi/topo@3.x.x":
-  version "3.1.4"
-  resolved "https://registry.yarnpkg.com/@hapi/topo/-/topo-3.1.4.tgz#42e2fe36f593d90ad258a08b582be128c141c45d"
-  integrity sha512-aVWQTOI9wBD6zawmOr6f+tdEIxQC8JXfQVLTjgGe8YEStAWGn/GNNVTobKJhbWKveQj2RyYF3oYbO9SC8/eOCA==
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/@hapi/topo/-/topo-3.1.5.tgz#3baea17e456530edad69a75c3fc7cde97dd6d331"
+  integrity sha512-bi9m1jrui9LlvtVdLaHv0DqeOoe+I8dep+nEcTgW6XxJHL3xArQcilYz3tIp0cRC4gWlsVtABK7vNKg4jzEmAA==
   dependencies:
     "@hapi/hoek" "8.x.x"
 
@@ -2521,7 +2521,7 @@ chrome-trace-event@^1.0.0:
 
 "ci-agents@https://github.com/tinyci/ci-agents":
   version "0.0.0"
-  resolved "https://github.com/tinyci/ci-agents#d36b223befb6317359c9da0b4d5f0c3c4397c0c5"
+  resolved "https://github.com/tinyci/ci-agents#870a265826b29714fe831c01b58db7a2d7026c88"
 
 ci-info@^2.0.0:
   version "2.0.0"
