@@ -57,13 +57,14 @@ class SubmitForm extends React.Component {
     return (
       <div
         style={{
+          border: '1px solid ' + muiTheme.palette.primary.light,
           width: window.innerWidth,
-          backgroundColor: muiTheme.palette.secondary.main,
+          backgroundColor: muiTheme.palette.primary.main,
           margin: 0,
           padding: 0,
           height: '6em',
           position: 'absolute',
-          zIndex: 2,
+          zIndex: 65535,
         }}
         position="static">
         <form>

@@ -61,8 +61,9 @@ class AddToCI extends React.Component {
       <React.Fragment>
         <List
           style={{
-            backgroundColor: muiTheme.palette.secondary.main,
-            zIndex: 2,
+            backgroundColor: muiTheme.palette.primary.main,
+            border: '1px solid ' + muiTheme.palette.primary.light,
+            zIndex: 65535,
             position: 'absolute',
             minWidth: '35%',
             maxWidth: '50%',
@@ -70,10 +71,10 @@ class AddToCI extends React.Component {
           }}>
           <ListItem key="tinyci-scanupgradeitem">
             <Box>
-              <Box color="secondary.light" style={{marginBottom: '1em'}}>
+              <Box color="primary.light" style={{marginBottom: '1em'}}>
                 <h4>Actions:</h4>
               </Box>
-              <Box color="secondary.light">
+              <Box color="primary.light">
                 <Tooltip title="Scan remote repositories">
                   <Button
                     onClick={this.startScan.bind(this)}
@@ -110,14 +111,14 @@ class AddToCI extends React.Component {
             }}>
             <Box container="span">
               <Typography
-                style={{color: muiTheme.palette.secondary.contrastText}}>
+                style={{color: muiTheme.palette.primary.contrastText}}>
                 Scan for items from remote resources by clicking the cloud icon
                 above, then search and add the repositories you wish to use in
                 tinyCI.
               </Typography>
               <br />
               <Typography
-                style={{color: muiTheme.palette.secondary.contrastText}}>
+                style={{color: muiTheme.palette.primary.contrastText}}>
                 Please note you will also need an "upgraded" set of OAuth scopes
                 to process/admin CI jobs which will be granted if you click the
                 "people" icon above. You will be redirected to your OAuth

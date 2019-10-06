@@ -25,6 +25,7 @@ import PublishIcon from '@material-ui/icons/Publish';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 const minWidth = 1080; // optimize for 1080p
+
 class MainUI extends React.Component {
   flavor = 'task';
   state = {
