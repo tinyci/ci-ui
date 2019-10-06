@@ -8,7 +8,12 @@ import {handleError} from './components/error-messages';
 import Loading from './components/loading';
 import LoginGateway from './components/login-gateway';
 import LogUI from './components/log-ui';
-import {SubmissionUI, TaskUI, RunUI} from './components/main-ui';
+import {
+  SubmissionRunUI,
+  SubmissionUI,
+  TaskUI,
+  RunUI,
+} from './components/main-ui';
 
 import './App.css';
 
@@ -44,6 +49,11 @@ class App extends React.Component {
             <Route exact path="/log/:id" component={LogUI} />
             <Route path="/runs/:task_id" exact component={RunUI} />
             <Route path="/tasks/:submission_id" exact component={TaskUI} />
+            <Route
+              path="/submission/:submission_id/runs"
+              exact
+              component={SubmissionRunUI}
+            />
             <Route
               path="/submissions/:owner/:repository/:sha"
               exact

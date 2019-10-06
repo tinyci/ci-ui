@@ -41,10 +41,10 @@ const globalColumnExtensions = [
   },
 ];
 
-class RunList extends DataGrid {
+class SubmissionRunList extends DataGrid {
   fetch(extraState) {
     extraState = Object.assign(this.state, extraState);
-    this.client.tasksRunsIdGet(
+    this.client.submissionIdRunsGet(
       this.props.id,
       {
         page: extraState.currentPage,
@@ -53,8 +53,7 @@ class RunList extends DataGrid {
       (err, runs, resp) => {
         if (!handleError(err, resp)) {
           var runList = runs.map(elem => ({
-            task: elem.task,
-            path: elem.name,
+            path: elem.task.path + ':' + elem.name,
             status: {
               run_id: elem.id,
               status: elem.status,
@@ -73,15 +72,14 @@ class RunList extends DataGrid {
             },
           }));
 
-          this.client.tasksRunsIdCountGet(this.props.id, (err, count, resp) => {
+          this.client.submissionIdGet(this.props.id, (err, sub, resp) => {
             if (!handleError(err, resp)) {
               this.setState(
                 Object.assign(extraState, {
-                  totalCount: count,
+                  totalCount: sub.runs_count,
                   items: runList,
                   loading: false,
-                  submission: runList[0] ? runList[0].task.submission : null,
-                  task: runList[0] ? runList[0].task : null,
+                  submission: sub,
                 }),
               );
             }
@@ -101,4 +99,4 @@ class RunList extends DataGrid {
   }
 }
 
-export default RunList;
+export default SubmissionRunList;

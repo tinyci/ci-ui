@@ -5,6 +5,7 @@ import Client from '../../lib/client/client';
 import AddToCI from '../add-to-ci';
 import {ErrorMessages, handleError} from '../error-messages';
 import SubmissionList from '../submission-list';
+import SubmissionRunList from '../submission-run-list';
 import RunList from '../run-list';
 import TaskList from '../task-list';
 import SubmitForm from '../submit-form';
@@ -124,19 +125,21 @@ class MainUI extends React.Component {
 
     var thisMinWidth =
       window.innerWidth < minWidth ? minWidth : window.innerWidth;
-    thisMinWidth -= 20
+    thisMinWidth -= 20;
 
     var list;
 
     switch (this.flavor) {
       case 'task': {
-        list = (
-          <TaskList minWidth={thisMinWidth} submission_id={submission_id} />
-        );
+        list = <TaskList minWidth={thisMinWidth} id={submission_id} />;
         break;
       }
       case 'run': {
-        list = <RunList minWidth={thisMinWidth} task_id={task_id} />;
+        list = <RunList minWidth={thisMinWidth} id={task_id} />;
+        break;
+      }
+      case 'submission_run': {
+        list = <SubmissionRunList minWidth={thisMinWidth} id={submission_id} />;
         break;
       }
       default: {
@@ -264,4 +267,11 @@ class RunUI extends MainUI {
   }
 }
 
-export {SubmissionUI, TaskUI, RunUI};
+class SubmissionRunUI extends MainUI {
+  constructor() {
+    super();
+    this.flavor = 'submission_run';
+  }
+}
+
+export {SubmissionRunUI, SubmissionUI, TaskUI, RunUI};
