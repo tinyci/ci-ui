@@ -80,13 +80,33 @@ export const taskName = ({value}) => (
 export const taskRuns = ({value}) => <Typography>{value.count}</Typography>;
 
 export const submissionLinks = ({value}) => (
-  <Table>
+  <Table size="small">
     <TableBody>
+      {value.ticket.id !== null ? (
+        <StyledTableRow>
+          <StyledTableCell>
+            <Typography>Ticket ID</Typography>
+          </StyledTableCell>
+          <StyledTableCell>
+            <Button
+              color="secondary"
+              variant="contained"
+              href={
+                'https://github.com/' +
+                value.ticket.repository.name +
+                '/pull/' +
+                value.ticket.id
+              }>
+              <Typography>{value.ticket.id}</Typography>
+            </Button>
+          </StyledTableCell>
+        </StyledTableRow>
+      ) : null}
       <StyledTableRow>
-        <StyledTableCell>
+        <StyledTableCell style={{width: '30%'}}>
           <Typography>Tasks</Typography>
         </StyledTableCell>
-        <StyledTableCell>
+        <StyledTableCell style={{width: '70%'}}>
           <Button
             color="primary"
             variant="contained"
@@ -108,26 +128,6 @@ export const submissionLinks = ({value}) => (
           </Button>
         </StyledTableCell>
       </StyledTableRow>
-      {value.ticket.id !== null ? (
-        <StyledTableRow>
-          <StyledTableCell>
-            <Typography>Ticket ID</Typography>
-          </StyledTableCell>
-          <StyledTableCell>
-            <Button
-              color="secondary"
-              variant="contained"
-              href={
-                'https://github.com/' +
-                value.ticket.repository.name +
-                '/pull/' +
-                value.ticket.id
-              }>
-              <Typography>{value.ticket.id}</Typography>
-            </Button>
-          </StyledTableCell>
-        </StyledTableRow>
-      ) : null}
     </TableBody>
   </Table>
 );
@@ -147,7 +147,7 @@ export const submissionInfo = ({value}) => {
                 </IconButton>
               </Tooltip>
             </StyledTableCell>
-            <StyledTableCell>
+            <StyledTableCell style={{width: '50%'}}>
               <Link href={branchLink(value)}>
                 {prettyBranch(value.head_ref)}
               </Link>

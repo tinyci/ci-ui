@@ -53,7 +53,7 @@ class SubmissionRunList extends DataGrid {
       (err, runs, resp) => {
         if (!handleError(err, resp)) {
           var runList = runs.map(elem => ({
-            path: elem.task.path + ':' + elem.name,
+            path: elem.name,
             status: {
               run_id: elem.id,
               status: elem.status,
