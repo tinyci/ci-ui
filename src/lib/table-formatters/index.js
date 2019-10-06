@@ -68,7 +68,7 @@ const shaLink = value =>
     'https://github.com/' +
       value.head_ref.repository.name +
       '/tree/' +
-      value.sha,
+      value.head_ref.sha,
   ).toString();
 
 export const taskName = ({value}) => (
