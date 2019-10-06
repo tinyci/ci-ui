@@ -60,14 +60,15 @@ class SubscribedList extends React.Component {
     return (
       <div
         style={{
-          backgroundColor: muiTheme.palette.secondary.main,
-          zIndex: 2,
+          backgroundColor: muiTheme.palette.primary.main,
+          border: '1px solid ' + muiTheme.palette.primary.light,
+          zIndex: 65535,
           position: 'absolute',
           minWidth: '35%',
           maxWidth: '50%',
           boxShadow: '0 10px 10px rgba(0, 0, 0, 0.5)',
         }}>
-        <Box color="secondary.contrastText">
+        <Box color="primary.light">
           <List>
             <ListItem>
               <ListItemText>Subscribed Repositories</ListItemText>
@@ -75,7 +76,7 @@ class SubscribedList extends React.Component {
             {this.props.mainui.state.subscribed.map(elem => (
               <ListItem button key={elem.name}>
                 {elem.all ? (
-                  <Box color="secondary.dark">
+                  <Box color="primary.light">
                     <Link
                       color="inherit"
                       style={{width: '100%', textDecoration: 'none'}}
@@ -84,7 +85,7 @@ class SubscribedList extends React.Component {
                     </Link>
                   </Box>
                 ) : (
-                  <Box color="secondary.light">
+                  <Box color="primary.contrastText">
                     <Link
                       color="inherit"
                       style={{width: '100%', textDecoration: 'none'}}
@@ -115,7 +116,7 @@ class SubscribedList extends React.Component {
               promise();
             });
           }}>
-          <Box color="secondary.contrastText">
+          <Box color="primary.contrastText">
             Find a repository to watch for changes.
           </Box>
         </RepoSearch>
