@@ -91,12 +91,14 @@ export const submissionLinks = ({value}) => (
             <Button
               color="secondary"
               variant="contained"
-              href={
-                'https://github.com/' +
-                value.ticket.repository.name +
-                '/pull/' +
-                value.ticket.id
-              }>
+              onClick={() => {
+                window.open(
+                  'https://github.com/' +
+                    value.ticket.repository.name +
+                    '/pull/' +
+                    value.ticket.id,
+                );
+              }}>
               <Typography>{value.ticket.id}</Typography>
             </Button>
           </StyledTableCell>
