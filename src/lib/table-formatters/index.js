@@ -419,9 +419,14 @@ export const history = ({value}) => (
 
 export const log = ({value}) => {
   return value.started ? (
-    <Button variant="contained" href={'/log/' + value.run_id}>
-      {value.run_id}
-    </Button>
+    <div style={{width: 0, marginLeft: 'auto', marginRight: 'auto'}}>
+      <Button
+        style={{color: 'black'}}
+        variant="contained"
+        href={'/log/' + value.run_id}>
+        {value.run_id}
+      </Button>
+    </div>
   ) : (
     ''
   );

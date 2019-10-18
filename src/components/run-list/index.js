@@ -12,6 +12,10 @@ const tableColumns = [
     name: 'history',
   },
   {
+    title: 'Ran On',
+    name: 'ran_on',
+  },
+  {
     title: 'Status',
     name: 'status',
   },
@@ -29,7 +33,11 @@ const globalColumnExtensions = [
   },
   {
     columnName: 'history',
-    width: 0.4,
+    width: 0.3,
+  },
+  {
+    columnName: 'ran_on',
+    width: 0.1,
   },
   {
     columnName: 'status',
@@ -71,6 +79,7 @@ class RunList extends DataGrid {
               run_id: elem.id,
               started: !!elem.started_at,
             },
+            ran_on: elem.ran_on,
           }));
 
           this.client.tasksRunsIdCountGet(this.props.id, (err, count, resp) => {
@@ -97,6 +106,7 @@ class RunList extends DataGrid {
       log: format.log,
       status: format.status,
       history: format.history,
+      ran_on: format.text,
     });
   }
 }
