@@ -405,6 +405,8 @@ export const history = ({value}) => (
           <Tooltip title="Created At">
             <div
               style={{
+                minHeight: '1em',
+                minWidth: '1em',
                 height: '1em',
                 width: '1em',
                 backgroundColor: blue[800],
@@ -425,13 +427,13 @@ export const history = ({value}) => (
           <Tooltip title="Started At">
             <div
               style={{
+                minHeight: '1em',
+                minWidth: '1em',
                 height: '1em',
                 width: '1em',
                 backgroundColor: yellow[800],
                 borderRadius: '1em',
-              }}>
-              &nbsp;
-            </div>
+              }}></div>
           </Tooltip>
         </HistoryStyledTableCell>
         <HistoryStyledTableCell>
@@ -440,7 +442,9 @@ export const history = ({value}) => (
               {dateFormat(value.started_at)} (
               {relativeFromNow(value.started_at)})
             </div>
-          ) : null}
+          ) : (
+            <div>&nbsp;</div>
+          )}
         </HistoryStyledTableCell>
       </TableRow>
       <TableRow>
@@ -448,19 +452,25 @@ export const history = ({value}) => (
           <Tooltip title="Finished At">
             <div
               style={{
+                minHeight: '1em',
+                minWidth: '1em',
                 height: '1em',
                 width: '1em',
-                backgroundColor: value.status ? green[300] : red[300],
+                backgroundColor: value.status
+                  ? green[300]
+                  : value.status === undefined
+                  ? 'black'
+                  : red[300],
                 borderRadius: '1em',
-              }}>
-              &nbsp;
-            </div>
+              }}></div>
           </Tooltip>
         </HistoryStyledTableCell>
         <HistoryStyledTableCell>
-          {value.finished_at
-            ? relativeDateFormat(value.finished_at, value.started_at)
-            : null}
+          {value.finished_at && value.started_at ? (
+            relativeDateFormat(value.finished_at, value.started_at)
+          ) : (
+            <div>&nbsp;</div>
+          )}
         </HistoryStyledTableCell>
       </TableRow>
     </TableBody>
