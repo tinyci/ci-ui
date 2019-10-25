@@ -63,9 +63,14 @@ class Breadcrumb extends React.Component {
               Runs
             </Link>
           ) : null}
-          {this.props.task_id && this.props.path ? (
+          {this.props.task_id && !this.props.run_id && this.props.path ? (
             <Link style={{color: 'white'}} href={'/runs/' + this.props.task_id}>
               {this.props.path} Runs
+            </Link>
+          ) : null}
+          {this.props.run_id ? (
+            <Link style={{color: 'white'}} href={'/runs/' + this.props.task_id}>
+              Run #{this.props.run_id}
             </Link>
           ) : null}
         </Breadcrumbs>

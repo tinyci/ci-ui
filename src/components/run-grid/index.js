@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Client from '../../lib/client/client';
 import * as format from '../../lib/table-formatters';
 import muiTheme from '../../muitheme.js';
 
@@ -40,18 +39,6 @@ const StatusLabel = props => {
 };
 
 class RunGrid extends React.Component {
-  state = {run: null};
-  client = new Client();
-  interval = null;
-
-  refreshRun() {
-    this.client.runRunIdGet(this.props.run_id, (err, run, resp) => {
-      if (!handleError(err, resp)) {
-        this.setState({run: run});
-      }
-    });
-  }
-
   formatStatus(status) {
     if (status === undefined || status === null) {
       return (
@@ -78,34 +65,24 @@ class RunGrid extends React.Component {
     );
   }
 
-  componentDidMount() {
-    this.refreshRun();
-    this.interval = window.setInterval(this.refreshRun.bind(this), 5000);
-  }
-
-  componentWillUnmount() {
-    window.clearInterval(this.interval);
-    this.interval = null;
-  }
-
   render() {
     var refURL, refText;
 
-    if (this.state.run && this.state.run.task.pull_request_id) {
+    if (this.props.run && this.props.run.task.pull_request_id) {
       refURL =
-        this.state.run.task.parent.github.html_url +
+        this.props.run.task.parent.github.html_url +
         '/pull/' +
-        this.state.run.task.pull_request_id;
-      refText = this.state.run.task.pull_request_id;
+        this.props.run.task.pull_request_id;
+      refText = this.props.run.task.pull_request_id;
     }
 
-    if (this.state.run && !this.state.run.started_at) {
+    if (this.props.run && !this.props.run.started_at) {
       handleError({message: 'Run has not started'}, {});
     }
 
     return (
       <React.Fragment>
-        {this.state.run ? (
+        {this.props.run ? (
           <React.Fragment>
             <Grid item xs={1}>
               <Box style={{height: '100%', paddingLeft: '1em', margin: 'auto'}}>
@@ -133,7 +110,7 @@ class RunGrid extends React.Component {
               </Box>
             </Grid>
             <Grid item xs={1}>
-              {this.formatStatus(this.state.run.status)}
+              {this.formatStatus(this.props.run.status)}
             </Grid>
             <Grid item xs={2}>
               <Box style={{height: '100%', margin: 'auto'}}>
@@ -141,13 +118,13 @@ class RunGrid extends React.Component {
                   flavor={
                     <React.Fragment>
                       <Typography variant="subtitle2">
-                        <b>{this.state.run.task.ref.repository.name}</b>
+                        <b>{this.props.run.task.ref.repository.name}</b>
                       </Typography>
-                      {this.state.run.task.parent &&
-                      this.state.run.task.parent.name !==
-                        this.state.run.task.ref.repository.name ? (
+                      {this.props.run.task.parent &&
+                      this.props.run.task.parent.name !==
+                        this.props.run.task.ref.repository.name ? (
                         <Typography>
-                          (fork of {this.state.run.task.parent.name})
+                          (fork of {this.props.run.task.parent.name})
                         </Typography>
                       ) : (
                         ''
@@ -163,7 +140,7 @@ class RunGrid extends React.Component {
                 flavor={
                   <Box style={{marginLeft: '3em'}}>
                     <Typography variant="subtitle2">
-                      Test: <b>{this.state.run.name}</b>
+                      Test: <b>{this.props.run.name}</b>
                     </Typography>
                   </Box>
                 }
@@ -171,7 +148,7 @@ class RunGrid extends React.Component {
             </Grid>
             <Grid item xs={2}>
               <TopButton
-                flavor={format.ref({value: this.state.run.task.ref})}
+                flavor={format.ref({value: this.props.run.task.ref})}
               />
             </Grid>
             <Grid item xs={2}>
@@ -181,7 +158,7 @@ class RunGrid extends React.Component {
                   marginLeft: '3em',
                   marginTop: '0.5em',
                 }}>
-                {format.history({value: this.state.run})}
+                {format.history({value: this.props.run})}
               </Box>
             </Grid>
             <Grid item xs={this.props.size - 10} />
