@@ -9,12 +9,7 @@ import {
   changePerPage,
 } from '../../lib/pagination';
 
-import {
-  Grid,
-  Table,
-  TableHeaderRow,
-  PagingPanel,
-} from '@devexpress/dx-react-grid-material-ui';
+import {Grid, Table, PagingPanel} from '@devexpress/dx-react-grid-material-ui';
 import {
   PagingState,
   DataTypeProvider,
@@ -87,7 +82,6 @@ class DataGrid extends React.Component {
               globalColumnExtensions,
             )}
           />
-          <TableHeaderRow />
           <PagingPanel pageSizes={this.perPageList} />
         </Grid>
       </div>
