@@ -243,33 +243,45 @@ export const ref = ({value}) => {
 
   var filter_link = '/submissions/' + value.repository.name + '/' + value.sha;
   return (
-    <Box style={{bottom: '2em'}}>
-      <Tooltip title="Filter for this SHA">
-        <IconButton size="small" color="secondary" href={filter_link}>
-          <FilterIcon />
-        </IconButton>
-      </Tooltip>
-      &nbsp;&nbsp;
-      <Tooltip title={value.ref_name}>
-        <Button
-          size="small"
-          variant="outlined"
-          color="secondary"
-          href={branch_link}>
-          {pretty_branch}
-        </Button>
-      </Tooltip>
-      &nbsp;&nbsp;
-      <Tooltip title={value.sha}>
-        <Button
-          size="small"
-          variant="outlined"
-          color="secondary"
-          href={sha_link}>
-          {value.sha.substring(0, 8)}
-        </Button>
-      </Tooltip>
-    </Box>
+    <React.Fragment>
+      <Grid container spacing={0}>
+        <Grid item xs={1}>
+          <Tooltip title="Filter for this SHA">
+            <IconButton size="small" color="secondary" href={filter_link}>
+              <FilterIcon />
+            </IconButton>
+          </Tooltip>
+        </Grid>
+        <Grid item xs={5}>
+          <div style={{borderRight: '1px solid #ccc'}}>
+            <center>
+              <Tooltip title={value.ref_name}>
+                <Button
+                  variant="outlined"
+                  color="inherit"
+                  size="small"
+                  href={branch_link}>
+                  {pretty_branch}
+                </Button>
+              </Tooltip>
+            </center>
+          </div>
+        </Grid>
+        <Grid item xs={5}>
+          <center>
+            <Tooltip title={value.sha}>
+              <Button
+                variant="outlined"
+                size="small"
+                color="inherit"
+                href={sha_link}>
+                {value.sha.substring(0, 8)}
+              </Button>
+            </Tooltip>
+          </center>
+        </Grid>
+      </Grid>
+    </React.Fragment>
   );
 };
 
