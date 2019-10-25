@@ -10,12 +10,12 @@
     "@material-ui/core": "^4.1.0",
     "@material-ui/icons": "^4.1.0",
     "ci-agents": "https://github.com/tinyci/ci-agents",
+    "moment": "^2.24.0",
     "query-string": "^6.7.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
-    "strftime": "^0.10.0",
     "superagent": "^5.0.7",
     "xterm": "^3.14.2"
   },

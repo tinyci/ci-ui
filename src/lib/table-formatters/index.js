@@ -1,5 +1,5 @@
 import React from 'react';
-import strftime from 'strftime';
+import moment from 'moment';
 
 import Client from '../client/client';
 import {handleError} from '../../components/error-messages';
@@ -52,6 +52,17 @@ const StyledTableRow = withStyles(theme => ({
     },
   },
 }))(TableRow);
+
+const HistoryStyledTableCell = withStyles(theme => ({
+  head: {
+    color: theme.palette.secondary.main,
+    borderBottom: 'none',
+  },
+  body: {
+    color: theme.palette.secondary.main,
+    borderBottom: 'none',
+  },
+}))(TableCell);
 
 const prettyBranch = value => value.ref_name.replace(/^(?:refs\/)?heads\//, '');
 
@@ -243,43 +254,53 @@ export const ref = ({value}) => {
 
   var filter_link = '/submissions/' + value.repository.name + '/' + value.sha;
   return (
-    <Box style={{bottom: '2em'}}>
-      <Tooltip title="Filter for this SHA">
-        <IconButton size="small" color="secondary" href={filter_link}>
-          <FilterIcon />
-        </IconButton>
-      </Tooltip>
-      &nbsp;&nbsp;
-      <Tooltip title={value.ref_name}>
-        <Button
-          size="small"
-          variant="outlined"
-          color="secondary"
-          href={branch_link}>
-          {pretty_branch}
-        </Button>
-      </Tooltip>
-      &nbsp;&nbsp;
-      <Tooltip title={value.sha}>
-        <Button
-          size="small"
-          variant="outlined"
-          color="secondary"
-          href={sha_link}>
-          {value.sha.substring(0, 8)}
-        </Button>
-      </Tooltip>
-    </Box>
+    <React.Fragment>
+      <Grid container spacing={0}>
+        <Grid item xs={1}>
+          <Tooltip title="Filter for this SHA">
+            <IconButton size="small" color="secondary" href={filter_link}>
+              <FilterIcon />
+            </IconButton>
+          </Tooltip>
+        </Grid>
+        <Grid item xs={5}>
+          <div style={{borderRight: '1px solid #ccc'}}>
+            <center>
+              <Tooltip title={value.ref_name}>
+                <Button
+                  variant="outlined"
+                  color="inherit"
+                  size="small"
+                  href={branch_link}>
+                  {pretty_branch}
+                </Button>
+              </Tooltip>
+            </center>
+          </div>
+        </Grid>
+        <Grid item xs={5}>
+          <center>
+            <Tooltip title={value.sha}>
+              <Button
+                variant="outlined"
+                size="small"
+                color="inherit"
+                href={sha_link}>
+                {value.sha.substring(0, 8)}
+              </Button>
+            </Tooltip>
+          </center>
+        </Grid>
+      </Grid>
+    </React.Fragment>
   );
 };
 
-const dateFormat = date => {
-  if (!date) {
-    return null;
-  }
+const relativeFromNow = date => moment(date).fromNow();
 
-  return strftime('%m/%d/%Y %H:%M', new Date(date));
-};
+const relativeDateFormat = (date1, date2) => moment(date1).from(date2);
+
+const dateFormat = date => moment(date).format('M/D HH:MM');
 
 export const text = ({value}) => <Typography>{value}</Typography>;
 
@@ -377,44 +398,73 @@ export const status = ({value}) => {
 };
 
 export const history = ({value}) => (
-  <Grid container>
-    <Grid item xs={6}>
-      <Typography variant="subtitle2" style={{color: blue[800]}}>
-        <b>Created</b>
-      </Typography>
-    </Grid>
-    <Grid item xs={6}>
-      <Typography variant="body2">{dateFormat(value.created_at)}</Typography>
-    </Grid>
-    {value.started_at ? (
-      <React.Fragment>
-        <Grid item xs={6}>
-          <Typography variant="subtitle2" style={{color: yellow[900]}}>
-            <b>Started</b>
-          </Typography>
-        </Grid>
-        <Grid item xs={6}>
-          <Typography variant="body2">
-            {dateFormat(value.started_at)}
-          </Typography>
-        </Grid>
-      </React.Fragment>
-    ) : null}
-    {value.finished_at ? (
-      <React.Fragment>
-        <Grid item xs={6}>
-          <Typography variant="subtitle2" style={{color: 'black'}}>
-            <b>Finished</b>
-          </Typography>
-        </Grid>
-        <Grid item xs={6}>
-          <Typography variant="body2">
-            {dateFormat(value.finished_at)}
-          </Typography>
-        </Grid>
-      </React.Fragment>
-    ) : null}
-  </Grid>
+  <Table size="small" padding="none">
+    <TableBody>
+      <TableRow>
+        <HistoryStyledTableCell>
+          <Tooltip title="Created At">
+            <div
+              style={{
+                height: '1em',
+                width: '1em',
+                backgroundColor: blue[800],
+                borderRadius: '1em',
+              }}>
+              &nbsp;
+            </div>
+          </Tooltip>
+        </HistoryStyledTableCell>
+        <HistoryStyledTableCell>
+          <div>
+            {dateFormat(value.created_at)} ({relativeFromNow(value.created_at)})
+          </div>
+        </HistoryStyledTableCell>
+      </TableRow>
+      <TableRow>
+        <HistoryStyledTableCell>
+          <Tooltip title="Started At">
+            <div
+              style={{
+                height: '1em',
+                width: '1em',
+                backgroundColor: yellow[800],
+                borderRadius: '1em',
+              }}>
+              &nbsp;
+            </div>
+          </Tooltip>
+        </HistoryStyledTableCell>
+        <HistoryStyledTableCell>
+          {value.started_at ? (
+            <div>
+              {dateFormat(value.started_at)} (
+              {relativeFromNow(value.started_at)})
+            </div>
+          ) : null}
+        </HistoryStyledTableCell>
+      </TableRow>
+      <TableRow>
+        <HistoryStyledTableCell>
+          <Tooltip title="Finished At">
+            <div
+              style={{
+                height: '1em',
+                width: '1em',
+                backgroundColor: value.status ? green[300] : red[300],
+                borderRadius: '1em',
+              }}>
+              &nbsp;
+            </div>
+          </Tooltip>
+        </HistoryStyledTableCell>
+        <HistoryStyledTableCell>
+          {value.finished_at
+            ? relativeDateFormat(value.finished_at, value.started_at)
+            : null}
+        </HistoryStyledTableCell>
+      </TableRow>
+    </TableBody>
+  </Table>
 );
 
 export const log = ({value}) => {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {AppBar, Breadcrumbs, Link} from '@material-ui/core';
+import {AppBar, Breadcrumbs, Link, Typography} from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 
 class Breadcrumb extends React.Component {
@@ -69,9 +69,7 @@ class Breadcrumb extends React.Component {
             </Link>
           ) : null}
           {this.props.run_id ? (
-            <Link style={{color: 'white'}} href={'/runs/' + this.props.task_id}>
-              Run #{this.props.run_id}
-            </Link>
+            <Typography>Run #{this.props.run_id}</Typography>
           ) : null}
         </Breadcrumbs>
       </AppBar>
