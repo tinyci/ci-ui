@@ -45,6 +45,10 @@ class App extends React.Component {
     } else if (this.state.loggedIn === 'true') {
       return (
         <MuiThemeProvider theme={muiTheme}>
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          />
           <Router>
             <Route exact path="/log/:id" component={LogUI} />
             <Route path="/runs/:task_id" exact component={RunUI} />

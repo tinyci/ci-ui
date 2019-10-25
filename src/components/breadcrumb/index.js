@@ -18,7 +18,10 @@ class Breadcrumb extends React.Component {
           separator=">"
           aria-label="breadcrumb">
           <Link style={{color: 'white'}} href="/">
-            <HomeIcon fontSize="inherit" />
+            <HomeIcon
+              fontSize="inherit"
+              style={{verticalAlign: 'bottom', margin: '5px'}}
+            />
             Submission List
           </Link>
           {this.props.submission ? (
