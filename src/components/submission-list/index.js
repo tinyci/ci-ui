@@ -76,6 +76,7 @@ class SubmissionList extends DataGrid {
               submission_id: elem.id,
             },
             history: {
+              status: elem.status,
               started_at: elem.started_at,
               created_at: elem.created_at,
               finished_at: elem.finished_at,
