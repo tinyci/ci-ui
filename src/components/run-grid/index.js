@@ -19,21 +19,22 @@ const StatusLabel = props => {
   return (
     <Box
       style={{
-        marginLeft: '2em',
         borderRight: '1px solid ' + muiTheme.palette.primary.light,
         height: '100%',
       }}>
-      <Button
-        disabled
-        size="small"
-        variant="outlined"
-        style={{
-          marginTop: '1em',
-          border: '1px solid ' + props.borderColor,
-          color: props.color,
-        }}>
-        {props.text}
-      </Button>
+      <center>
+        <Button
+          disabled
+          size="small"
+          variant="outlined"
+          style={{
+            marginTop: '1em',
+            border: '1px solid ' + props.borderColor,
+            color: props.color,
+          }}>
+          {props.text}
+        </Button>
+      </center>
     </Box>
   );
 };
@@ -84,15 +85,13 @@ class RunGrid extends React.Component {
       <React.Fragment>
         {this.props.run ? (
           <React.Fragment>
-            <Grid item xs={1}>
-              <Box style={{height: '100%', paddingLeft: '1em', margin: 'auto'}}>
-                <TopButton
-                  flavor={
-                    <React.Fragment>
-                      <Typography variant="subtitle2">
-                        Run ID: <b>{this.props.run_id}</b>{' '}
-                      </Typography>
-                      {refURL && refText ? (
+            {refURL && refText ? (
+              <Grid item xs={1}>
+                <Box
+                  style={{height: '100%', paddingLeft: '1em', margin: 'auto'}}>
+                  <TopButton
+                    flavor={
+                      <React.Fragment>
                         <Box style={{height: '100%', margin: 'auto'}}>
                           <Button
                             size="small"
@@ -101,14 +100,12 @@ class RunGrid extends React.Component {
                             PR #{refText}
                           </Button>
                         </Box>
-                      ) : (
-                        ''
-                      )}
-                    </React.Fragment>
-                  }
-                />
-              </Box>
-            </Grid>
+                      </React.Fragment>
+                    }
+                  />
+                </Box>
+              </Grid>
+            ) : null}
             <Grid item xs={1}>
               {this.formatStatus(this.props.run.status)}
             </Grid>
