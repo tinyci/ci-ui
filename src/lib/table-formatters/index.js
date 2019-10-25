@@ -23,6 +23,8 @@ import green from '@material-ui/core/colors/green';
 import red from '@material-ui/core/colors/red';
 import purple from '@material-ui/core/colors/purple';
 
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import SubdirectoryArrowRightIcon from '@material-ui/icons/SubdirectoryArrowRight';
 import LinkIcon from '@material-ui/icons/Link';
 import FilterIcon from '@material-ui/icons/Filter';
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -74,12 +76,9 @@ const branchLink = value =>
       prettyBranch(value.head_ref),
   ).toString();
 
-const shaLink = value =>
+const shaLink = ref =>
   new URL(
-    'https://github.com/' +
-      value.head_ref.repository.name +
-      '/tree/' +
-      value.head_ref.sha,
+    'https://github.com/' + ref.repository.name + '/tree/' + ref.sha,
   ).toString();
 
 export const taskName = ({value}) => (
@@ -149,7 +148,7 @@ export const submissionInfo = ({value}) => {
   var filter_link = '/submissions/' + value.base_ref.repository.name;
   return (
     <React.Fragment>
-      <Table size="small">
+      <Table size="small" padding="none">
         <TableHead>
           <StyledTableRow>
             <StyledTableCell style={{width: '50%'}}>
@@ -165,7 +164,7 @@ export const submissionInfo = ({value}) => {
                 {prettyBranch(value.head_ref)}
               </Link>
               <Tooltip title="Go to Github at the SHA of this test">
-                <IconButton href={shaLink(value)}>
+                <IconButton href={shaLink(value.head_ref)}>
                   <LinkIcon />
                 </IconButton>
               </Tooltip>
@@ -177,23 +176,20 @@ export const submissionInfo = ({value}) => {
             <React.Fragment>
               <StyledTableRow>
                 <StyledTableCell>
-                  <Typography>Parent:</Typography>
+                  <SubdirectoryArrowRightIcon />
+                  {value.base_ref.repository.name}
+                  {prettyBranch(value.base_ref) !== 'master'
+                    ? ' (branch: ' + prettyBranch(value.base_ref) + ')'
+                    : null}
                 </StyledTableCell>
                 <StyledTableCell>
-                  <Typography>{value.base_ref.repository.name}</Typography>
-                </StyledTableCell>
-              </StyledTableRow>
-            </React.Fragment>
-          ) : null}
-          {value.base_ref !== null &&
-          prettyBranch(value.base_ref) !== 'master' ? (
-            <React.Fragment>
-              <StyledTableRow>
-                <StyledTableCell>
-                  <Typography>Parent Branch:</Typography>
-                </StyledTableCell>
-                <StyledTableCell>
-                  <Typography>{prettyBranch(value.base_ref)}</Typography>
+                  <Link href={shaLink(value.base_ref)}>
+                    {value.base_ref.sha.substring(0, 8)}
+                  </Link>
+                  <ArrowForwardIcon style={{verticalAlign: 'bottom'}} />
+                  <Link href={shaLink(value.head_ref)}>
+                    {value.head_ref.sha.substring(0, 8)}
+                  </Link>
                 </StyledTableCell>
               </StyledTableRow>
             </React.Fragment>
