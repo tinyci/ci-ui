@@ -71,7 +71,7 @@ class RunGrid extends React.Component {
 
     if (this.props.run && this.props.run.task.pull_request_id) {
       refURL =
-        this.props.run.task.parent.github.html_url +
+        this.props.run.task.submission.base_ref.repository.github.html_url +
         '/pull/' +
         this.props.run.task.pull_request_id;
       refText = this.props.run.task.pull_request_id;
@@ -115,13 +115,26 @@ class RunGrid extends React.Component {
                   flavor={
                     <React.Fragment>
                       <Typography variant="subtitle2">
-                        <b>{this.props.run.task.ref.repository.name}</b>
+                        <b>
+                          {
+                            this.props.run.task.submission.base_ref.repository
+                              .name
+                          }
+                        </b>
                       </Typography>
-                      {this.props.run.task.parent &&
-                      this.props.run.task.parent.name !==
-                        this.props.run.task.ref.repository.name ? (
+                      {this.props.run.task.submission.base_ref.repository.id !=
+                        this.props.run.task.submission.head_ref.repository.id &&
+                      this.props.run.task.submission.base_ref.repository
+                        .name !==
+                        this.props.run.task.submission.head_ref.repository
+                          .name ? (
                         <Typography>
-                          (fork of {this.props.run.task.parent.name})
+                          (fork of{' '}
+                          {
+                            this.props.run.task.submission.base_ref.repository
+                              .name
+                          }
+                          )
                         </Typography>
                       ) : (
                         ''
@@ -145,7 +158,9 @@ class RunGrid extends React.Component {
             </Grid>
             <Grid item xs={2}>
               <TopButton
-                flavor={format.ref({value: this.props.run.task.ref})}
+                flavor={format.ref({
+                  value: this.props.run.task.submission.head_ref,
+                })}
               />
             </Grid>
             <Grid item xs={2}>
