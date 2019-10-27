@@ -94,9 +94,7 @@ export const submissionLinks = ({value}) => (
     <TableBody>
       {value.ticket.id !== null ? (
         <StyledTableRow>
-          <StyledTableCell>
-            <Typography>Ticket ID</Typography>
-          </StyledTableCell>
+          <StyledTableCell>Ticket ID</StyledTableCell>
           <StyledTableCell>
             <Button
               color="secondary"
@@ -109,34 +107,30 @@ export const submissionLinks = ({value}) => (
                     value.ticket.id,
                 );
               }}>
-              <Typography>{value.ticket.id}</Typography>
+              {value.ticket.id}
             </Button>
           </StyledTableCell>
         </StyledTableRow>
       ) : null}
       <StyledTableRow>
-        <StyledTableCell style={{width: '30%'}}>
-          <Typography>Tasks</Typography>
-        </StyledTableCell>
+        <StyledTableCell style={{width: '30%'}}>Tasks</StyledTableCell>
         <StyledTableCell style={{width: '70%'}}>
           <Button
             color="primary"
             variant="contained"
             href={'/tasks/' + value.id}>
-            <Typography>{value.tasks_count}</Typography>
+            {value.tasks_count}
           </Button>
         </StyledTableCell>
       </StyledTableRow>
       <StyledTableRow>
-        <StyledTableCell>
-          <Typography>Runs</Typography>
-        </StyledTableCell>
+        <StyledTableCell>Runs</StyledTableCell>
         <StyledTableCell>
           <Button
             color="primary"
             variant="contained"
             href={'/submission/' + value.id + '/runs'}>
-            <Typography>{value.runs_count}</Typography>
+            {value.runs_count}
           </Button>
         </StyledTableCell>
       </StyledTableRow>
@@ -154,8 +148,8 @@ export const submissionInfo = ({value}) => {
             <StyledTableCell style={{width: '50%'}}>
               {value.head_ref.repository.name}
               <Tooltip title="Filter for tests against the base repository">
-                <IconButton href={filter_link}>
-                  <FilterIcon />
+                <IconButton style={{fontSize: 'inherit'}} href={filter_link}>
+                  <FilterIcon style={{fontSize: 'inherit'}} />
                 </IconButton>
               </Tooltip>
             </StyledTableCell>
@@ -164,8 +158,10 @@ export const submissionInfo = ({value}) => {
                 {prettyBranch(value.head_ref)}
               </Link>
               <Tooltip title="Go to Github at the SHA of this test">
-                <IconButton href={shaLink(value.head_ref)}>
-                  <LinkIcon />
+                <IconButton
+                  style={{fontSize: 'inherit'}}
+                  href={shaLink(value.head_ref)}>
+                  <LinkIcon style={{fontSize: 'inherit'}} />
                 </IconButton>
               </Tooltip>
             </StyledTableCell>
@@ -176,7 +172,8 @@ export const submissionInfo = ({value}) => {
             <React.Fragment>
               <StyledTableRow>
                 <StyledTableCell>
-                  <SubdirectoryArrowRightIcon />
+                  <SubdirectoryArrowRightIcon style={{fontSize: 'inherit'}} />
+                  &nbsp;
                   {value.base_ref.repository.name}
                   {prettyBranch(value.base_ref) !== 'master'
                     ? ' (branch: ' + prettyBranch(value.base_ref) + ')'
@@ -186,7 +183,9 @@ export const submissionInfo = ({value}) => {
                   <Link href={shaLink(value.base_ref)}>
                     {value.base_ref.sha.substring(0, 8)}
                   </Link>
-                  <ArrowForwardIcon style={{verticalAlign: 'bottom'}} />
+                  &nbsp;
+                  <ArrowForwardIcon style={{fontSize: 'inherit'}} />
+                  &nbsp;
                   <Link href={shaLink(value.head_ref)}>
                     {value.head_ref.sha.substring(0, 8)}
                   </Link>
