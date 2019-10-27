@@ -122,7 +122,7 @@ class RunGrid extends React.Component {
                           }
                         </b>
                       </Typography>
-                      {this.props.run.task.submission.base_ref.repository.id !=
+                      {this.props.run.task.submission.base_ref.repository.id !==
                         this.props.run.task.submission.head_ref.repository.id &&
                       this.props.run.task.submission.base_ref.repository
                         .name !==
