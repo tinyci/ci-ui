@@ -111,12 +111,17 @@ class SubmissionList extends DataGrid {
   }
 
   render() {
-    return this.dataGridRender(tableColumns, globalColumnExtensions, {
-      information: format.submissionInfo,
-      links: format.submissionLinks,
-      status: format.status,
-      history: format.history,
-    });
+    return this.dataGridRender(
+      'submissions',
+      tableColumns,
+      globalColumnExtensions,
+      {
+        information: format.submissionInfo,
+        links: format.submissionLinks,
+        status: format.status,
+        history: format.history,
+      },
+    );
   }
 }
 

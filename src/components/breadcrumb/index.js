@@ -49,23 +49,21 @@ class Breadcrumb extends React.Component {
               ({this.props.submission.head_ref.sha.substring(0, 8)})
             </Link>
           ) : null}
-          {this.props.submission && this.props.task_id ? (
-            <Link
-              style={{color: 'white'}}
-              href={'/tasks/' + this.props.submission.id}>
-              Tasks
+          {this.props.submission && this.props.task_id && this.props.path ? (
+            <Link style={{color: 'white'}} href={'/runs/' + this.props.task_id}>
+              {this.props.path} Runs
             </Link>
-          ) : null}
-          {this.props.submission && !this.props.task_id ? (
+          ) : this.props.submission && this.props.action === 'runs' ? (
             <Link
               style={{color: 'white'}}
               href={'/submission/' + this.props.submission.id + '/runs'}>
               Runs
             </Link>
-          ) : null}
-          {this.props.task_id && !this.props.run_id && this.props.path ? (
-            <Link style={{color: 'white'}} href={'/runs/' + this.props.task_id}>
-              {this.props.path} Runs
+          ) : this.props.submission && this.props.action === 'tasks' ? (
+            <Link
+              style={{color: 'white'}}
+              href={'/tasks/' + this.props.submission.id}>
+              Tasks
             </Link>
           ) : null}
           {this.props.run_id ? (
