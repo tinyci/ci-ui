@@ -49,7 +49,7 @@ class DataGrid extends React.Component {
     }
   }
 
-  dataGridRender(tableColumns, globalColumnExtensions, columns) {
+  dataGridRender(action, tableColumns, globalColumnExtensions, columns) {
     if (this.state.loading) {
       return <Loading />;
     }
@@ -60,6 +60,7 @@ class DataGrid extends React.Component {
           submission={this.state.submission}
           path={this.state.task ? this.state.task.path : null}
           task_id={this.state.task ? this.state.task.id : null}
+          action={action}
         />
         <Grid rows={this.state.items} columns={tableColumns}>
           {Object.entries(columns).map(([k, v]) => (

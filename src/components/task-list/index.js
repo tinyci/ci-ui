@@ -86,7 +86,7 @@ class TaskList extends DataGrid {
   }
 
   render() {
-    return this.dataGridRender(tableColumns, globalColumnExtensions, {
+    return this.dataGridRender('tasks', tableColumns, globalColumnExtensions, {
       taskName: format.taskName,
       runs: format.taskRuns,
       status: format.status,

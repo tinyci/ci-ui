@@ -100,7 +100,7 @@ class SubmissionRunList extends DataGrid {
   }
 
   render() {
-    return this.dataGridRender(tableColumns, globalColumnExtensions, {
+    return this.dataGridRender('runs', tableColumns, globalColumnExtensions, {
       path: format.text,
       log: format.log,
       status: format.status,
