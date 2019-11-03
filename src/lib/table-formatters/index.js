@@ -295,7 +295,7 @@ const relativeFromNow = date => moment(date).fromNow();
 
 const relativeDateFormat = (date1, date2) => moment(date1).from(date2);
 
-const dateFormat = date => moment(date).format('M/D HH:MM');
+const dateFormat = date => moment(date).format('M/D HH:mm');
 
 export const text = ({value}) => <Typography>{value}</Typography>;
 
