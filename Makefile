@@ -20,3 +20,6 @@ dist:
 	$(DOCKER_CMD_PREFIX) node:$(DIST_NODE_VERSION) bash -c "yarn install && yarn build"
 	mv $(BUILDDIR) $(DISTDIR)
 	tar -cvz -f $(DISTFILE) $(DISTDIR)
+
+dist-container: dist
+	box -t tinyci/ui-nginx:latest box-dist.rb
