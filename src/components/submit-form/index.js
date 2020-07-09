@@ -40,6 +40,10 @@ class SubmitForm extends React.Component {
   state = {repository: '', sha: '', submitting: false};
   testAll = false;
 
+  componentDidMount() {
+    document.getElementById('repository').focus();
+  }
+
   submit() {
     this.setState({submitting: true});
     this.client.submitGet(
@@ -86,6 +90,7 @@ class SubmitForm extends React.Component {
             </Grid>
             <Grid item xs={2}>
               <Field
+                id="repository"
                 required
                 label="Repository"
                 placeholder="owner/repo"
