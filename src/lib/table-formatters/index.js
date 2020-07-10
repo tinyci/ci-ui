@@ -243,7 +243,7 @@ export const ref = ({value}) => {
   var trunc_branch = pretty_branch;
 
   if (pretty_branch.length > BUTTONLEN) {
-    trunc_branch = pretty_branch.slice(0,BUTTONLEN) + "...";
+    trunc_branch = pretty_branch.slice(0, BUTTONLEN) + "...";
   }
   var branch_link = new URL(
     'https://github.com/' + value.repository.name + '/tree/' + pretty_branch,
