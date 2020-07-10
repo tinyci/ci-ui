@@ -31,6 +31,8 @@ import CancelIcon from '@material-ui/icons/Cancel';
 
 import {withStyles} from '@material-ui/core/styles';
 
+const BUTTONLEN = 9;
+
 const thisClient = new Client();
 
 const StyledTableCell = withStyles(theme => ({
@@ -238,7 +240,11 @@ export const refLink = ({value}) => {
 
 export const ref = ({value}) => {
   var pretty_branch = value.ref_name.replace(/^(?:refs\/)?heads\//, '');
+  var trunc_branch = pretty_branch;
 
+  if (pretty_branch.length > BUTTONLEN) {
+    trunc_branch = pretty_branch.slice(0, BUTTONLEN) + "...";
+  }
   var branch_link = new URL(
     'https://github.com/' + value.repository.name + '/tree/' + pretty_branch,
   ).toString();
@@ -267,7 +273,7 @@ export const ref = ({value}) => {
                   color="inherit"
                   size="small"
                   href={branch_link}>
-                  {pretty_branch}
+                  {trunc_branch}
                 </Button>
               </Tooltip>
             </center>
