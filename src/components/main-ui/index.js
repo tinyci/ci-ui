@@ -8,6 +8,7 @@ import SubmissionList from '../submission-list';
 import SubmissionRunList from '../submission-run-list';
 import RunList from '../run-list';
 import TaskList from '../task-list';
+import SidePanel from '../side-panel';
 import SubmitForm from '../submit-form';
 import SubscribedList from '../subscribed-list';
 import Home from '../home';
@@ -161,7 +162,10 @@ class MainUI extends React.Component {
         <CssBaseline />
         <AppBar style={{height: '60px'}} position="static">
           <Grid container style={{height: '100%'}} spacing={0}>
-            <Grid item xs={2}>
+            <Grid item xs={1}>
+              <SidePanel />
+            </Grid>
+            <Grid item xs={1}>
               <Home />
             </Grid>
             <Grid item xs={2}>
@@ -196,7 +200,7 @@ class MainUI extends React.Component {
                 <Grid item xs={2} />
               )}
             </Grid>
-            <Grid item xs={3} />
+            <Grid item xs={2} />
             <Grid item xs={1}>
               <Box
                 style={{
