@@ -203,7 +203,7 @@ class MainUI extends React.Component {
                 style={{
                   float: 'right',
                   marginTop: '8px',
-                  marginRight: '30px',
+                  marginRight: '0px',
                   height: '100%',
                 }}>
                 <Typography variant="h5">
@@ -212,7 +212,14 @@ class MainUI extends React.Component {
               </Box>
             </Grid>
             <Grid item xs={1} alignContent="center" style={{paddingRight: 10}}>
-              <SidePanel />
+              <Box
+                style={{
+                  float: 'right',
+                  marginRight: '10px',
+                  height: '100%',
+                }}>
+                <SidePanel />
+              </Box>
             </Grid>
           </Grid>
         </AppBar>
