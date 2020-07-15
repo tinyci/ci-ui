@@ -161,11 +161,8 @@ class MainUI extends React.Component {
       <Box style={{minWidth: thisMinWidth}}>
         <CssBaseline />
         <AppBar style={{height: '60px'}} position="static">
-          <Grid container style={{height: '100%'}} spacing={0}>
-            <Grid item xs={1}>
-              <SidePanel />
-            </Grid>
-            <Grid item xs={1}>
+          <Grid container style={{height: '100%'}} spacing={0} justify="space-between">
+            <Grid item xs={1} alignContent="center">
               <Home />
             </Grid>
             <Grid item xs={2}>
@@ -200,7 +197,7 @@ class MainUI extends React.Component {
                 <Grid item xs={2} />
               )}
             </Grid>
-            <Grid item xs={2} />
+            <Grid item xs={3} />
             <Grid item xs={1}>
               <Box
                 style={{
@@ -213,6 +210,9 @@ class MainUI extends React.Component {
                   {this.state.userProperties.username}
                 </Typography>
               </Box>
+            </Grid>
+            <Grid item xs={1} alignContent="center" style={{paddingRight: 10}}>
+              <SidePanel />
             </Grid>
           </Grid>
         </AppBar>

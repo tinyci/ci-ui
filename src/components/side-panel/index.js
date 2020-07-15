@@ -3,15 +3,13 @@ import React from 'react';
 import muiTheme from '../../muitheme.js';
 
 import Drawer from '@material-ui/core/Drawer';
+import IconButton from '@material-ui/core/IconButton';
 import Link from '@material-ui/core/Link';
-import Button from '@material-ui/core/Button';
-
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader'; 
-
 import MenuIcon from '@material-ui/icons/Menu';
 import HelpIcon from '@material-ui/icons/Help';
 
@@ -28,20 +26,20 @@ class SidePanel extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Button style={{ color: muiTheme.palette.primary.light }} onClick={this.toggleDrawer.bind(this)}><MenuIcon /></Button>
+        <IconButton onClick={this.toggleDrawer.bind(this)} color="secondary"><MenuIcon /></IconButton>
         <Drawer 
-          anchor={'left'} 
+          anchor={'right'} 
           open={this.state.drawerOpen} 
           onClose={this.toggleDrawer.bind(this)}
         >
           <List
             style={{ 
-              backgroundColor: muiTheme.palette.primary.dark, 
+              backgroundColor: muiTheme.palette.primary.main, 
             }}
             divider={true}
             dense={true}
             subheader={
-              <ListSubheader component="div" style={{ color: muiTheme.palette.primary.light }}>
+              <ListSubheader component="div" style={{ backgroundColor: muiTheme.palette.primary.dark, color: muiTheme.palette.primary.light }}>
                 Other Destinations   
               </ListSubheader>
             }
