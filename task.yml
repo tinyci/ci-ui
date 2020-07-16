@@ -1,0 +1,6 @@
+---
+mountpoint: "/ci-ui"
+default_image: node:11
+runs:
+  test:
+    command: [ "bash", "-c", "yarn install && yarn test" ]
