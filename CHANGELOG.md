@@ -2,6 +2,11 @@
 [ci-agents CHANGELOG](https://github.com/tinyci/ci-agents/blob/master/CHANGELOG.md) for
 context into why some changes were made.
 
+## 0.2.7 -- Thu 16 Jul 2020 05:06:39 AM UTC
+
+- Add menu to the top right for docs, other admin pages (@cmaujean)
+- Automatically focus submit pages when submit dialog is dropped down (@cmaujean)
+
 ## 0.2.0 -- Mon Nov 04 2019 09:27:03 PDT 2019
 
 Tons of changes in here; we overhauled the UI pretty dramatically.
