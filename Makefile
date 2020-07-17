@@ -1,5 +1,5 @@
 DOCKER_CMD_PREFIX := docker run --rm -u $$(id -u):$$(id -g) -w /node/ci-ui -v $(shell pwd):/node/ci-ui
-DOCKER_RUN_SUFFIX := -it --name react node:latest
+DOCKER_RUN_SUFFIX := -it --name react node:11
 DOCKER_RUN := ${DOCKER_CMD_PREFIX} ${DOCKER_RUN_SUFFIX}
 DISTFILE := ci-ui.tar.gz
 DISTDIR := ci-ui
