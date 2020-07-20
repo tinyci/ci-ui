@@ -212,7 +212,7 @@ export const refLink = ({value}) => {
 
   return (
     <Grid container spacing={1} style={{textAlign: 'center'}}>
-      <Grid item xs={12}>
+      <Grid item xs={6}>
         <Tooltip title={pretty_branch}>
           <Button
             size="small"
@@ -223,7 +223,7 @@ export const refLink = ({value}) => {
           </Button>
         </Tooltip>
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={6}>
         <Tooltip title={value.sha.substring(0, 8)}>
           <Button
             size="small"
@@ -256,43 +256,51 @@ export const ref = ({value}) => {
   var filter_link = '/submissions/' + value.repository.name + '/' + value.sha;
   return (
     <React.Fragment>
-      <Grid container spacing={0}>
-        <Grid item xs={1}>
-          <Tooltip title="Filter for this SHA">
-            <IconButton size="small" color="secondary" href={filter_link}>
-              <FilterIcon />
-            </IconButton>
+      <div style={{padding: "1"}}>
+        <Tooltip title="Filter for this SHA">
+          <IconButton 
+            size="small"
+            style={{
+            float: "left",
+              paddingLeft: "1px", 
+              paddingRight: "2px", 
+              margin: "0"}} 
+            color="secondary" 
+            href={filter_link}
+          >
+            <FilterIcon />
+          </IconButton>
+        </Tooltip>
+        <div 
+          style={{
+            float: "left", 
+            paddingLeft: "2px",
+            marginRight: "2px", 
+            paddingRight: "2px", 
+            borderRight: '1px solid #ccc'
+          }}>
+          <Tooltip title={value.ref_name}>
+            <Button
+              variant="outlined"
+              color="inherit"
+              size="small"
+              href={branch_link}>
+              {trunc_branch}
+            </Button>
           </Tooltip>
-        </Grid>
-        <Grid item xs={5}>
-          <div style={{borderRight: '1px solid #ccc'}}>
-            <center>
-              <Tooltip title={value.ref_name}>
-                <Button
-                  variant="outlined"
-                  color="inherit"
-                  size="small"
-                  href={branch_link}>
-                  {trunc_branch}
-                </Button>
-              </Tooltip>
-            </center>
-          </div>
-        </Grid>
-        <Grid item xs={5}>
-          <center>
-            <Tooltip title={value.sha}>
-              <Button
-                variant="outlined"
-                size="small"
-                color="inherit"
-                href={sha_link}>
-                {value.sha.substring(0, 8)}
-              </Button>
-            </Tooltip>
-          </center>
-        </Grid>
-      </Grid>
+        </div>
+        <div style={{float: "left"}}>
+          <Tooltip title={value.sha}>
+            <Button
+              variant="outlined"
+              size="small"
+              color="inherit"
+              href={sha_link}>
+              {value.sha.substring(0, 8)}
+            </Button>
+          </Tooltip>
+        </div>
+      </div>
     </React.Fragment>
   );
 };

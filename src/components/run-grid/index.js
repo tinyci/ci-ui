@@ -157,7 +157,7 @@ class RunGrid extends React.Component {
               />
             </Grid>
             <Grid item xs={2}>
-              <TopButton
+              <TopButton nopad
                 flavor={format.ref({
                   value: this.props.run.task.submission.head_ref,
                 })}
