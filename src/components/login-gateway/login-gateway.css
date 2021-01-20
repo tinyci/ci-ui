@@ -9,7 +9,7 @@
 }
 
 .login-body {
-  background-image: url('/login-bg-l1.png');
+  background-image: url("login-bg-l1.png");
   top: 0;
   left: 0;
   z-index: -1;
@@ -20,29 +20,29 @@
 }
 
 .bg-movement-2 {
-  background-image: url('/login-bg-l2.png');
+  background-image: url("login-bg-l2.png");
 }
 .bg-movement-3 {
   animation: MoveUpDown 4s ease infinite;
-  background-image: url('/login-bg-l3.png');
+  background-image: url("login-bg-l3.png");
   animation-delay: 150ms;
 }
 .bg-movement-4 {
-  background-image: url('/login-bg-l4.png');
+  background-image: url("login-bg-l4.png");
   animation-delay: 300ms;
 }
 
 .bg-movement-5 {
   opacity: 0.3;
   animation: MoveUpDown 2s ease infinite;
-  background-image: url('/login-bg-l3.png');
+  background-image: url("login-bg-l3.png");
   background-position-x: 400px;
   animation-delay: 150ms;
 }
 
 .bg-movement-6 {
   animation: MoveUpDown 3s ease infinite;
-  background-image: url('/login-bg-l5.png');
+  background-image: url("login-bg-l5.png");
   background-position-x: 50px;
   animation-delay: 50ms;
 }
@@ -103,7 +103,7 @@
 }
 
 .login-title {
-  font-family: 'Open Sans';
+  font-family: "Open Sans";
   font-size: 35px;
   font-weight: 700;
   margin-bottom: 1em;
@@ -112,7 +112,7 @@
 }
 
 .login-title::after {
-  content: '';
+  content: "";
   display: block;
   width: 50%;
   margin: 30px auto 0;
