@@ -21,5 +21,5 @@ dist:
 	mv $(BUILDDIR) $(DISTDIR)
 	tar -cvz -f $(DISTFILE) $(DISTDIR)
 
-dist-container: dist
-	box -t tinyci/ui-nginx:latest box-dist.rb
+dist-image: dist
+	box -t tinyci/ui:latest box-dist.rb
