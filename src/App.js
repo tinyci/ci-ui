@@ -31,7 +31,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.interval = window.setInterval(this.checkLogin.bind(this), 60000);
+    this.interval = window.setInterval(this.checkLogin.bind(this), 1000);
     this.checkLogin();
   }
 
