@@ -1,0 +1,22 @@
+{
+  auto_https off
+}
+
+:80 {
+  encode gzip zstd
+
+  handle /hook {
+    reverse_proxy hooksvc:2020
+  }
+
+  handle /uisvc/* {
+    uri strip_prefix /uisvc
+    reverse_proxy uisvc:6010
+  }
+
+  handle {
+    root * /ci-ui
+    try_files {path} {path}/ /index.html
+    file_server
+  }
+}
