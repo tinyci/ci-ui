@@ -7,8 +7,8 @@ cmd %w[caddy run --config /Caddyfile]
 
 after do
   copy "Caddyfile", "/Caddyfile"
-  tag "tinyci/ui:latest"
+  tag "tinyci/ui:#{getenv("VERSION") || "main" }-latest"
 
   copy "Caddyfile.k8s", "/Caddyfile"
-  tag "tinyci/ui:k8s"
+  tag "tinyci/ui:#{getenv("VERSION") || "main"}-k8s"
 end
