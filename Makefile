@@ -22,4 +22,4 @@ dist:
 	tar -cvz -f $(DISTFILE) $(DISTDIR)
 
 dist-image: dist
-	box -t tinyci/ui:latest box-dist.rb
+	box box-dist.rb
