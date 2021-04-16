@@ -2,6 +2,12 @@
 [ci-agents CHANGELOG](https://github.com/tinyci/ci-agents/blob/master/CHANGELOG.md) for
 context into why some changes were made.
 
+## 0.3.0 -- Fri 16 Apr 2021 03:00:47 AM PDT
+
+- Many dependencies updated, as well as node
+- Caddy now the standard image in the UI images.
+- A new k8s-enabled caddy image is also available.
+
 ## 0.2.7 -- Thu 16 Jul 2020 05:06:39 AM UTC
 
 - Add menu to the top right for docs, other admin pages (@cmaujean)
