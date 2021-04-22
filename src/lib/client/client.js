@@ -1,4 +1,4 @@
-import {DefaultApi, ApiClient} from 'ci-agents/ci-gen/gen/javascript/src';
+import { DefaultApi, ApiClient } from "ci-agents/ci-gen/javascript/src";
 
 class Client extends DefaultApi {
   innerClient = null;
@@ -6,7 +6,7 @@ class Client extends DefaultApi {
 
   constructor() {
     var apiClient = new ApiClient();
-    apiClient.basePath = '/uisvc';
+    apiClient.basePath = "/uisvc";
     apiClient.withCredentials = true;
     super(apiClient);
   }
