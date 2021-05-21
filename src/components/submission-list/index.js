@@ -1,42 +1,42 @@
-import * as format from '../../lib/table-formatters';
-import {handleError} from '../error-messages';
-import DataGrid from '../data-grid';
+import * as format from "../../lib/table-formatters";
+import { handleError } from "../error-messages";
+import DataGrid from "../data-grid";
 
 const tableColumns = [
   {
-    title: 'Information',
-    name: 'information',
+    title: "Information",
+    name: "information",
   },
   {
-    title: 'Links',
-    name: 'links',
+    title: "Links",
+    name: "links",
   },
   {
-    title: 'History',
-    name: 'history',
+    title: "History",
+    name: "history",
   },
   {
-    title: 'Status',
-    name: 'status',
+    title: "Status",
+    name: "status",
   },
 ];
 
 // these should add up to 1 or close to it
 const globalColumnExtensions = [
   {
-    columnName: 'information',
+    columnName: "information",
     width: 0.4,
   },
   {
-    columnName: 'links',
+    columnName: "links",
     width: 0.2,
   },
   {
-    columnName: 'history',
+    columnName: "history",
     width: 0.3,
   },
   {
-    columnName: 'status',
+    columnName: "status",
     width: 0.1,
   },
 ];
@@ -53,7 +53,7 @@ class SubmissionList extends DataGrid {
       },
       (err, subs, resp) => {
         if (!handleError(err, resp)) {
-          var subsList = subs.map(elem => ({
+          var subsList = subs.map((elem) => ({
             links: {
               id: elem.id,
               tasks_count: elem.tasks_count,
@@ -71,7 +71,7 @@ class SubmissionList extends DataGrid {
             status: {
               status: elem.status,
               canceled: elem.canceled,
-              type: 'submission',
+              type: "submission",
               started_at: elem.started_at,
               submission_id: elem.id,
             },
@@ -84,7 +84,7 @@ class SubmissionList extends DataGrid {
           }));
 
           this.client.submissionsCountGet(
-            {repository: this.repository(), sha: this.props.sha},
+            { repository: this.repository(), sha: this.props.sha },
             (err, count, resp) => {
               if (!handleError(err, resp)) {
                 this.setState(
@@ -92,19 +92,23 @@ class SubmissionList extends DataGrid {
                     items: subsList,
                     loading: false,
                     totalCount: count,
-                  }),
+                  })
                 );
+              } else {
+                console.log(err);
               }
-            },
+            }
           );
+        } else {
+          console.log(err);
         }
-      },
+      }
     );
   }
 
   repository() {
     if (this.props.owner && this.props.repository) {
-      return this.props.owner + '/' + this.props.repository;
+      return this.props.owner + "/" + this.props.repository;
     } else {
       return null;
     }
@@ -112,7 +116,7 @@ class SubmissionList extends DataGrid {
 
   render() {
     return this.dataGridRender(
-      'submissions',
+      "submissions",
       tableColumns,
       globalColumnExtensions,
       {
@@ -120,7 +124,7 @@ class SubmissionList extends DataGrid {
         links: format.submissionLinks,
         status: format.status,
         history: format.history,
-      },
+      }
     );
   }
 }
