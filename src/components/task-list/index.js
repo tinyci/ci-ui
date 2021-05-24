@@ -1,42 +1,42 @@
-import * as format from '../../lib/table-formatters';
-import DataGrid from '../data-grid';
-import {handleError} from '../error-messages';
+import * as format from "../../lib/table-formatters";
+import DataGrid from "../data-grid";
+import { handleError } from "../error-messages";
 
 const tableColumns = [
   {
-    title: 'Task Name',
-    name: 'taskName',
+    title: "Task Name",
+    name: "taskName",
   },
   {
-    title: 'Run Count',
-    name: 'runs',
+    title: "Run Count",
+    name: "runs",
   },
   {
-    title: 'History',
-    name: 'history',
+    title: "History",
+    name: "history",
   },
   {
-    title: 'Status',
-    name: 'status',
+    title: "Status",
+    name: "status",
   },
 ];
 
 // these should add up to 1 or close to it
 const globalColumnExtensions = [
   {
-    columnName: 'taskName',
+    columnName: "taskName",
     width: 0.4,
   },
   {
-    columnName: 'runs',
+    columnName: "runs",
     width: 0.2,
   },
   {
-    columnName: 'history',
+    columnName: "history",
     width: 0.3,
   },
   {
-    columnName: 'status',
+    columnName: "status",
     width: 0.1,
   },
 ];
@@ -46,19 +46,19 @@ class TaskList extends DataGrid {
     extraState = Object.assign(this.state, extraState);
     this.client.submissionIdTasksGet(this.props.id, {}, (err, tasks, resp) => {
       if (!handleError(err, resp)) {
-        var taskList = tasks.map(elem => ({
+        var taskList = tasks.map((elem) => ({
           runs: {
             count: elem.runs,
             id: elem.id,
           },
           taskName: {
             id: elem.id,
-            path: elem.path === '.' ? '*root*' : elem.path,
+            path: elem.path === "." ? "*root*" : elem.path,
           },
           status: {
             task_id: elem.id,
             status: elem.status,
-            type: 'task',
+            type: "task",
             canceled: elem.canceled,
             started_at: elem.started_at,
           },
@@ -77,7 +77,7 @@ class TaskList extends DataGrid {
                 loading: false,
                 totalCount: sub.tasks_count,
                 submission: sub,
-              }),
+              })
             );
           }
         });
@@ -86,7 +86,7 @@ class TaskList extends DataGrid {
   }
 
   render() {
-    return this.dataGridRender('tasks', tableColumns, globalColumnExtensions, {
+    return this.dataGridRender("tasks", tableColumns, globalColumnExtensions, {
       taskName: format.taskName,
       runs: format.taskRuns,
       status: format.status,

@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
-import {AppBar, Breadcrumbs, Link, Typography} from '@material-ui/core';
-import HomeIcon from '@material-ui/icons/Home';
+import { AppBar, Breadcrumbs, Link, Typography } from "@material-ui/core";
+import HomeIcon from "@material-ui/icons/Home";
 
 class Breadcrumb extends React.Component {
   render() {
@@ -9,60 +9,69 @@ class Breadcrumb extends React.Component {
       <AppBar
         color="secondary"
         style={{
-          paddingTop: '5px',
-          paddingBottom: '5px',
-          position: 'relative',
-        }}>
+          paddingTop: "5px",
+          paddingBottom: "5px",
+          position: "relative",
+        }}
+      >
         <Breadcrumbs
-          style={{color: '#aaa'}}
+          style={{ color: "#aaa" }}
           separator=">"
-          aria-label="breadcrumb">
-          <Link style={{color: 'white'}} href="/">
+          aria-label="breadcrumb"
+        >
+          <Link style={{ color: "white" }} href="/">
             <HomeIcon
               fontSize="inherit"
-              style={{verticalAlign: 'bottom', margin: '5px'}}
+              style={{ verticalAlign: "bottom", margin: "5px" }}
             />
             Submission List
           </Link>
           {this.props.submission ? (
             <Link
-              style={{color: 'white'}}
+              style={{ color: "white" }}
               href={
-                '/submissions/' + this.props.submission.head_ref.repository.name
-              }>
+                "/submissions/" + this.props.submission.head_ref.repository.name
+              }
+            >
               {this.props.submission.head_ref.repository.name}
             </Link>
           ) : null}
           {this.props.submission ? (
             <Link
-              style={{color: 'white'}}
+              style={{ color: "white" }}
               href={
-                '/submissions/' +
+                "/submissions/" +
                 this.props.submission.head_ref.repository.name +
-                '/' +
+                "/" +
                 this.props.submission.head_ref.sha
-              }>
+              }
+            >
               {this.props.submission.head_ref.ref_name.replace(
                 /^(?:refs\/)?heads\//,
-                '',
-              )}{' '}
+                ""
+              )}{" "}
               ({this.props.submission.head_ref.sha.substring(0, 8)})
             </Link>
           ) : null}
           {this.props.submission && this.props.task_id && this.props.path ? (
-            <Link style={{color: 'white'}} href={'/runs/' + this.props.task_id}>
+            <Link
+              style={{ color: "white" }}
+              href={"/runs/" + this.props.task_id}
+            >
               {this.props.path} Runs
             </Link>
-          ) : this.props.submission && this.props.action === 'runs' ? (
+          ) : this.props.submission && this.props.action === "runs" ? (
             <Link
-              style={{color: 'white'}}
-              href={'/submission/' + this.props.submission.id + '/runs'}>
+              style={{ color: "white" }}
+              href={"/submission/" + this.props.submission.id + "/runs"}
+            >
               Runs
             </Link>
-          ) : this.props.submission && this.props.action === 'tasks' ? (
+          ) : this.props.submission && this.props.action === "tasks" ? (
             <Link
-              style={{color: 'white'}}
-              href={'/tasks/' + this.props.submission.id}>
+              style={{ color: "white" }}
+              href={"/tasks/" + this.props.submission.id}
+            >
               Tasks
             </Link>
           ) : null}
