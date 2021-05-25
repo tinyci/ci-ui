@@ -18,6 +18,10 @@ export const handlePlainError = (payload) => {
 
 export const handleError = (err, resp) => {
   if (err) {
+    if (process.env.NODE_ENV !== "production") {
+      console.log(err);
+    }
+
     if (ErrorMessages.__singleton) {
       var errors = ErrorMessages.__singleton.state.errors;
       if (err.message === "Internal Server Error") {
