@@ -1,50 +1,50 @@
-import * as format from '../../lib/table-formatters';
-import {handleError} from '../error-messages';
-import DataGrid from '../data-grid';
+import * as format from "../../lib/table-formatters";
+import { handleError } from "../error-messages";
+import DataGrid from "../data-grid";
 
 const tableColumns = [
   {
-    title: 'Section',
-    name: 'path',
+    title: "Section",
+    name: "path",
   },
   {
-    title: 'History',
-    name: 'history',
+    title: "History",
+    name: "history",
   },
   {
-    title: 'Ran On',
-    name: 'ran_on',
+    title: "Ran On",
+    name: "ran_on",
   },
   {
-    title: 'Status',
-    name: 'status',
+    title: "Status",
+    name: "status",
   },
   {
-    title: 'Log',
-    name: 'log',
+    title: "Log",
+    name: "log",
   },
 ];
 
 // these should add up to 1 or close to it
 const globalColumnExtensions = [
   {
-    columnName: 'path',
+    columnName: "path",
     width: 0.3,
   },
   {
-    columnName: 'history',
+    columnName: "history",
     width: 0.3,
   },
   {
-    columnName: 'ran_on',
+    columnName: "ran_on",
     width: 0.1,
   },
   {
-    columnName: 'status',
+    columnName: "status",
     width: 0.1,
   },
   {
-    columnName: 'log',
+    columnName: "log",
     width: 0.2,
   },
 ];
@@ -60,13 +60,13 @@ class SubmissionRunList extends DataGrid {
       },
       (err, runs, resp) => {
         if (!handleError(err, resp)) {
-          var runList = runs.map(elem => ({
+          var runList = runs.map((elem) => ({
             path: elem.name,
             status: {
               run_id: elem.id,
               status: elem.status,
               canceled: elem.task.canceled,
-              type: 'run',
+              type: "run",
               started_at: elem.started_at,
             },
             history: {
@@ -90,17 +90,17 @@ class SubmissionRunList extends DataGrid {
                   items: runList,
                   loading: false,
                   submission: sub,
-                }),
+                })
               );
             }
           });
         }
-      },
+      }
     );
   }
 
   render() {
-    return this.dataGridRender('runs', tableColumns, globalColumnExtensions, {
+    return this.dataGridRender("runs", tableColumns, globalColumnExtensions, {
       path: format.text,
       log: format.log,
       status: format.status,

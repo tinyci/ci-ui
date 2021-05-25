@@ -1,7 +1,7 @@
-import React from 'react';
-import './login-gateway.css';
+import React from "react";
+import "./login-gateway.css";
 
-import {ErrorMessages} from '../error-messages';
+import { ErrorMessages } from "../error-messages";
 
 class LoginGateway extends React.Component {
   render() {

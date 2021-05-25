@@ -1,97 +1,98 @@
-import React from 'react';
-import moment from 'moment';
+import React from "react";
+import moment from "moment";
 
-import Client from '../client/client';
-import {handleError} from '../../components/error-messages';
+import Client from "../client/client";
+import { handleError } from "../../components/error-messages";
 
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
-import Link from '@material-ui/core/Link';
-import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-import TableBody from '@material-ui/core/TableBody';
-import Tooltip from '@material-ui/core/Tooltip';
-import Typography from '@material-ui/core/Typography';
+import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+import IconButton from "@material-ui/core/IconButton";
+import Link from "@material-ui/core/Link";
+import Table from "@material-ui/core/Table";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import TableCell from "@material-ui/core/TableCell";
+import TableBody from "@material-ui/core/TableBody";
+import Tooltip from "@material-ui/core/Tooltip";
+import Typography from "@material-ui/core/Typography";
 
-import blue from '@material-ui/core/colors/blue';
-import yellow from '@material-ui/core/colors/yellow';
-import green from '@material-ui/core/colors/green';
-import red from '@material-ui/core/colors/red';
-import purple from '@material-ui/core/colors/purple';
+import blue from "@material-ui/core/colors/blue";
+import yellow from "@material-ui/core/colors/yellow";
+import green from "@material-ui/core/colors/green";
+import red from "@material-ui/core/colors/red";
+import purple from "@material-ui/core/colors/purple";
 
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import SubdirectoryArrowRightIcon from '@material-ui/icons/SubdirectoryArrowRight';
-import LinkIcon from '@material-ui/icons/Link';
-import FilterIcon from '@material-ui/icons/Filter';
-import CancelIcon from '@material-ui/icons/Cancel';
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+import SubdirectoryArrowRightIcon from "@material-ui/icons/SubdirectoryArrowRight";
+import LinkIcon from "@material-ui/icons/Link";
+import FilterIcon from "@material-ui/icons/Filter";
+import CancelIcon from "@material-ui/icons/Cancel";
 
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from "@material-ui/core/styles";
 
 const BUTTONLEN = 9;
 
 const thisClient = new Client();
 
-const StyledTableCell = withStyles(theme => ({
+const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.backgroundColor,
     color: theme.palette.common.black,
-    fontWeight: 'bolder',
-    fontSize: '1.2em',
-    borderBottom: 'none',
+    fontWeight: "bolder",
+    fontSize: "1.2em",
+    borderBottom: "none",
   },
   body: {
     fontSize: 14,
-    borderBottom: 'none',
+    borderBottom: "none",
   },
 }))(TableCell);
 
-const StyledTableRow = withStyles(theme => ({
+const StyledTableRow = withStyles((theme) => ({
   root: {
-    '&:nth-of-type(odd)': {
+    "&:nth-of-type(odd)": {
       backgroundColor: theme.palette.background.default,
     },
   },
 }))(TableRow);
 
-const HistoryStyledTableCell = withStyles(theme => ({
+const HistoryStyledTableCell = withStyles((theme) => ({
   head: {
     color: theme.palette.secondary.main,
-    borderBottom: 'none',
+    borderBottom: "none",
   },
   body: {
     color: theme.palette.secondary.main,
-    borderBottom: 'none',
+    borderBottom: "none",
   },
 }))(TableCell);
 
-const prettyBranch = value => value.ref_name.replace(/^(?:refs\/)?heads\//, '');
+const prettyBranch = (value) =>
+  value.ref_name.replace(/^(?:refs\/)?heads\//, "");
 
-const branchLink = value =>
+const branchLink = (value) =>
   new URL(
-    'https://github.com/' +
+    "https://github.com/" +
       value.head_ref.repository.name +
-      '/tree/' +
-      prettyBranch(value.head_ref),
+      "/tree/" +
+      prettyBranch(value.head_ref)
   ).toString();
 
-const shaLink = ref =>
+const shaLink = (ref) =>
   new URL(
-    'https://github.com/' + ref.repository.name + '/tree/' + ref.sha,
+    "https://github.com/" + ref.repository.name + "/tree/" + ref.sha
   ).toString();
 
-export const taskName = ({value}) => (
-  <Button color="primary" variant="outlined" href={'/runs/' + value.id}>
+export const taskName = ({ value }) => (
+  <Button color="primary" variant="outlined" href={"/runs/" + value.id}>
     <Typography>{value.path}</Typography>
   </Button>
 );
 
-export const taskRuns = ({value}) => <Typography>{value.count}</Typography>;
+export const taskRuns = ({ value }) => <Typography>{value.count}</Typography>;
 
-export const submissionLinks = ({value}) => (
+export const submissionLinks = ({ value }) => (
   <Table size="small">
     <TableBody>
       {value.ticket.id !== null ? (
@@ -103,24 +104,26 @@ export const submissionLinks = ({value}) => (
               variant="contained"
               onClick={() => {
                 window.open(
-                  'https://github.com/' +
+                  "https://github.com/" +
                     value.ticket.repository.name +
-                    '/pull/' +
-                    value.ticket.id,
+                    "/pull/" +
+                    value.ticket.id
                 );
-              }}>
+              }}
+            >
               {value.ticket.id}
             </Button>
           </StyledTableCell>
         </StyledTableRow>
       ) : null}
       <StyledTableRow>
-        <StyledTableCell style={{width: '30%'}}>Tasks</StyledTableCell>
-        <StyledTableCell style={{width: '70%'}}>
+        <StyledTableCell style={{ width: "30%" }}>Tasks</StyledTableCell>
+        <StyledTableCell style={{ width: "70%" }}>
           <Button
             color="primary"
             variant="contained"
-            href={'/tasks/' + value.id}>
+            href={"/tasks/" + value.id}
+          >
             {value.tasks_count}
           </Button>
         </StyledTableCell>
@@ -131,7 +134,8 @@ export const submissionLinks = ({value}) => (
           <Button
             color="primary"
             variant="contained"
-            href={'/submission/' + value.id + '/runs'}>
+            href={"/submission/" + value.id + "/runs"}
+          >
             {value.runs_count}
           </Button>
         </StyledTableCell>
@@ -140,30 +144,31 @@ export const submissionLinks = ({value}) => (
   </Table>
 );
 
-export const submissionInfo = ({value}) => {
-  var filter_link = '/submissions/' + value.base_ref.repository.name;
+export const submissionInfo = ({ value }) => {
+  var filter_link = "/submissions/" + value.base_ref.repository.name;
   return (
     <React.Fragment>
       <Table size="small" padding="none">
         <TableHead>
           <StyledTableRow>
-            <StyledTableCell style={{width: '50%'}}>
+            <StyledTableCell style={{ width: "50%" }}>
               {value.head_ref.repository.name}
               <Tooltip title="Filter for tests against the base repository">
-                <IconButton style={{fontSize: 'inherit'}} href={filter_link}>
-                  <FilterIcon style={{fontSize: 'inherit'}} />
+                <IconButton style={{ fontSize: "inherit" }} href={filter_link}>
+                  <FilterIcon style={{ fontSize: "inherit" }} />
                 </IconButton>
               </Tooltip>
             </StyledTableCell>
-            <StyledTableCell style={{width: '50%'}}>
+            <StyledTableCell style={{ width: "50%" }}>
               <Link href={branchLink(value)}>
                 {prettyBranch(value.head_ref)}
               </Link>
               <Tooltip title="Go to Github at the SHA of this test">
                 <IconButton
-                  style={{fontSize: 'inherit'}}
-                  href={shaLink(value.head_ref)}>
-                  <LinkIcon style={{fontSize: 'inherit'}} />
+                  style={{ fontSize: "inherit" }}
+                  href={shaLink(value.head_ref)}
+                >
+                  <LinkIcon style={{ fontSize: "inherit" }} />
                 </IconButton>
               </Tooltip>
             </StyledTableCell>
@@ -174,11 +179,11 @@ export const submissionInfo = ({value}) => {
             <React.Fragment>
               <StyledTableRow>
                 <StyledTableCell>
-                  <SubdirectoryArrowRightIcon style={{fontSize: 'inherit'}} />
+                  <SubdirectoryArrowRightIcon style={{ fontSize: "inherit" }} />
                   &nbsp;
                   {value.base_ref.repository.name}
-                  {prettyBranch(value.base_ref) !== 'master'
-                    ? ' (branch: ' + prettyBranch(value.base_ref) + ')'
+                  {prettyBranch(value.base_ref) !== "master"
+                    ? " (branch: " + prettyBranch(value.base_ref) + ")"
                     : null}
                 </StyledTableCell>
                 <StyledTableCell>
@@ -186,7 +191,7 @@ export const submissionInfo = ({value}) => {
                     {value.base_ref.sha.substring(0, 8)}
                   </Link>
                   &nbsp;
-                  <ArrowForwardIcon style={{fontSize: 'inherit'}} />
+                  <ArrowForwardIcon style={{ fontSize: "inherit" }} />
                   &nbsp;
                   <Link href={shaLink(value.head_ref)}>
                     {value.head_ref.sha.substring(0, 8)}
@@ -201,24 +206,25 @@ export const submissionInfo = ({value}) => {
   );
 };
 
-export const refLink = ({value}) => {
-  var pretty_branch = value.ref_name.replace(/^(?:refs\/)?heads\//, '');
+export const refLink = ({ value }) => {
+  var pretty_branch = value.ref_name.replace(/^(?:refs\/)?heads\//, "");
   var branch_link = new URL(
-    'https://github.com/' + value.repository.name + '/tree/' + pretty_branch,
+    "https://github.com/" + value.repository.name + "/tree/" + pretty_branch
   ).toString();
   var sha_link = new URL(
-    'https://github.com/' + value.repository.name + '/tree/' + value.sha,
+    "https://github.com/" + value.repository.name + "/tree/" + value.sha
   ).toString();
 
   return (
-    <Grid container spacing={1} style={{textAlign: 'center'}}>
+    <Grid container spacing={1} style={{ textAlign: "center" }}>
       <Grid item xs={12}>
         <Tooltip title={pretty_branch}>
           <Button
             size="small"
             variant="contained"
             color="secondary"
-            href={branch_link}>
+            href={branch_link}
+          >
             Branch
           </Button>
         </Tooltip>
@@ -229,7 +235,8 @@ export const refLink = ({value}) => {
             size="small"
             variant="contained"
             color="secondary"
-            href={sha_link}>
+            href={sha_link}
+          >
             SHA
           </Button>
         </Tooltip>
@@ -238,22 +245,22 @@ export const refLink = ({value}) => {
   );
 };
 
-export const ref = ({value}) => {
-  var pretty_branch = value.ref_name.replace(/^(?:refs\/)?heads\//, '');
+export const ref = ({ value }) => {
+  var pretty_branch = value.ref_name.replace(/^(?:refs\/)?heads\//, "");
   var trunc_branch = pretty_branch;
 
   if (pretty_branch.length > BUTTONLEN) {
     trunc_branch = pretty_branch.slice(0, BUTTONLEN) + "...";
   }
   var branch_link = new URL(
-    'https://github.com/' + value.repository.name + '/tree/' + pretty_branch,
+    "https://github.com/" + value.repository.name + "/tree/" + pretty_branch
   ).toString();
 
   var sha_link = new URL(
-    'https://github.com/' + value.repository.name + '/tree/' + value.sha,
+    "https://github.com/" + value.repository.name + "/tree/" + value.sha
   ).toString();
 
-  var filter_link = '/submissions/' + value.repository.name + '/' + value.sha;
+  var filter_link = "/submissions/" + value.repository.name + "/" + value.sha;
   return (
     <React.Fragment>
       <Grid container spacing={0}>
@@ -265,14 +272,15 @@ export const ref = ({value}) => {
           </Tooltip>
         </Grid>
         <Grid item xs={5}>
-          <div style={{borderRight: '1px solid #ccc'}}>
+          <div style={{ borderRight: "1px solid #ccc" }}>
             <center>
               <Tooltip title={value.ref_name}>
                 <Button
                   variant="outlined"
                   color="inherit"
                   size="small"
-                  href={branch_link}>
+                  href={branch_link}
+                >
                   {trunc_branch}
                 </Button>
               </Tooltip>
@@ -286,7 +294,8 @@ export const ref = ({value}) => {
                 variant="outlined"
                 size="small"
                 color="inherit"
-                href={sha_link}>
+                href={sha_link}
+              >
                 {value.sha.substring(0, 8)}
               </Button>
             </Tooltip>
@@ -297,49 +306,53 @@ export const ref = ({value}) => {
   );
 };
 
-const relativeFromNow = date => moment(date).fromNow();
+const relativeFromNow = (date) => moment(date).fromNow();
 
 const relativeDateFormat = (date1, date2) => moment(date1).from(date2);
 
-const dateFormat = date => moment(date).format('M/D HH:mm');
+const dateFormat = (date) => moment(date).format("M/D HH:mm");
 
-export const text = ({value}) => <Typography>{value}</Typography>;
+export const text = ({ value }) => <Typography>{value}</Typography>;
 
 const statusButtonStyle = {
-  borderRadius: '5px',
-  width: 'auto',
-  padding: '1em',
-  color: 'white',
+  borderRadius: "5px",
+  width: "auto",
+  padding: "1em",
+  color: "white",
 };
 
-const cancelThing = value => {
+const cancelThing = (value) => {
   switch (value.type) {
-    case 'task':
+    case "task":
       thisClient.tasksCancelIdPost(value.task_id, (err, _, resp) => {
         handleError(err, resp);
       });
       break;
-    case 'run':
+    case "run":
       thisClient.cancelRunIdPost(value.run_id, (err, _, resp) => {
         handleError(err, resp);
       });
       break;
-    case 'submission':
+    case "submission":
       thisClient.submissionIdCancelPost(value.submission_id, (err, _, resp) => {
         handleError(err, resp);
       });
       break;
     default:
-      handleError({message: 'unexpected api error in cancel code'}, null);
+      handleError({ message: "unexpected api error in cancel code" }, null);
   }
 };
 
-export const status = ({value}) => {
+export const status = ({ value }) => {
   if (value.status) {
     return (
       <Box
         container="span"
-        style={Object.assign({backgroundColor: green[300]}, statusButtonStyle)}>
+        style={Object.assign(
+          { backgroundColor: green[300] },
+          statusButtonStyle
+        )}
+      >
         <Typography>Success</Typography>
       </Box>
     );
@@ -349,9 +362,10 @@ export const status = ({value}) => {
         <Box
           container="span"
           style={Object.assign(
-            {backgroundColor: purple[300]},
-            statusButtonStyle,
-          )}>
+            { backgroundColor: purple[300] },
+            statusButtonStyle
+          )}
+        >
           <Typography>Canceled</Typography>
         </Box>
       );
@@ -366,22 +380,25 @@ export const status = ({value}) => {
               {
                 margin: 0,
                 padding: 0,
-                backgroundColor: value.started_at ? yellow[900] : 'inherit',
+                backgroundColor: value.started_at ? yellow[900] : "inherit",
               },
-              statusButtonStyle,
-            )}>
+              statusButtonStyle
+            )}
+          >
             <IconButton
               size="small"
-              style={{color: value.started_at ? 'white' : 'black'}}
+              style={{ color: value.started_at ? "white" : "black" }}
               onClick={() => {
                 cancelThing(value, value.type);
-              }}>
+              }}
+            >
               <CancelIcon size="small" />
             </IconButton>
             <Typography
               display="inline"
-              style={{color: value.started_at ? 'white' : 'black'}}>
-              {value.started_at ? 'Running' : 'Unstarted'}
+              style={{ color: value.started_at ? "white" : "black" }}
+            >
+              {value.started_at ? "Running" : "Unstarted"}
             </Typography>
           </Box>
         </Tooltip>
@@ -391,14 +408,15 @@ export const status = ({value}) => {
     return (
       <Box
         container="span"
-        style={Object.assign({backgroundColor: red[300]}, statusButtonStyle)}>
+        style={Object.assign({ backgroundColor: red[300] }, statusButtonStyle)}
+      >
         <Typography>Failure</Typography>
       </Box>
     );
   }
 };
 
-export const history = ({value}) => (
+export const history = ({ value }) => (
   <Table size="small" padding="none">
     <TableBody>
       <TableRow>
@@ -406,13 +424,14 @@ export const history = ({value}) => (
           <Tooltip title="Created At">
             <div
               style={{
-                minHeight: '1em',
-                minWidth: '1em',
-                height: '1em',
-                width: '1em',
+                minHeight: "1em",
+                minWidth: "1em",
+                height: "1em",
+                width: "1em",
                 backgroundColor: blue[800],
-                borderRadius: '1em',
-              }}>
+                borderRadius: "1em",
+              }}
+            >
               &nbsp;
             </div>
           </Tooltip>
@@ -428,13 +447,14 @@ export const history = ({value}) => (
           <Tooltip title="Started At">
             <div
               style={{
-                minHeight: '1em',
-                minWidth: '1em',
-                height: '1em',
-                width: '1em',
+                minHeight: "1em",
+                minWidth: "1em",
+                height: "1em",
+                width: "1em",
                 backgroundColor: yellow[800],
-                borderRadius: '1em',
-              }}></div>
+                borderRadius: "1em",
+              }}
+            ></div>
           </Tooltip>
         </HistoryStyledTableCell>
         <HistoryStyledTableCell>
@@ -453,17 +473,18 @@ export const history = ({value}) => (
           <Tooltip title="Finished At">
             <div
               style={{
-                minHeight: '1em',
-                minWidth: '1em',
-                height: '1em',
-                width: '1em',
+                minHeight: "1em",
+                minWidth: "1em",
+                height: "1em",
+                width: "1em",
                 backgroundColor: value.status
                   ? green[300]
                   : value.status === undefined
-                  ? 'black'
+                  ? "black"
                   : red[300],
-                borderRadius: '1em',
-              }}></div>
+                borderRadius: "1em",
+              }}
+            ></div>
           </Tooltip>
         </HistoryStyledTableCell>
         <HistoryStyledTableCell>
@@ -478,29 +499,29 @@ export const history = ({value}) => (
   </Table>
 );
 
-export const log = ({value}) => {
+export const log = ({ value }) => {
   return value.started ? (
-    <div style={{width: 0, marginLeft: 'auto', marginRight: 'auto'}}>
+    <div style={{ width: 0, marginLeft: "auto", marginRight: "auto" }}>
       <Button
-        style={{color: 'black'}}
+        style={{ color: "black" }}
         variant="contained"
-        href={'/log/' + value.run_id}>
+        href={"/log/" + value.run_id}
+      >
         {value.run_id}
       </Button>
     </div>
   ) : (
-    ''
+    ""
   );
 };
 
-export const ticket = ({value}) =>
+export const ticket = ({ value }) =>
   value.id !== null ? (
     <Button
       color="secondary"
       variant="contained"
-      href={
-        'https://github.com/' + value.repository.name + '/pull/' + value.id
-      }>
+      href={"https://github.com/" + value.repository.name + "/pull/" + value.id}
+    >
       <Typography>{value.id}</Typography>
     </Button>
   ) : null;

@@ -1,38 +1,42 @@
-import React from 'react';
+import React from "react";
 
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Snackbar from '@material-ui/core/Snackbar';
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import Snackbar from "@material-ui/core/Snackbar";
 
-export const handlePlainError = payload => {
+export const handlePlainError = (payload) => {
   if (ErrorMessages.__singleton) {
     var errors = ErrorMessages.__singleton.state.errors;
-    if (!errors.find(elem => elem.message === payload)) {
-      errors.push({message: payload});
+    if (!errors.find((elem) => elem.message === payload)) {
+      errors.push({ message: payload });
     }
 
-    ErrorMessages.__singleton.setState({errors: errors});
+    ErrorMessages.__singleton.setState({ errors: errors });
   }
 };
 
 export const handleError = (err, resp) => {
   if (err) {
+    if (process.env.NODE_ENV !== "production") {
+      console.log(err);
+    }
+
     if (ErrorMessages.__singleton) {
       var errors = ErrorMessages.__singleton.state.errors;
-      if (err.message === 'Internal Server Error') {
+      if (err.message === "Internal Server Error") {
         var errObj = JSON.parse(resp.text);
         if (errObj && errObj.errors) {
-          errObj.errors.forEach(e => {
-            if (!errors.find(elem => elem.message === e)) {
-              errors.push({message: e});
+          errObj.errors.forEach((e) => {
+            if (!errors.find((elem) => elem.message === e)) {
+              errors.push({ message: e });
             }
           });
         }
-      } else if (!errors.find(elem => elem.message === err.message)) {
+      } else if (!errors.find((elem) => elem.message === err.message)) {
         errors.push(err);
       }
-      ErrorMessages.__singleton.setState({errors: errors});
+      ErrorMessages.__singleton.setState({ errors: errors });
     }
 
     return true;
@@ -42,7 +46,7 @@ export const handleError = (err, resp) => {
 };
 
 export class ErrorMessages extends React.Component {
-  state = {errors: []};
+  state = { errors: [] };
 
   constructor(props) {
     super(props);
@@ -50,19 +54,19 @@ export class ErrorMessages extends React.Component {
   }
 
   onCloseHandler(errIndex) {
-    this.setState({errors: []});
+    this.setState({ errors: [] });
   }
 
   render() {
     return (
       <Snackbar
         autoHideDuration={2500}
-        anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
         open={this.state.errors.length > 0}
         onClose={this.onCloseHandler.bind(this)}
         message={
           <List>
-            {this.state.errors.map(e => (
+            {this.state.errors.map((e) => (
               <ListItem key={e.message}>
                 <ListItemText>Error: {e.message}</ListItemText>
               </ListItem>

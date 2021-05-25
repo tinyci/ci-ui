@@ -1,20 +1,24 @@
-import React from 'react';
-import Client from '../../lib/client/client';
-import {sizeColumns} from '../../lib/column-sizer';
-import Loading from '../loading';
-import Breadcrumb from '../breadcrumb';
+import React from "react";
+import Client from "../../lib/client/client";
+import { sizeColumns } from "../../lib/column-sizer";
+import Loading from "../loading";
+import Breadcrumb from "../breadcrumb";
 import {
   getPaginationState,
   changePage,
   changePerPage,
-} from '../../lib/pagination';
+} from "../../lib/pagination";
 
-import {Grid, Table, PagingPanel} from '@devexpress/dx-react-grid-material-ui';
+import {
+  Grid,
+  Table,
+  PagingPanel,
+} from "@devexpress/dx-react-grid-material-ui";
 import {
   PagingState,
   DataTypeProvider,
   CustomPaging,
-} from '@devexpress/dx-react-grid';
+} from "@devexpress/dx-react-grid";
 
 class DataGrid extends React.Component {
   perPageList = [5, 10, 20, 40, 100];
@@ -39,7 +43,7 @@ class DataGrid extends React.Component {
       this.fetch.bind(this, () => {
         getPaginationState(this);
       }),
-      5000,
+      5000
     );
   }
 
@@ -55,7 +59,7 @@ class DataGrid extends React.Component {
     }
 
     return (
-      <div style={{minWidth: this.props.minWidth, overflowX: 'auto'}}>
+      <div style={{ minWidth: this.props.minWidth, overflowX: "auto" }}>
         <Breadcrumb
           submission={this.state.submission}
           path={this.state.task ? this.state.task.path : null}
@@ -68,11 +72,11 @@ class DataGrid extends React.Component {
           ))}
           <PagingState
             currentPage={this.state.currentPage}
-            onCurrentPageChange={changePage(this, state => {
+            onCurrentPageChange={changePage(this, (state) => {
               this.fetch(state);
             })}
             pageSize={this.state.perPage}
-            onPageSizeChange={changePerPage(this, state => {
+            onPageSizeChange={changePerPage(this, (state) => {
               this.fetch(state);
             })}
           />
@@ -80,7 +84,7 @@ class DataGrid extends React.Component {
           <Table
             columnExtensions={sizeColumns(
               this.props.minWidth,
-              globalColumnExtensions,
+              globalColumnExtensions
             )}
           />
           <PagingPanel pageSizes={this.perPageList} />

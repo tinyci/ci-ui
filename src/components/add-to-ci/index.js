@@ -1,22 +1,22 @@
-import React from 'react';
+import React from "react";
 
-import Client from '../../lib/client/client';
-import muiTheme from '../../muitheme.js';
+import Client from "../../lib/client/client";
+import muiTheme from "../../muitheme.js";
 
-import {handleError} from '../error-messages';
-import RepoSearch from '../repo-search';
+import { handleError } from "../error-messages";
+import RepoSearch from "../repo-search";
 
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import Snackbar from '@material-ui/core/Snackbar';
-import Tooltip from '@material-ui/core/Tooltip';
-import Typography from '@material-ui/core/Typography';
+import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import Snackbar from "@material-ui/core/Snackbar";
+import Tooltip from "@material-ui/core/Tooltip";
+import Typography from "@material-ui/core/Typography";
 
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import PeopleIcon from '@material-ui/icons/People';
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import PeopleIcon from "@material-ui/icons/People";
 
 class AddToCI extends React.Component {
   state = {
@@ -26,15 +26,15 @@ class AddToCI extends React.Component {
   client = new Client();
 
   startScan() {
-    this.setState({scanning: true});
+    this.setState({ scanning: true });
     this.client.repositoriesScanGet((err, res, resp) => {
-      this.setState({scanning: false});
+      this.setState({ scanning: false });
       handleError(err, resp);
     });
   }
 
   removeFromCI(repository, promise) {
-    var [owner, repo] = repository.split('/', 2);
+    var [owner, repo] = repository.split("/", 2);
     this.client.repositoriesCiDelOwnerRepoGet(owner, repo, (err, res, resp) => {
       handleError(err, resp);
       promise();
@@ -42,7 +42,7 @@ class AddToCI extends React.Component {
   }
 
   addToCI(repository, promise) {
-    var [owner, repo] = repository.split('/', 2);
+    var [owner, repo] = repository.split("/", 2);
     this.client.repositoriesCiAddOwnerRepoGet(owner, repo, (err, res, resp) => {
       handleError(err, resp);
       promise();
@@ -50,7 +50,7 @@ class AddToCI extends React.Component {
   }
 
   repositoryList(search, promise) {
-    this.client.repositoriesMyGet({search: search}, (err, res, resp) => {
+    this.client.repositoriesMyGet({ search: search }, (err, res, resp) => {
       handleError(err, resp);
       promise(res);
     });
@@ -62,16 +62,17 @@ class AddToCI extends React.Component {
         <List
           style={{
             backgroundColor: muiTheme.palette.primary.main,
-            border: '1px solid ' + muiTheme.palette.primary.light,
+            border: "1px solid " + muiTheme.palette.primary.light,
             zIndex: 65535,
-            position: 'absolute',
-            minWidth: '35%',
-            maxWidth: '50%',
-            boxShadow: '0 10px 10px rgba(0, 0, 0, 0.5)',
-          }}>
+            position: "absolute",
+            minWidth: "35%",
+            maxWidth: "50%",
+            boxShadow: "0 10px 10px rgba(0, 0, 0, 0.5)",
+          }}
+        >
           <ListItem key="tinyci-scanupgradeitem">
             <Box>
-              <Box color="primary.light" style={{marginBottom: '1em'}}>
+              <Box color="primary.light" style={{ marginBottom: "1em" }}>
                 <h4>Actions:</h4>
               </Box>
               <Box color="primary.light">
@@ -79,7 +80,8 @@ class AddToCI extends React.Component {
                   <Button
                     onClick={this.startScan.bind(this)}
                     color="inherit"
-                    variant="outlined">
+                    variant="outlined"
+                  >
                     {this.state.scanning ? (
                       <MoreHorizIcon />
                     ) : (
@@ -91,7 +93,8 @@ class AddToCI extends React.Component {
                   <Button
                     href="/uisvc/login/upgrade"
                     color="inherit"
-                    variant="outlined">
+                    variant="outlined"
+                  >
                     <PeopleIcon />
                   </Button>
                 </Tooltip>
@@ -102,23 +105,26 @@ class AddToCI extends React.Component {
             list={(search, promise) => {
               this.repositoryList(search, promise);
             }}
-            enabled={elem => !elem.disabled}
+            enabled={(elem) => !elem.disabled}
             onAdd={(elem, promise) => {
               this.addToCI(elem.name, promise);
             }}
             onRemove={(elem, promise) => {
               this.removeFromCI(elem.name, promise);
-            }}>
+            }}
+          >
             <Box container="span">
               <Typography
-                style={{color: muiTheme.palette.primary.contrastText}}>
+                style={{ color: muiTheme.palette.primary.contrastText }}
+              >
                 Scan for items from remote resources by clicking the cloud icon
                 above, then search and add the repositories you wish to use in
                 tinyCI.
               </Typography>
               <br />
               <Typography
-                style={{color: muiTheme.palette.primary.contrastText}}>
+                style={{ color: muiTheme.palette.primary.contrastText }}
+              >
                 Please note you will also need an "upgraded" set of OAuth scopes
                 to process/admin CI jobs which will be granted if you click the
                 "people" icon above. You will be redirected to your OAuth
@@ -128,7 +134,7 @@ class AddToCI extends React.Component {
           </RepoSearch>
         </List>
         <Snackbar
-          anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
+          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
           open={this.state.scanning}
           message="Scanning repositories from the remote resource. This can take some
           time, please be patient. Note you will need to have an upgraded token

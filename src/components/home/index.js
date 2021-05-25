@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import {topBorder} from '../top-button';
+import { topBorder } from "../top-button";
 
-import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip from "@material-ui/core/Tooltip";
 
 class Home extends React.Component {
   render() {
@@ -10,18 +10,19 @@ class Home extends React.Component {
       <Tooltip title="Home">
         <div
           style={{
-            width: '100%',
-            height: '100%',
+            width: "100%",
+            height: "100%",
             borderRight: topBorder,
-          }}>
-          <a href={'/'}>
+          }}
+        >
+          <a href={"/"}>
             <img
               alt="logo"
               style={{
-                marginTop: '8px',
-                marginLeft: '30px',
-                marginRight: 'auto',
-                height: '32px',
+                marginTop: "8px",
+                marginLeft: "30px",
+                marginRight: "auto",
+                height: "32px",
               }}
               src="/logo-reverse-title.png"
             />
