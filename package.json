@@ -11,7 +11,7 @@
     "@material-ui/icons": ">=0",
     "ci-agents": "https://github.com/tinyci/ci-agents",
     "immer": "^8.0.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "query-string": "^6.7.0",
     "react": "^17",
     "react-dom": "^17",
